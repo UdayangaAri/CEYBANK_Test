@@ -1,4 +1,4 @@
-
+ 
 <!DOCTYPE html>
 <%@page import="sidebar.sideBarBeanClass"%>
 <%@page import="access.FunctionDAO"%>
@@ -21,13 +21,6 @@
 <%@page import="Roles.Role"%>
 
 <html lang="en">
-
-
-
-
-
-
-
 
 <head>
 
