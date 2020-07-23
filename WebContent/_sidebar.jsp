@@ -11,7 +11,6 @@
 <%@page import="Update.Emp"%>
 
 
-
 <nav id="sidebar">
 	<div class="sidebar-header" style="margin-right: 1px;">
 		<div>
