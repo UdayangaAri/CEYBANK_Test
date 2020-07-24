@@ -62,7 +62,7 @@
 <!-- java methods starts -->				
 <%
 String countEmpOnBranch = (String) session.getAttribute("countEmpOnBranch"); 
-System.out.println("countEmpOnBranch  :" +countEmpOnBranch);
+//System.out.println("countEmpOnBranch  :" +countEmpOnBranch);
 %>
 <!-- java methods end -->
 
