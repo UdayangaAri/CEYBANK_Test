@@ -27,7 +27,7 @@ public class sidebarDAO {
 				RoleFunction b = new RoleFunction();
 
 				b.setFunctionID(rs.getString(1));
-				System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^ FunctionID : "+rs.getString(1));
+				//System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^ FunctionID : "+rs.getString(1));
 				list.add(b);
 
 			}

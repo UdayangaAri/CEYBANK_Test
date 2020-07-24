@@ -27,9 +27,9 @@ public class statusServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
-		System.out.println("---------------------------------------------------------------- ");
+	//	System.out.println("---------------------------------------------------------------- ");
 		String a = request.getParameter("ID");
-		System.out.println("block id : "+a);
+	//	System.out.println("block id : "+a);
 	}
 
 }

@@ -58,10 +58,10 @@ public class editFunctionServlet extends HttpServlet {
 			for (int i = 0; i < functionID.length; i++) {
 
 				String a = functionID[i];
-				System.out.println("functionID to edit " + a);
+			//	System.out.println("functionID to edit " + a);
 
 				int FunctionID = Integer.parseInt(a);
-				System.out.println("id :" + FunctionID);
+				//System.out.println("id :" + FunctionID);
 
 				Integer roleID = (Integer) session.getAttribute("roleIDByName");
 
@@ -74,8 +74,8 @@ public class editFunctionServlet extends HttpServlet {
 				
 				RoleFunction r = RoleFunctionDAO.getFunction(roleIDString);
 
-				System.out.println("r.getRoleID()************* :" + r.getRoleID());
-				System.out.println("r.getFunctionID()*************** :" + r.getFunctionID());
+			//	System.out.println("r.getRoleID()************* :" + r.getRoleID());
+			//	System.out.println("r.getFunctionID()*************** :" + r.getFunctionID());
 
 				String previousData = "Funtion Id : " + r.getFunctionID() + " , Role ID : " + r.getRoleID();
 				String e_status = "Access Removed";
@@ -90,7 +90,7 @@ public class editFunctionServlet extends HttpServlet {
 				log.setEdited_unit(edited_unit);
 
 				if (roleID == 3 && FunctionID == 13) {
-					System.out.println("you can't delete user access from Super admin role ");
+					//System.out.println("you can't delete user access from Super admin role ");
 					session.setAttribute("not_updated", "failed Message");
 					//out.println("Sorry! unable to update record. Please check again and try.");
 				} else {

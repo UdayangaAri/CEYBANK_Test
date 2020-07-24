@@ -16,7 +16,7 @@ public class dashboardDAO {
 
 	
 	public static String getEmpCount(String branchID) {
-		System.out.println("");
+	//	System.out.println("");
 	String status="";
 	
 		RegisterBean r = new RegisterBean();
@@ -34,7 +34,7 @@ r.setEmployeeNo(rs.getString(1));
 				
 				
 						status = rs.getString(1);
-						System.out.println("emp count  :"+status);
+						//System.out.println("emp count  :"+status);
 			}
 			con.close();
 		} catch (Exception ex) {
