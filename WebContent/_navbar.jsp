@@ -14,9 +14,6 @@
 
 
 
-
-
-
 <nav class="navbar navbar-expand-lg navbar-light "
 	style="background: #373737; margin-left: -15px; margin-right: -15px; width: 102%;">
 	<div class="container-fluid" style="margin-left: 0px;">
