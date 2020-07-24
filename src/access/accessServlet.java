@@ -44,7 +44,7 @@ public class accessServlet extends HttpServlet {
 		// System.out.println("role : "+roleselectedID);
 
 		String rolename = request.getParameter("rolename");
-		System.out.println("role name : " + rolename);
+		//System.out.println("role name : " + rolename);
 		Role r = RoleDao.getRoleByRoleName(rolename);
 		
 
@@ -53,7 +53,7 @@ public class accessServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("roleIDByName", roleIDByName);
 		
-		System.out.println("roleID in servlet : " + r.getId());
+	//	System.out.println("roleID in servlet : " + r.getId());
 
 		session.setAttribute("sucess", "Success Message");
 		

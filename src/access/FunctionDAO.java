@@ -33,7 +33,7 @@ public static List<Functions> getAllFunctions(){
 				e.setMainFunction(rs.getString(2));
 				e.setSubFunction(rs.getString(3));
 				
-				System.out.println(e.getSubFunction());
+				//System.out.println(e.getSubFunction());
 				
                 list.add(e);
             }  
@@ -72,7 +72,7 @@ public static Functions getFunctionsToRoles(String roleid)  {
 		e.setId(rs.getInt(1));
 	e.setMainFunction(rs.getString(2));
 		e.setSubFunction(rs.getString(3));
-		System.out.println("function name selected to be change : " + rs.getString(3));
+	//	System.out.println("function name selected to be change : " + rs.getString(3));
 		}
 		con.close();
 	} catch (Exception ex) {
@@ -89,7 +89,7 @@ public static int getAllFunctionIDs (Functions f) {
 
 	try {
 		Connection con = DBConnection.getConnection();
-		System.out.println("Printing connection object " + con);
+		//System.out.println("Printing connection object " + con);
 		
 		String query = "Select id from functions";  
 				
@@ -99,8 +99,8 @@ public static int getAllFunctionIDs (Functions f) {
 		ps.setInt(1, f.getId());
 					
 		status = ps.executeUpdate();
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-		System.out.println("Id : "+f.getId());
+	//	System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+	//	System.out.println("Id : "+f.getId());
 
 		con.close();
 	

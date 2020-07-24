@@ -56,8 +56,8 @@ public class Login extends HttpServlet {
 				String empNo = b.getEmpno();
 				String roleid = b.getRole();
 
-				System.out.println("empno :" + empNo);
-				System.out.println("roleid :" + roleid);
+				//System.out.println("empno :" + empNo);
+				//System.out.println("roleid :" + roleid);
 				
 				session.setAttribute("Username", Username);
 				session.setAttribute("empno", empNo);
@@ -70,7 +70,7 @@ public class Login extends HttpServlet {
 				String countEmpOnBranch = dashboardDAO.getEmpCount(s);
 				
 				request.setAttribute("countEmpOnBranch", countEmpOnBranch);
-				System.out.println("count Emp in login servlet  :" +countEmpOnBranch);
+			//	System.out.println("count Emp in login servlet  :" +countEmpOnBranch);
 				
 				
 				session.setAttribute("countEmpOnBranch", countEmpOnBranch);

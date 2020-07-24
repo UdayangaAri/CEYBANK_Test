@@ -41,7 +41,7 @@ public class RoleFunctionDAO {
 	        try{  
 	            Connection con = DBConnection.getConnection(); 
 	            PreparedStatement ps = con.prepareStatement("delete from functions_has_role where functions_id=? AND role_id=?;");  
-	            System.out.println("Printing connection object " + con);
+	           // System.out.println("Printing connection object " + con);
 	            ps.setInt(1,functionid);  
 	            ps.setInt(2,roleid);
 	            status=ps.executeUpdate();  
@@ -75,7 +75,7 @@ public class RoleFunctionDAO {
 		  				b.setRoleID(rs.getString(2));
 		  				
 		  					if(rs.getString(1)!=null) {
-		  System.out.println("true");
+		 // System.out.println("true");
 
 		  						status=true;
 		  					}			
@@ -99,7 +99,7 @@ public class RoleFunctionDAO {
 	  
 
 		public static RoleFunction getFunction(String roleid) {
-			  System.out.println("roleid^^^^^^^^^^^^^^^^^^^^^^^^^: "+roleid);
+			//  System.out.println("roleid^^^^^^^^^^^^^^^^^^^^^^^^^: "+roleid);
 			RoleFunction e = new RoleFunction();
 
 			try {
@@ -114,9 +114,9 @@ public class RoleFunctionDAO {
 					e.setFunctionID(rs.getString(1));
 					e.setRoleID(rs.getString(2));
 					e.setCraetedBy(rs.getString(3));
-					 System.out.println("rs.getString(1)^^^^^^^^^^^^^^^^^^^^^^^^^: "+rs.getString(1));
-					 System.out.println("rs.getString(2)^^^^^^^^^^^^^^^^^^^^^^^^^: "+rs.getString(2));
-					 System.out.println("rs.getString(3)^^^^^^^^^^^^^^^^^^^^^^^^^: "+rs.getString(3));
+					// System.out.println("rs.getString(1)^^^^^^^^^^^^^^^^^^^^^^^^^: "+rs.getString(1));
+					// System.out.println("rs.getString(2)^^^^^^^^^^^^^^^^^^^^^^^^^: "+rs.getString(2));
+					// System.out.println("rs.getString(3)^^^^^^^^^^^^^^^^^^^^^^^^^: "+rs.getString(3));
 				}
 				con.close();
 			} catch (Exception ex) {
