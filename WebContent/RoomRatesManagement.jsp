@@ -148,8 +148,14 @@ div.a {
 												<select name="branchidforRates" id="branchidforRates"
 													required onchange="this.form.submit()">
 
+
+
+
+
+
+
 													<%
-														//	System.out.println("***************************");
+															System.out.println("***************************");
 														String branchidforRates = request.getParameter("branchidforRates");
 														//session.setAttribute("branchNameRates", b);
 
