@@ -2,6 +2,9 @@ package RoomReservation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,10 +40,28 @@ public class ReservationSaveServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+		String blockName = request.getParameter("blockID");
 		String roomNo = request.getParameter("RoomNo");
 		String roomName = request.getParameter("Roomname");
 		String roomType = request.getParameter("RoomType");
-		String blockName = request.getParameter("blockID");
+		String checkIn = request.getParameter("checkin");
+		String checkOut = request.getParameter("checkout");
+		
+		System.out.println("checkIn ::: "+checkIn);
+		System.out.println("checkOut ::: "+checkOut);
+		
+		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+		String inputString1 = "23 01 1997";
+		String inputString2 = "27 04 1997";
+
+		try {
+		    Date date1 = myFormat.parse(inputString1);
+		    Date date2 = myFormat.parse(inputString2);
+		    long diff = date2.getTime() - date1.getTime();
+		    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+		} catch (java.text.ParseException e) {
+		    e.printStackTrace();
+		}
 		
 		int i=Integer.parseInt(roomType);  
 
