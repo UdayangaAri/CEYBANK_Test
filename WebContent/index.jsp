@@ -8,7 +8,9 @@
 </head>
 <body>
 <h1>This is index</h1>
-<%response.sendRedirect("login.jsp"); %>
+<%response.sendRedirect("login.jsp");
+System.out.println("aaaaaaa");
+%>
 
 </body>
 </html>

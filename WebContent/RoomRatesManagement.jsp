@@ -145,14 +145,14 @@ div.a {
 											</div>
 											<div class="col-65">
 
-												<select name="branchidforRates" id="branchidforRates" required
-													onchange="this.form.submit()">
+												<select name="branchidforRates" id="branchidforRates"
+													required onchange="this.form.submit()">
 
 													<%
 														//	System.out.println("***************************");
 														String branchidforRates = request.getParameter("branchidforRates");
 														//session.setAttribute("branchNameRates", b);
-														
+
 														//System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA : "+b);
 														//	session.setAttribute("blockNAme", resultset.getString(3));
 													%>
@@ -196,7 +196,7 @@ div.a {
 													<option value="" disabled selected>Select Block</option>
 
 													<%
-													//String a = RoomStatusDAO.getBlockNAmeByID(branchidforRates);
+														//String a = RoomStatusDAO.getBlockNAmeByID(branchidforRates);
 														String Q2 = "select * from block where block_location=?";
 														Connection c2 = DBConnection.getConnection();
 
@@ -226,21 +226,27 @@ div.a {
 
 											</div>
 											<div class="col-65">
-												<select name="roomtypeforRates" id="roomtypeforRates" required
-													onchange="this.form.submit()">
+												<select name="roomtypeforRates" id="roomtypeforRates"
+													required onchange="this.form.submit()">
 
 													<%
-														//	System.out.println("***************************");
+														//System.out.println("***************************");
+
+														//String IDofblockroom = request.getParameter("roomno");
+														//	System.out.println("ID from session : "+IDofblockroom);
+
 														String roomtypeforRates = request.getParameter("roomtypeforRates");
+														//System.out.println("roomtypeforRates : "+roomtypeforRates);
 														//session.setAttribute("blockIDPass", b);
 														//String aaa = RoomStatusDAO.getBlockNAmeByID(bbb);
 														//	session.setAttribute("blockNAme", resultset.getString(3));
 													%>
 
-													<option value="" disabled selected>Select Room Types</option>
+													<option value="" disabled selected>Select Room
+														Types</option>
 
 													<%
-														String Q3 = "SELECT * FROM ceybank_rest.rooms where blockID=?";
+														String Q3 = "SELECT distinct roomType FROM ceybank_rest.rooms where blockID=?";
 														Connection c3 = DBConnection.getConnection();
 
 														PreparedStatement p3 = c3.prepareStatement(Q3);
@@ -248,14 +254,24 @@ div.a {
 														//System.out.println("block_location = branch code :" + branch);
 														r3 = p3.executeQuery();
 														while (r3.next()) {
-															
-															
+															//String idofblockroom = r3.getString(4);
+															System.out.println("id while loop : " + r3.getString(1));
+															//session.setAttribute("roomno", r3.getString(4));
+
+															String Q4 = "SELECT distinct RoomTypeName FROM roomtypes where roomTypeId=?";
+															Connection c4 = DBConnection.getConnection();
+															PreparedStatement p4 = c4.prepareStatement(Q4);
+															p4.setString(1, r3.getString(1));
+															r4 = p4.executeQuery();
+															while (r4.next()) {
+																System.out.println("room name: " + r4.getString(1));
 													%>
 
-													<option value="<%=r3.getString(1)%>"><%= r3.getString(4)%></option>
+													<option value=""><%=r4.getString(1)%></option>
 
 													<%
-															}
+														}
+														}
 													%>
 												</select>
 
@@ -265,10 +281,64 @@ div.a {
 
 										</div>
 
+										<div class="row mt-1 mb-1">
 
 
+											<div class="col-25">
+												<p>
+													<b><b>Rate </b></b>
+												</p>
 
+											</div>
+											<div class="col-25">
+												<input type="text" name="Rate" id="Rate" value="" required>
+											</div>
+										</div>
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-25">
+												<p>
+													<b><b>Discount </b></b>
+												</p>
+
+											</div>
+
+											<div class="col-25">
+
+												<input type="text" id="Rate" name="Rate" value=""
+													>
+											</div>
+
+											<div class="col-25">
+												<label onclick="javascript:yesnoCheck();"> <input
+													type="radio" name="options" id="Amount" 
+													value="<%   String assignRate_Amount=request.getParameter("Rate");
+												System.out.println("rate = "+assignRate_Amount);%>">
+													Amount
+												</label>
+											</div>
+
+											<div class="col-25">
+												<label onclick="javascript:yesnoCheck();"> <input
+													type="radio" name="options" id="Percentage" value="<%  
+													String assignRate_Percentage=request.getParameter("Rate");
+												System.out.println("rate = "+assignRate_Percentage);%>">
+													Percentage
+												</label>
+
+											</div>
+											
+						<div class="row mt-1 mb-1" style="float: right">
+						
+
+							<input type="reset" value="Clear" style="margin-right: 16px;">
+							<input type="submit" style="float: left; margin-right: 250px;" value="Next">
+					
+</div>
+										</div>
 									</form>
+
 								</div>
 							</div>
 

@@ -47,21 +47,21 @@ public class selectFunctionServlet extends HttpServlet {
 		    	
 
 		    	Integer roleIDByName = (Integer) session.getAttribute("roleIDByName");
-		    	System.out.println("roleIDByName : "+roleIDByName);
+		    	//System.out.println("roleIDByName : "+roleIDByName);
 		    	String s =String.valueOf(roleIDByName);
 		    	
 		    	
 				 String name = (String) session.getAttribute("Username");
-				 System.out.println(" name : "+ name);
+				// System.out.println(" name : "+ name);
 				 
 				 
 				 String empno = (String) session.getAttribute("empno");
-				 System.out.println(" empno  : "+ empno );
+				// System.out.println(" empno  : "+ empno );
 				 
 				 
 		  
 		      String a = selectedStudentIdsID[i];
-		      System.out.println("Page : "+a); 
+		  //    System.out.println("Page : "+a); 
 		      
 		      
 		      rf.setFunctionID(a);
