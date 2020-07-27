@@ -592,7 +592,19 @@
 										</div>
 
 										<div class="col-25">
-											<input type='date' name="checkin" class="form-control" /> <span
+										
+										<%
+										
+										String checkin_d = request.getParameter("checkin");
+										session.setAttribute("checkin", checkin_d);
+										
+										String checkin = (String) session.getAttribute("checkin");
+										
+										%>
+											<input type='date' value="<%=checkin%>" name="checkin" class="form-control" 
+											id="checkin" onchange="this.form.submit();"/> 
+											
+											<span
 												class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -607,7 +619,18 @@
 										</div>
 
 										<div class="col-25">
-											<input type='date' name="checkout" class="form-control" /> <span
+										
+										<%
+										
+										String checkout_d = request.getParameter("checkout");
+										session.setAttribute("checkout", checkout_d);
+										
+										String checkout = (String) session.getAttribute("checkout");
+										
+										%>
+										
+											<input type='date'  value="<%=checkout%>" name="checkout" class="form-control" 
+											onchange="this.form.submit();"/> <span
 												class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -624,17 +647,30 @@
 								</form>
 
 							</div>
-							<div class="card-footer text-muted">
+							<div class="card-footer text-muted" style="align: center">
 
-								<form class="forms" action="" method="post"
+								<form class="forms" action="ReservationSaveServlet" method="post"
 									style="align: center">
 									
-									<ul class="nav nav-pills card-header-pills">
-										<li class="nav-item" style="align: right"><a
-											class="nav-link active" href="#">Save</a></li>
-
-
-									</ul>
+										<input type="hidden" name="checkin"id="checkin" value="<%=checkin%>">
+									
+										<input type="hidden" name="checkout"id="checkout" value="<%=checkout%>">
+										
+										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
+										
+										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
+										
+										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
+										
+										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
+										
+										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
+										
+										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
+										
+									<button type="submit" name="Submit_res"
+								style="float: left; margin-left: 16px; text-align: center;"
+								class="btn btn-primary">Submit</button>
 								</form>
 
 							</div>
@@ -944,6 +980,13 @@
 				tr = $(this).closet('tr');
 			});
 		}
+		
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
+		
 	</script>
 
 
