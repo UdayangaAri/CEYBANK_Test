@@ -94,6 +94,7 @@
 
 								<%
 									String Status_Succeed = (String) session.getAttribute("StatusSucceedMessage");
+								
 									String Status_Failed = (String) session.getAttribute("StatusFailedMessage");
 
 									if (null != Status_Succeed) {

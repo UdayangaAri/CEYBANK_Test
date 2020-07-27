@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 
+<%@page import="RoomManagement.RoomDao"%>
+<%@page import="RoomManagement.Room"%>
+<%@page import="block_Register.blockDAO"%>
+<%@page import="block_Register.block"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="connections.DBConnection"%>
 <%@page import="Guest_details.GuestDAO"%>
@@ -22,11 +26,14 @@
 <%
 	ResultSet resultset = null;
 	ResultSet rs = null;
+	ResultSet rs1 = null;
 	ResultSet rx = null;
 %>
 
 
 <%
+	String Employees_Branch = (String) session.getAttribute("branch");
+
 	String Guest_Branch = (String) session.getAttribute("branch");
 
 	String Username = (String) session.getAttribute("Username");
@@ -46,8 +53,6 @@
 	String Guest = "Public";
 
 	System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
-	
-	
 %>
 
 
@@ -71,8 +76,8 @@
 
 
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 
 
@@ -209,7 +214,6 @@
 
 							<%
 								} else {
-									
 							%>
 
 							<div class="col-75">
@@ -402,22 +406,22 @@
 
 								<br>
 
-					<%
-							try {
-								
-								Connection con = DBConnection.getConnection();
-								System.out.println("Printing connection object " + con);
-					
-								Statement statement = con.createStatement();
-								Statement st = con.createStatement();
-					
-								rx = statement.executeQuery("select * from block");
-								
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						%>
-					
+								<%
+									try {
+
+										Connection con = DBConnection.getConnection();
+										System.out.println("Printing connection object " + con);
+
+										Statement statement = con.createStatement();
+										Statement st = con.createStatement();
+
+										rx = statement.executeQuery("select * from block");
+
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								%>
+
 
 								<div class="row">
 
@@ -429,20 +433,57 @@
 									</div>
 
 									<div class="col-75">
-										<select name="room" required>
-
-											<option value="" disabled selected>Select Block</option>
-
+										<select name="block_in_r" id="block_in_r"
+											onchange="this.form.submit();">
 											<%
-											
-										while (rx.next()) {
-											
-											System.out.println("getB_2nd :" + rx.getString(3));
-									%>
-									<option><%=rx.getString(3)%></option>
-									<%
-										}
-									%>
+													String x = request.getParameter("block_in_r");
+													String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
+
+													block z = blockDAO.getBlocksByUserIdForRSM(x);
+
+													block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock);
+
+													session.setAttribute("Block_Name_Value", x);
+
+													if (x != null) {
+												%>
+												<option value="" disabled selected><%=z.getBlock_name()%></option>
+
+
+												<%
+													} else if (RecieveBlock != null) {
+												%>
+												<option value="" disabled selected><%=r.getBlock_name()%></option>
+												<%
+													} else {
+												%>
+												<option value="" disabled selected>Select a Block</option>
+
+												<%
+													}
+												%>
+
+												<%
+													try {
+														String Query = "select * from block where block_location=?";
+														Connection con = DBConnection.getConnection();
+														//System.out.println("Printing connection object " + con);
+
+														PreparedStatement psmtX = con.prepareStatement(Query);
+														psmtX.setString(1, Employees_Branch);
+
+														rs1 = psmtX.executeQuery();
+														while (rs1.next()) {
+												%>
+												<option value=<%=rs1.getInt("blockID")%>><%=rs1.getString("block_name")%></option>
+												<%
+													}
+
+													} catch (Exception e) {
+														e.printStackTrace();
+													}
+												%>
+
 
 										</select>
 									</div>
@@ -461,12 +502,46 @@
 									<div class="col-75">
 										<select name="room" required>
 
-											<option value="" disabled selected>Select Room</option>
+											<%
+													String rname = request.getParameter("room_names");
+													session.setAttribute("Room_Name_Value", rname);
+
+													Room rm = RoomDao.getRoomById(rname);
+
+													if (rname != null) {
+												%>
+												<option value="" disabled selected><%=rm.getRoomName()%></option>
+												<%
+													} else {
+												%>
+												<option value="" disabled selected>Select a Room</option>
+
+												<%
+													}
+												%>
 
 
-											<option>room 1</option>
-											<option>room 2</option>
-											<option>room 3</option>
+
+												<%
+													try {
+														String Query = "select * from rooms where blockID=?";
+														Connection con = DBConnection.getConnection();
+														//System.out.println("Printing connection object " + con);
+
+														PreparedStatement psmt = con.prepareStatement(Query);
+														psmt.setString(1, request.getParameter("block_in_r"));
+
+														rs = psmt.executeQuery();
+														while (rs.next()) {
+												%>
+												<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
+												<%
+													}
+
+													} catch (Exception e) {
+														e.printStackTrace();
+													}
+												%>
 										</select>
 									</div>
 								</div>
