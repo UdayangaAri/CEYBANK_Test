@@ -52,7 +52,7 @@
 	String Staff = "Staff";
 	String Guest = "Public";
 
-	System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
+	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
 
 
@@ -400,42 +400,48 @@
 
 					<div>
 
-						<div style="background-color: #cecece; border-radius: 20px;">
-
-							<form method="POST" class="forms" action="" method="post">
-
-								<br>
-
-								<%
-									try {
-
-										Connection con = DBConnection.getConnection();
-										System.out.println("Printing connection object " + con);
-
-										Statement statement = con.createStatement();
-										Statement st = con.createStatement();
-
-										rx = statement.executeQuery("select * from block");
-
-									} catch (Exception e) {
-										e.printStackTrace();
-									}
-								%>
 
 
-								<div class="row">
 
-									<div class="col-25">
-										<p>
-											<b><b>Select Block</b></b>
-										</p>
+						<div class="card border-dark text-center">
 
-									</div>
+							<div class="card-body">
 
-									<div class="col-75">
-										<select name="block_in_r" id="block_in_r"
-											onchange="this.form.submit();">
-											<%
+								<form class="forms" action="" method="post"
+									style="align: center">
+
+									<br>
+
+									<%
+										try {
+
+											Connection con = DBConnection.getConnection();
+											System.out.println("Printing connection object " + con);
+
+											Statement statement = con.createStatement();
+											Statement st = con.createStatement();
+
+											rx = statement.executeQuery("select * from block");
+
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									%>
+
+
+									<div class="row">
+
+										<div class="col-25">
+											<p>
+												<b><b>Select Block</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-75">
+											<select name="block_in_r" id="block_in_r"
+												onchange="this.form.submit();">
+												<%
 													String x = request.getParameter("block_in_r");
 													String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
 
@@ -485,25 +491,26 @@
 												%>
 
 
-										</select>
-									</div>
-								</div>
-
-
-								<div class="row">
-
-									<div class="col-25">
-										<p>
-											<b><b>Select Room No</b></b>
-										</p>
-
+											</select>
+										</div>
 									</div>
 
-									<div class="col-75">
-										<select name="room" required>
 
-											<%
-													String rname = request.getParameter("room_names");
+									<div class="row">
+
+										<div class="col-25">
+											<p>
+												<b><b>Select Room No</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-75">
+											<select name="room_in_r" id="room_in_r"
+												onchange="this.form.submit();">
+
+												<%
+													String rname = request.getParameter("room_in_r");
 													session.setAttribute("Room_Name_Value", rname);
 
 													Room rm = RoomDao.getRoomById(rname);
@@ -542,103 +549,104 @@
 														e.printStackTrace();
 													}
 												%>
-										</select>
-									</div>
-								</div>
-
-
-
-								<div class="row">
-
-									<div class="col-25">
-										<p>
-											<b><b>Meal Plan</b></b>
-										</p>
-
-									</div>
-
-									<div class="col-75">
-
-										<label class="radio-inline"><input type="radio"
-											name="rtype" value="bb">B/B</label> <label
-											class="radio-inline"><input type="radio" name="rtype"
-											value="hb">H/B</label> <label class="radio-inline"><input
-											type="radio" name="rtype" value="fb">F/B</label> <label
-											class="radio-inline"><input type="radio" name="rtype"
-											value="ronly">Room Only</label>
-									</div>
-								</div>
-
-
-								<div class="row">
-
-									<div class="col-25" style="text-align: left">
-										<p>
-											<b><b>Check in Date :</b></b>
-										</p>
-
-									</div>
-
-									<div class="col-25">
-										<input type='date' name="checkin" class="form-control" /> <span
-											class="input-group-addon"> <span
-											class="glyphicon glyphicon-calendar"></span>
-										</span>
-
-									</div>
-
-									<div class="col-25" style="text-align: center">
-										<p>
-											<b><b>Checkout Date :</b></b>
-										</p>
-
-									</div>
-
-									<div class="col-25">
-										<input type='date' name="checkout" class="form-control" /> <span
-											class="input-group-addon"> <span
-											class="glyphicon glyphicon-calendar"></span>
-										</span>
-
-									</div>
-
-								</div>
-
-								<div class="row">
-
-									<div class="col-75"></div>
-
-									<div class="col-25">
-										<button type="button"
-											style="float: right; text-align: center;"
-											class="btn btn-primary">Save</button>
-
+											</select>
+										</div>
 									</div>
 
 
-								</div>
+
+									<div class="row">
+
+										<div class="col-25">
+											<p>
+												<%
+													String rname1 = request.getParameter("room_in_r");
+													System.out.println("room_in_r ::: " + rname1);
+												%>
+												<b><b>Meal Plan</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-75">
+
+											<label class="radio-inline"> <input type="radio"
+												name="rtype" value="bb">B/B
+											</label> <label class="radio-inline"> <input type="radio"
+												name="rtype" value="hb">H/B
+											</label> <label class="radio-inline"><input type="radio"
+												name="rtype" value="fb">F/B</label> <label
+												class="radio-inline"><input type="radio"
+												name="rtype" value="ronly">Room Only</label>
+										</div>
+									</div>
 
 
-								<br> <br>
-							</form>
+									<div class="row">
 
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Check in Date :</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-25">
+											<input type='date' name="checkin" class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+
+										</div>
+
+										<div class="col-25" style="text-align: center">
+											<p>
+												<b><b>Checkout Date :</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-25">
+											<input type='date' name="checkout" class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+
+										</div>
+
+									</div>
+
+									<div class="row">
+
+										<div class="col-75"></div>
+
+									</div>
+								</form>
+
+							</div>
+							<div class="card-footer text-muted">
+
+								<form class="forms" action="" method="post"
+									style="align: center">
+									
+									<ul class="nav nav-pills card-header-pills">
+										<li class="nav-item" style="align: right"><a
+											class="nav-link active" href="#">Save</a></li>
+
+
+									</ul>
+								</form>
+
+							</div>
 						</div>
+
+
 					</div>
-
 				</div>
-
-
-
-
 
 			</div>
 
-
-
 		</div>
-
-
-
 	</div>
 
 
