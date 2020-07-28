@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 
+<%@page import="java.util.concurrent.TimeUnit"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="RoomManagement.RoomDao"%>
 <%@page import="RoomManagement.Room"%>
 <%@page import="block_Register.blockDAO"%>
@@ -431,7 +434,7 @@
 
 									<div class="row">
 
-										<div class="col-25">
+										<div class="col-25" style="text-align: left">
 											<p>
 												<b><b>Select Block</b></b>
 											</p>
@@ -498,7 +501,7 @@
 
 									<div class="row">
 
-										<div class="col-25">
+										<div class="col-25" style="text-align: left">
 											<p>
 												<b><b>Select Room No</b></b>
 											</p>
@@ -557,7 +560,7 @@
 
 									<div class="row">
 
-										<div class="col-25">
+										<div class="col-25" style="text-align: left">
 											<p>
 												<%
 													String rname1 = request.getParameter("room_in_r");
@@ -568,7 +571,7 @@
 
 										</div>
 
-										<div class="col-75">
+										<div class="col-75" style="text-align: left">
 
 											<label class="radio-inline"> <input type="radio"
 												name="rtype" value="bb">B/B
@@ -592,19 +595,16 @@
 										</div>
 
 										<div class="col-25">
-										
-										<%
-										
-										String checkin_d = request.getParameter("checkin");
-										session.setAttribute("checkin", checkin_d);
-										
-										String checkin = (String) session.getAttribute("checkin");
-										
-										%>
-											<input type='date' value="<%=checkin%>" name="checkin" class="form-control" 
-											id="checkin" onchange="this.form.submit();"/> 
-											
-											<span
+
+											<%
+												String checkin_d = request.getParameter("checkin");
+												session.setAttribute("checkin", checkin_d);
+
+												String checkin = (String) session.getAttribute("checkin");
+											%>
+											<input type='date' value="<%=checkin%>" name="checkin"
+												class="form-control" 
+												onchange="this.form.submit();" /> <span
 												class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -619,18 +619,16 @@
 										</div>
 
 										<div class="col-25">
-										
-										<%
-										
-										String checkout_d = request.getParameter("checkout");
-										session.setAttribute("checkout", checkout_d);
-										
-										String checkout = (String) session.getAttribute("checkout");
-										
-										%>
-										
-											<input type='date'  value="<%=checkout%>" name="checkout" class="form-control" 
-											onchange="this.form.submit();"/> <span
+
+											<%
+												String checkout_d = request.getParameter("checkout");
+												session.setAttribute("checkout", checkout_d);
+
+												String checkout = (String) session.getAttribute("checkout");
+											%>
+
+											<input type='date' value="<%=checkout%>" name="checkout"
+												class="form-control" onchange="this.form.submit();" /> <span
 												class="input-group-addon"> <span
 												class="glyphicon glyphicon-calendar"></span>
 											</span>
@@ -641,7 +639,72 @@
 
 									<div class="row">
 
-										<div class="col-75"></div>
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Price :</b></b>
+											</p>
+
+										</div>
+										<%
+										
+											System.out.println("checkIn ::: " + checkin);
+											System.out.println("checkOut ::: " + checkout);
+
+											SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+											
+											if(checkin != null && checkout != null){
+
+											try {
+												String price = "1500";
+												Date date1 = myFormat.parse(checkin);
+												Date date2 = myFormat.parse(checkout);
+												long diff = date2.getTime() - date1.getTime();
+												System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+											
+												long dur = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+												int durInt = (int) dur;
+												int Tprice = 1500;
+												
+												System.out.println("durInt ::: " + durInt);
+												
+												int tot = durInt * Tprice;
+												System.out.println("tot ::: " + tot);
+												
+												String str1 = Integer.toString(tot);
+												session.setAttribute("str1", str1);
+
+												
+											
+											} catch (java.text.ParseException e) {
+												e.printStackTrace();
+											}
+											}
+											String strx = (String) session.getAttribute("str1");
+											System.out.println("str1 ::: " + strx);
+											
+											if(strx != null){
+										%>
+
+										<div class="col-25">
+											<input type="text" name="Room_Price_tot" readonly
+												style="float: right;" id="Room_Price_tot" value="Rs.<%=strx%>"
+												placeholder="Price">
+										</div>
+										
+										<%}else{
+											
+											%>
+											
+										<div class="col-25">
+											<input type="text" name="Room_Price_tot" readonly
+												style="float: right;" id="Room_Price_tot" value="Rs.0"
+												placeholder="Price">
+										</div>
+											
+											<%
+										}
+										%>
+
 
 									</div>
 								</form>
@@ -649,28 +712,27 @@
 							</div>
 							<div class="card-footer text-muted" style="align: center">
 
-								<form class="forms" action="ReservationSaveServlet" method="post"
-									style="align: center">
-									
-										<input type="hidden" name="checkin"id="checkin" value="<%=checkin%>">
-									
-										<input type="hidden" name="checkout"id="checkout" value="<%=checkout%>">
-										
-										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
-										
-										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
-										
-										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
-										
-										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
-										
-										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
-										
-										<input type="hidden" name="pfnovalue"id="pfnovalue" value="">
-										
+								<form class="forms" action="ReservationSaveServlet"
+									method="post" style="align: center">
+
+									<input type="hidden" name="checkin" id="checkin"
+										value="<%=checkin%>"> <input type="hidden"
+										name="checkout" id="checkout" value="<%=checkout%>"> <input
+										type="hidden" name="pfnovalue" id="pfnovalue" value="">
+
+									<input type="hidden" name="pfnovalue" id="pfnovalue" value="">
+
+									<input type="hidden" name="pfnovalue" id="pfnovalue" value="">
+
+									<input type="hidden" name="pfnovalue" id="pfnovalue" value="">
+
+									<input type="hidden" name="pfnovalue" id="pfnovalue" value="">
+
+									<input type="hidden" name="pfnovalue" id="pfnovalue" value="">
+
 									<button type="submit" name="Submit_res"
-								style="float: left; margin-left: 16px; text-align: center;"
-								class="btn btn-primary">Submit</button>
+										style="float: left; margin-left: 16px; text-align: center;"
+										class="btn btn-primary">Submit</button>
 								</form>
 
 							</div>
@@ -980,13 +1042,12 @@
 				tr = $(this).closet('tr');
 			});
 		}
-		
+
 		window.setTimeout(function() {
 			$(".alert").fadeTo(500, 0).slideUp(500, function() {
 				$(this).remove();
 			});
 		}, 2000);
-		
 	</script>
 
 
