@@ -9,6 +9,7 @@ import java.util.List;
 import Branches.Branch;
 import Roles.Role;
 import RoomManagement.Room;
+import RoomTypeMaster.Room_type;
 import access.Functions;
 import block_Register.block;
 import block_Register.blockBean;
@@ -54,11 +55,7 @@ public class RoomStatusDAO {
     		 //System.out.println("blockID: "+blockID);
 		List<StatusRooms> list = new ArrayList<StatusRooms>();  
 		
-		
-
 		try {
-			
-			
 			 Connection con = DBConnection.getConnection();  
 	            PreparedStatement ps=con.prepareStatement("SELECT * FROM rooms where blockID=?;"); 
 	            ps.setString(1, blockID);
@@ -107,42 +104,69 @@ public class RoomStatusDAO {
     	 
     	 
     	 
-    	 
-    	 
+
     	 public static String getBlockNAmeByID(String blockID) {
 
-    			String status = "";
+ 			String status = "";
 
-    			block r = new block();
+ 			block r = new block();
 
-    			try {
-    				Connection con = DBConnection.getConnection();
+ 			try {
+ 				Connection con = DBConnection.getConnection();
 
-    				PreparedStatement ps = con.prepareStatement("SELECT block_name FROM block where blockID=?;");
+ 				PreparedStatement ps = con.prepareStatement("SELECT block_name FROM block where blockID=?;");
 
-    				ps.setString(1, blockID);
-    			//	System.out.println("******************************branchID : " + blockID);
-    				ResultSet rs = ps.executeQuery();
-    				if (rs.next()) {
+ 				ps.setString(1, blockID);
+ 			//	System.out.println("******************************branchID : " + blockID);
+ 				ResultSet rs = ps.executeQuery();
+ 				if (rs.next()) {
 
-    					
-r.setBlock_name(rs.getString(1));
-    					status = rs.getString(1);
-    				//	System.out.println("****************************** name : " + rs.getString(1));
+ 					
+ r.setBlock_name(rs.getString(1));
+ 					status = rs.getString(1);
+ 				//	System.out.println("****************************** name : " + rs.getString(1));
 
-    				}
-    				con.close();
-    			} catch (Exception ex) {
-    				ex.printStackTrace();
-    			}
+ 				}
+ 				con.close();
+ 			} catch (Exception ex) {
+ 				ex.printStackTrace();
+ 			}
 
-    			return status;
-    		}
-    	 
-    	 
-    	 
-    	 
-    	 
+ 			return status;
+ 		}
+ 	 
+ 	 
+ 	 
+ 	 
+ 	 public static String getRoomNAmeByID(String roomTypeID) {
+
+ 			String status = "";
+
+ 			Room_type r = new Room_type();
+
+ 			try {
+ 				Connection con = DBConnection.getConnection();
+
+ 				PreparedStatement ps = con.prepareStatement("SELECT RoomTypeName FROM roomtypes where roomTypeId=?;");
+
+ 				ps.setString(1, roomTypeID);
+ 			//	System.out.println("******************************branchID : " + blockID);
+ 				ResultSet rs = ps.executeQuery();
+ 				if (rs.next()) {
+
+ 					r.setRoom_Type(rs.getString(1));
+ 					status = rs.getString(1);
+ 				//	System.out.println("****************************** name : " + rs.getString(1));
+
+ 				}
+ 				con.close();
+ 			} catch (Exception ex) {
+ 				ex.printStackTrace();
+ 			}
+
+ 			return status;
+ 		}
+ 	 
     	 
     	 
 }

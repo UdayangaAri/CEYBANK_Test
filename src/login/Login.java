@@ -84,7 +84,7 @@ public class Login extends HttpServlet {
 
 				request.setAttribute("errMessage", userValidate);
 
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 
 		} catch (IOException e1) {
