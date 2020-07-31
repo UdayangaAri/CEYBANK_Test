@@ -159,6 +159,7 @@ div.a {
 													String b = request.getParameter("ID");
 													session.setAttribute("blockIDPass", b);
 													String a = RoomStatusDAO.getBlockNAmeByID(b);
+											
 												//	session.setAttribute("blockNAme", resultset.getString(3));
 														
 												%>
