@@ -2,6 +2,9 @@ package RoomReservation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,36 +40,54 @@ public class ReservationSaveServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+		String blockName = request.getParameter("blockID");
 		String roomNo = request.getParameter("RoomNo");
 		String roomName = request.getParameter("Roomname");
 		String roomType = request.getParameter("RoomType");
-		String blockName = request.getParameter("blockID");
+		String checkIn = request.getParameter("checkin");
+		String checkOut = request.getParameter("checkout");
 		
-		int i=Integer.parseInt(roomType);  
+		System.out.println("checkIn ::: "+checkIn);
+		System.out.println("checkOut ::: "+checkOut);
+		
+		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		String inputString1 = "23 01 1997";
+//		String inputString2 = "27 04 1997";
 
-		block_Register.block e = blockDAO.getBlocksById(blockName);
-
-		int blockID = e.getId();
-
-		Room room = new Room();
-
-		String room_Status = "Available";
-
-		room.setRoomNo(roomNo);
-		room.setRoomName(roomName);
-		room.setRoomType(i);
-		room.setBlockID(blockID);
-		room.setRoomStatus(room_Status);
-
-		int status = RoomDao.save(room);
-		if (status > 0) {
-			session.setAttribute("RoomViewAlt", "SaveMessageRMs");
-			request.getRequestDispatcher("room_view.jsp").include(request, response);
-		} else {
-			out.println("Sorry! unable to save record");
+		try {
+		    Date date1 = myFormat.parse(checkIn);
+		    Date date2 = myFormat.parse(checkOut);
+		    long diff = date2.getTime() - date1.getTime();
+		    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+		} catch (java.text.ParseException e) {
+		    e.printStackTrace();
 		}
-
-		out.close();
+//		
+//		//int i=Integer.parseInt(roomType);  
+//
+//		block_Register.block e = blockDAO.getBlocksById(blockName);
+//
+//		int blockID = e.getId();
+//
+//		Room room = new Room();
+//
+//		String room_Status = "Available";
+//
+//		room.setRoomNo(roomNo);
+//		room.setRoomName(roomName);
+//		room.setRoomType(i);
+//		room.setBlockID(blockID);
+//		room.setRoomStatus(room_Status);
+//
+//		int status = RoomDao.save(room);
+//		if (status > 0) {
+//			session.setAttribute("RoomViewAlt", "SaveMessageRMs");
+//			request.getRequestDispatcher("room_view.jsp").include(request, response);
+//		} else {
+//			out.println("Sorry! unable to save record");
+//		}
+//
+//		out.close();
 	}
 
 }
