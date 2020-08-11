@@ -49,6 +49,21 @@
 
 <title>Room Status Management</title>
 
+<!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+
+
+
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+
+
+
 </head>
 
 
@@ -82,15 +97,21 @@
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
-				<div class="card shadow mb-4 mt-5">
-					<div class="card text-center">
+				<div class="container">
+				
+				<div class="container mt-5 mb-5">
 
-						<div class="card-header">
-							<h4>Select Role</h4>
-						</div>
-						<div class="card-body text-center">
+					<!-- body start -->
 
-							<div class="container">
+					<div class="container mt-3 a">
+
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">Room Status Management</h4>
+							</div>
+							<div class="card-body" style="left: 30%">
 
 								<%
 									String Status_Succeed = (String) session.getAttribute("StatusSucceedMessage");
@@ -410,7 +431,7 @@
 							</div>
 
 						</div>
-
+</div>
 
 					</div>
 
@@ -432,19 +453,7 @@
 
 	<!-- /#page-content-wrapper -->
 
-	<footer class="footer"
-		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
-		<div class="container-fluid">
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
-				<li class="nav-link" style="text-color: #fff; text-align: center"><font
-					color="#fffff">Developed By BOC IT Unit</font></li>
-			</ul>
-
-		</div>
-	</footer>
-
+<jsp:include page="Footer.jsp"></jsp:include>
 
 
 

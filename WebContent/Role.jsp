@@ -142,6 +142,57 @@
 				</div>
 				</div>
 				</div>
+				
+				
+				
+				<div class="container mt-5 a">
+
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">Select Role</h4>
+							</div>
+							<div class="card-body" style="left: 30%">
+				
+						
+<form method="POST" class="forms" action="accessServlet" method="post">
+					
+
+
+
+<div class="row mt-1 mb-1">
+
+
+										<div class="col-50">
+								<input type="text" name="fname" placeholder="Enter First Name.."
+									required>
+							</div>
+						</div>
+						<div class="row mt-1 mb-1">
+
+
+										<div class="col-50">
+								<input type="text" name="fname" placeholder="Enter First Name.."
+									required>
+							</div>
+						</div>
+
+
+
+						<div class="row mt-1 mb-1" style="float: right">
+						
+
+							<input type="reset" value="Clear" style="margin-right: 16px;">
+							<input type="submit" style="float: left; margin-right: 250px;" value="Next">
+					
+</div>
+					</form>
+				</div>
+				</div>
+				</div>
+				
+				
 				</div>
 				</div>
 				</div>
@@ -151,19 +202,7 @@
 	</div>
 	<!-- /#page-content-wrapper -->
 
-
-	<footer class="footer"
-		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
-		<div class="container-fluid">
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
-				<li class="nav-link" style="text-color: #fff; text-align: center"><font
-					color="#fffff">Developed By BOC IT Unit</font></li>
-			</ul>
-
-		</div>
-	</footer>
+<jsp:include page="Footer.jsp"></jsp:include>
 
 
 
