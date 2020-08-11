@@ -25,8 +25,8 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
+ <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/clock.js"></script>
 
 
@@ -42,18 +42,17 @@
 div.c {
 	text-align: right;
 }
-
 div.a {
-	width: 80%;
+  width: 80%;
+  
 }
-
 .center {
-	margin: auto;
-	width: 30%;
-	padding: 20px;
+  margin: auto;
+  width: 30%;
+ 
+  padding: 20px;
 }
 </style>
-
 </head>
 
 <body>
@@ -76,16 +75,15 @@ div.a {
 				<div class="c">
 					<h4>
 
-						<a href="B_View.jsp" class="badge badge-light">View All
-							Branches</a>
+						<a href="B_View.jsp" class="badge badge-light">View All Branches</a>
 					</h4>
 				</div>
 
 
-				<div class="container mt-3 a">
+				<div class="container mt-3 a" >
 
 					<div class="card shadow mb-4">
-
+					
 						<div class="card-header py-3">
 
 							<h4 class="m-0 font-weight-bold text-primary">Add New Branch</h4>
@@ -101,13 +99,13 @@ div.a {
 
 								<div class="row mt-4 mb-4">
 
-									<div class="col mr-2">
+									 <div class="col mr-2">
 										<input style="padding: 5px" type="text" name="name"
 											placeholder="Enter Branch Name.." required>
 									</div>
-
-									<div class="col mr-2">
-
+								
+ 										 <div class="col mr-2">
+									
 										<input type="text" name="dname"
 											placeholder="Enter Display Name..">
 									</div>
@@ -115,24 +113,24 @@ div.a {
 
 								<div class="row mt-4 mb-4">
 
-									<div class="col mr-2">
+									 <div class="col mr-2">
 										<input type="text" name="address"
 											placeholder="Enter Address.." maxlength="100" required>
 									</div>
 								</div>
-								<div class="row mt-4 mb-4">
-									<div class="col mr-2">
+<div class="row mt-4 mb-4">
+									 <div class="col mr-2">
 										<input type="text" name="phone1"
 											placeholder="Enter Phone Number 1.." maxlength="10" required>
 									</div>
+							
 
-
-									<div class="col mr-2">
+									 <div class="col mr-2">
 										<input type="text" name="phone2"
 											placeholder="Enter Phone Number 2.." maxlength="10">
 									</div>
-
-									<div class="col mr-2">
+								
+<div class="col mr-2">
 										<input type="text" name="fax" placeholder="Enter Fax Number.."
 											maxlength="15">
 									</div>
@@ -140,9 +138,9 @@ div.a {
 
 								<div class="row mt-4 mb-4">
 
-									<div class="col mr-2">
+									  <div class="col mr-2">
 										<input type="email" name="email"
-											placeholder="Enter Email Address..">
+											placeholder="Enter Email Address.." maxlength="15">
 									</div>
 								</div>
 
@@ -170,7 +168,19 @@ div.a {
 	<!-- /#page-content-wrapper -->
 
 
-	<jsp:include page="Footer.jsp"></jsp:include>
+
+	<footer class="footer"
+		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
+		<div class="container-fluid">
+
+			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+				<li class="nav-link" style="text-color: #fff; text-align: center"><font
+					color="#fffff">Developed By BOC IT Unit</font></li>
+			</ul>
+
+		</div>
+	</footer>
 
 
 
