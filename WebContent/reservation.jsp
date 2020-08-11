@@ -587,7 +587,8 @@
 				<form action="Guest_saveServlet" method="post">
 
 					<div class="modal-header" style="text-align: center;">
-						<h3 class="modal-title" id="exampleModalLabel">Add New Guest</h3>
+						<h3 class="m-0 font-weight-bold text-primary">Add New Guest</h3>
+							<h4 class="m-0 font-weight-bold text-primary">Add New Guest</h4>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -596,7 +597,8 @@
 
 					<div class="modal-body" style="text-align: center;">
 
-
+<h3 class="m-0 font-weight-bold text-primary">Add New Guest</h3>
+							<h4 class="m-0 font-weight-bold text-primary">Add New Guest</h4>
 						<div class="row">
 
 							<div class="col-25">Name</div>
@@ -787,18 +789,7 @@
 
 	<!-- /#page-content-wrapper -->
 
-	<footer class="footer"
-		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
-		<div class="container-fluid">
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
-				<li class="nav-link" style="text-color: #fff; text-align: center"><font
-					color="#fffff">Developed By BOC IT Unit</font></li>
-			</ul>
-
-		</div>
-	</footer>
+	<jsp:include page="Footer.jsp"></jsp:include>
 
 
 

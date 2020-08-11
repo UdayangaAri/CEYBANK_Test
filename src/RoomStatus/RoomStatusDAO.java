@@ -7,14 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Branches.Branch;
-import Roles.Role;
-import RoomManagement.Room;
+
 import RoomTypeMaster.Room_type;
-import access.Functions;
 import block_Register.block;
-import block_Register.blockBean;
 import connections.DBConnection;
-import register.RegisterBean;
+
 
 public class RoomStatusDAO {
 
