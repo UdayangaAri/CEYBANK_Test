@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
@@ -14,10 +15,15 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-
-	<classpathentry kind="lib" path="C:/Users/980541541v/eclipse-workspace/CEYBANK_Test/WebContent/WEB-INF/lib/mysql-connector.jar"/>
-	<classpathentry kind="lib" path="C:/Users/980541541v/eclipse-workspace/CEYBANK_Test/WebContent/WEB-INF/lib/mysql-connector-java-5.1.47-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/980541541v/eclipse-workspace/CEYBANK_Test/WebContent/WEB-INF/lib/tomcat-servlet-api-8.5.0.jar"/>
-
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector-java.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector-java-5.1.15-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector-java-5.1.24-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector-java-5.1.47 (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector-java-5.1.47.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/protobuf-java-3.11.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/971062894v/Desktop/Eclipse project/Lib/tomcat-servlet-api-8.5.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
+

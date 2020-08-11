@@ -43,6 +43,26 @@
 
 
 
+<style>
+div.c {
+	text-align: right;
+}
+
+div.a {
+	width: 80%;
+}
+
+.center {
+	margin: auto;
+	width: 30%;
+	padding: 20px;
+}
+
+
+}
+
+</style>
+
 
 </head>
 
@@ -65,8 +85,7 @@
 		}
 	%>
 
-
-	<div class="d-flex" id="sidebar-wrapper">
+<div class="d-flex" id="sidebar-wrapper">
 
 		<!-- Sidebar -->
 
@@ -79,7 +98,24 @@
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
-					<form method="POST" class="forms" action="RegisterServlet"
+				
+				<div class="container mt-5 mb-5">
+
+					<!-- body start -->
+
+					<div class="container mt-3 a">
+
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">User Registration Page</h4>
+							</div>
+							<div class="card-body" style="left: 30%">
+
+
+								<!-- /#Type Body Here -->
+								<form method="POST" class="forms" action="RegisterServlet"
 						method="post">
 					
 						<%
@@ -98,51 +134,57 @@
 					}
 				%>
 
-						<h3>User Registration Page</h3>
 						
-						<div class="row">
+						
+						<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="eno"
 									placeholder="Enter Employee Number.." required>
 							</div>
 						</div>
 
 
-						<div class="row">
+						<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="fname" placeholder="Enter First Name.."
 									required>
 							</div>
 						</div>
+<div class="row mt-1 mb-1">
 
 
-						<div class="row">
+								
 
-							<div class="col-75">
+										<div class="col-65">
 								<input type="text" name="lname" placeholder="Enter Last Name.."
 									required>
 							</div>
+							
 						</div>
 
 
 
-						<div class="row">
+							<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="nic" placeholder="Enter NIC.."
 									pattern=".{10,12}" required>
 							</div>
 						</div>
 
 
-						<br> <br>
+						<br>
 
 
-						<div class="row">
+							<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="phoneno" pattern=".{8,10}"
 									placeholder="Enter Phone Number.." style='width: 49.5%' required> 
 									
@@ -152,9 +194,10 @@
 						</div>
 
 
-						<div class="row">
+							<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="email" name="email"
 									placeholder="Enter Email Address..">
 							</div>
@@ -162,38 +205,43 @@
 
 
 
-						<div class="row">
+							<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="address" placeholder="Enter Address..">
 							</div>
 						</div>
 
-						<br> <br>
+						<br>
 
 
 
 
-						<div class="row">
+						<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="uname" placeholder="Enter User Name.."
 									required>
 							</div>
 						</div>
 
 
-						<div class="row">
+						<div class="row mt-1 mb-1">
 
-							<div class="col-75">
+
+										<div class="col-65">
 								<input type="text" name="defpwd"
 									placeholder="Enter Default Password.." required>
 							</div>
 						</div>
 
 
-						<div class="row">
-							<div class="col-75">
+							<div class="row mt-1 mb-1">
+
+
+										<div class="col-65">
 								<select name="role" required>
 
 									<option value="" disabled selected>Select Role</option>
@@ -213,8 +261,10 @@
 
 
 
-						<div class="row">
-							<div class="col-75">
+							<div class="row mt-1 mb-1">
+
+
+										<div class="col-65">
 								<select name="Branch" required>
 									<option value="" disabled selected>Select Branch</option>
 									<%
@@ -231,10 +281,10 @@
 								</select>
 							</div>
 						</div>
+	<div class="row mt-1 mb-1">
 
-						<div class="row">
-							<div class="col-75">
 
+										<div class="col-65">
 								<input type="text" readonly name="Status" value="Active"
 									placeholder="Active" required>
 
@@ -248,20 +298,38 @@
 						<div class="row" style="float: right">
 
 							<input type="reset" value="Clear" style="margin-right: 16px;">
-							<input type="submit" style="float: left; margin-right: 250px;"
-								value="Register">
+							<input type="submit" style="float: left; margin-right: 250px;" value="Register">
 						</div>
 					</form>
+							</div>
+						</div>
+
+					</div>
+					<!-- Content Row -->
+
+					
+
+					<div class="row">
+				
+
+	
+		
+
+
+						<!-- cards starts -->
+
+						<!-- cards end -->
+					</div>
 				</div>
 
-
-
 			</div>
-
 		</div>
-
+		</div>
+		
 	</div>
+
 	<!-- /#page-content-wrapper -->
+
 
 
 	<footer class="footer"
@@ -276,6 +344,7 @@
 
 		</div>
 	</footer>
+
 
 
 
