@@ -2,7 +2,7 @@
 
   
 <%@page import="sidebar.sideBarBeanClass"%>
-<%@page import="access.FunctionDAO"%>
+<%@page import="Functions.FunctionDAO"%>
 <%@page import="access.RoleFunctionDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -176,7 +176,7 @@ int i = Integer.parseInt(e.getFunctionID());
 //System.out.println("i value : "+i);
  if(i == 7){%>	
 		<li >
-		<a href="#" style="color: #fafafa; background-color: transparent;">
+		<a href="TextFileGenerating.jsp" style="color: #fafafa; background-color: transparent;">
 		<img src="images/report.png" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em">
 		Reports
 		</a>

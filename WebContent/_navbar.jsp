@@ -24,7 +24,7 @@
 			style="margin-left: -20px; float: left; margin-right: 0.5em"> 
 
 
-
+<div style="margin-left: 25px;">
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,13 +34,15 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
 <%
-					java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+					java.text.DateFormat ddf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 				%>
-				<li class="nav-link text-gray-100" ><%=df.format(new java.util.Date())%></li>
+		
+				 <span class="mr-2 d-none d-lg-inline text-gray-100 small"><%=ddf.format(new java.util.Date()) %></span>
+
+			<ul class="navbar-nav ml-1 mt-2 mt-lg-0">
+
+
 
 			<li class="nav-item dropdown no-arrow">
 			
@@ -59,7 +61,7 @@
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="Request_Reset_Password.jsp">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Request Reset Password
                 </a>
@@ -73,7 +75,7 @@
 			
 			</ul>
 		</div>
-
+</div>
 
 	</div>
 
