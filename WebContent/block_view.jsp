@@ -26,15 +26,12 @@
 
 
 <%
-String delete = (String)request.getAttribute("errorMessage");
+	String delete = (String) request.getAttribute("errorMessage");
 	Connection con = DBConnection.getConnection();
 
 	Statement ps = con.createStatement();
-	
-	
-	rs = ps.executeQuery("select B_display_name,id from branches");
-	
 
+	rs = ps.executeQuery("select B_display_name,id from branches");
 %>
 
 <head>
@@ -54,8 +51,8 @@ String delete = (String)request.getAttribute("errorMessage");
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 <title>BLock View</title>
 
@@ -68,10 +65,10 @@ String delete = (String)request.getAttribute("errorMessage");
 
 	<div class="d-flex" id="sidebar-wrapper">
 
-		<!-- Sidebar -->
+		<!-- Side-bar -->
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
-		<!-- /#sidebar-wrapper -->
+		<!-- /#side-bar-wrapper -->
 
 		<!-- Page Content -->
 		<div class=container-fluid>
@@ -84,7 +81,45 @@ String delete = (String)request.getAttribute("errorMessage");
 
 					<!-- /#Type Body Here -->
 
-				
+					<%
+						String Deleted = (String) session.getAttribute("blockDeleteMessage");
+						String Delete_Failed = (String) session.getAttribute("blockDeleteFailed");
+						String Edited = (String) session.getAttribute("blockEditMessage");
+						String Edited_Failed = (String) session.getAttribute("blockEditFailed");
+						String Saved = (String) session.getAttribute("blockSaveMessage");
+						String Saved_Failed = (String) session.getAttribute("blockSaveFailed");
+
+						if (null != Deleted) {
+					%>
+					<div class="alert alert-success" role="alert">Deleted
+						Successfully..!</div>
+					<%
+						} else if (null != Delete_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Delete Failed..!</div>
+					<%
+						} else if (null != Edited) {
+					%>
+					<div class="alert alert-success" role="alert">Edited
+						Successfully..!</div>
+					<%
+						} else if (null != Edited_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Edit Failed..!</div>
+					<%
+						} else if (null != Saved) {
+					%>
+					<div class="alert alert-success" role="alert">Saved
+						Successfully..!</div>
+					<%
+						} else if (null != Saved_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Save Failed..!</div>
+					<%
+						}
+					%>
+
+
 					<a href='block_save.jsp'>Add New block</a> <br>
 
 					<%
@@ -95,7 +130,7 @@ String delete = (String)request.getAttribute("errorMessage");
 					<table class="table">
 						<thead class="thead-dark">
 							<tr>
-								
+
 								<th scope="col">Location</th>
 								<th scope="col">Block Name</th>
 								<th scope="col">Status</th>
@@ -108,14 +143,14 @@ String delete = (String)request.getAttribute("errorMessage");
 
 							<%
 								for (block e : list) {
-									
+
 									Branches.Branch b = blockDAO.getBranchIdByName(e.getLocation());
 							%>
 							<tr>
 
-								<td><%=b.getDisplayName() %></td>
-								<td><%=e.getBlock_name() %></td>
-								<td><%=e.getBlock_status() %></td>
+								<td><%=b.getDisplayName()%></td>
+								<td><%=e.getBlock_name()%></td>
+								<td><%=e.getBlock_status()%></td>
 
 
 								<td><a href='block_edit.jsp?id=<%=e.getId()%>'> edit <img
@@ -123,9 +158,10 @@ String delete = (String)request.getAttribute("errorMessage");
 										style="float: center; margin-right: 0.5em"></a></td>
 
 
-								<td><a href="blockDeleteServlet?id=<%=e.getId()%>"> delete <img
-										src="images/delete.png" alt="" border=3 height=23 width=23
-										style="float: center; margin-right: 0.5em"></a>
+								<td><a href="blockDeleteServlet?id=<%=e.getId()%>">
+										delete <img src="images/delete.png" alt="" border=3 height=23
+										width=23 style="float: center; margin-right: 0.5em">
+								</a>
 								<td>
 							</tr>
 							<tr>
@@ -135,8 +171,8 @@ String delete = (String)request.getAttribute("errorMessage");
 								%>
 							
 						</tbody>
-					</table>			
-			
+					</table>
+
 				</div>
 			</div>
 
@@ -200,6 +236,12 @@ String delete = (String)request.getAttribute("errorMessage");
 		function noBack() {
 			window.history.forward();
 		}
+		
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
 
 

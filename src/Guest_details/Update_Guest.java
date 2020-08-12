@@ -60,23 +60,22 @@ public class Update_Guest extends HttpServlet {
 
 		Guest x = GuestDAO.getGuestById(nic);
 
-		String previousData = "Name : " + x.getName() + " , Address : " + x.getAddress() + ", City : "
-				+ x.getCity() + " , Resident : " + x.getCountry() + " , citizenship : " + x.getCitizenship() +
-				" , nic : " + x.getNic() + " , Mobile : " + x.getMobile() + " , dob : " + x.getDob()
-				+ " , email : " + x.getEmail() + " , profession : " + x.getProf() + " , pf : " + x.getPfno()
-				+ " , St/nonSt : " + x.getSt_nonst();
-		
+		String previousData = "Name : " + x.getName() + " , Address : " + x.getAddress() + ", City : " + x.getCity()
+				+ " , Resident : " + x.getCountry() + " , citizenship : " + x.getCitizenship() + " , nic : "
+				+ x.getNic() + " , Mobile : " + x.getMobile() + " , dob : " + x.getDob() + " , email : " + x.getEmail()
+				+ " , profession : " + x.getProf() + " , pf : " + x.getPfno() + " , St/nonSt : " + x.getSt_nonst();
+
 		String e_status = "Edited";
-		
+
 		String edited_unit = "Guest";
-		
+
 		Log log = new Log();
-        log.setPrevious_data(previousData);
-        log.setEdited_by(name);
-        log.setEdit_status(e_status);
-        log.setEdited_unit(edited_unit);
-        
-        //System.out.println("previous data : "+previousData);
+		log.setPrevious_data(previousData);
+		log.setEdited_by(name);
+		log.setEdit_status(e_status);
+		log.setEdited_unit(edited_unit);
+
+		// System.out.println("previous data : "+previousData);
 
 		String bee = "success message";
 
@@ -85,13 +84,13 @@ public class Update_Guest extends HttpServlet {
 			st_nonSt = "Public";
 			pfno = "";
 
-			System.out.println("Data Updated Public");
+			//System.out.println("Data Updated Public");
 
 		} else if (pfnovalue.equals("BOC Staff")) {
 
 			st_nonSt = "BOC Staff";
 
-			System.out.println("Data Updated BOC Staff");
+			//System.out.println("Data Updated BOC Staff");
 		}
 
 		Guest e = new Guest();
@@ -121,27 +120,21 @@ public class Update_Guest extends HttpServlet {
 
 		if (status > 0) {
 			int logs = LogDAO.InsertLog(log);
-			
-			if(logs>0){  
-			     
-				request.setAttribute("bee", bee);
 
-				request.getRequestDispatcher("Guest_update.jsp").forward(request, response);
+			if (logs > 0) {
 
-				System.out.println("Data Updated");
-                
-            }
-       	 else
-            {
-                out.println("Sorry! unable to update record");  
-            }  
-
-			
+				session.setAttribute("guestDeleteMessage", "guestDeleteMessage");
+				response.sendRedirect("Guest_update.jsp");
+			} else {
+				
+				session.setAttribute("blockDeleteFailed", "blockDeleteFailed");
+				response.sendRedirect("Guest_update.jsp");
+			}
 
 		} else {
-			session.setAttribute("updated_Guest", null);
-			out.print("<div class='alert alert-danger' role='alert'>" + "Record not saved!" + "</div>");
-
+			
+			session.setAttribute("blockDeleteFailed", "blockDeleteFailed");
+			response.sendRedirect("Guest_update.jsp");
 		}
 
 	}

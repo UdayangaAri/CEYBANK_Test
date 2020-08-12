@@ -46,10 +46,10 @@
 
 	<div class="d-flex" id="sidebar-wrapper">
 
-		<!-- Sidebar -->
+		<!-- Side-bar -->
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
-		<!-- /#sidebar-wrapper -->
+		<!-- /#side-bar-wrapper -->
 
 		<!-- Page Content -->
 		<div class=container-fluid>
@@ -61,13 +61,67 @@
 
 					<!-- /#Type Body Here -->
 					<%
-						if (null != request.getAttribute("errorMessage")) {
+						String Deleted = (String) session.getAttribute("branchDeleteMessage");
+						String Delete_Failed = (String) session.getAttribute("branchDeleteFailed");
+						String Edited = (String) session.getAttribute("branchEditMessage");
+						String Edited_Failed = (String) session.getAttribute("branchEditFailed");
+						String Deactivated = (String) session.getAttribute("branchDeactivateMessage");
+						String Deactivated_Failed = (String) session.getAttribute("branchDeactivateFailed");
+						String Activated = (String) session.getAttribute("branchActivateMessage");
+						String Activated_Failed = (String) session.getAttribute("branchActivateFailed");
+						String Saved = (String) session.getAttribute("branchSaveMessage");
+						String Saved_Failed = (String) session.getAttribute("branchSaveFailed");
+
+						if (null != Deleted) {
 					%>
-					<div class="alert alert-danger" role="alert">Deleted
-						Successfully..</div>
+					<div class="alert alert-success" role="alert">Deleted
+						Successfully..!</div>
+					<%
+						} else if (null != Delete_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Delete Failed..!</div>
+					<%
+						} else if (null != Edited) {
+					%>
+					<div class="alert alert-success" role="alert">Edited
+						Successfully..!</div>
+					<%
+						} else if (null != Edited_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Edit Failed..!</div>
+					<%
+						} else if (null != Deactivated) {
+					%>
+					<div class="alert alert-success" role="alert">Deactivated
+						Successfully..!</div>
+					<%
+						} else if (null != Deactivated_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Deactivate
+						Failed..!</div>
+					<%
+						} else if (null != Activated) {
+					%>
+					<div class="alert alert-success" role="alert">Activated
+						Successfully..!</div>
+					<%
+						} else if (null != Activated_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Activate
+						Failed..!</div>
+					<%
+						} else if (null != Saved) {
+					%>
+					<div class="alert alert-success" role="alert">Saved
+						Successfully..!</div>
+					<%
+						} else if (null != Saved_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Save Failed..!</div>
 					<%
 						}
 					%>
+					
 
 					<h3>Branch List</h3>
 
@@ -246,6 +300,12 @@
         {
             window.history.forward();
         }
+        
+        window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
 
 

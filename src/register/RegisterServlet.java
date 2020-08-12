@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
 @WebServlet(name = "RegisterServlet", urlPatterns = { "/RegisterServlet" })
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +28,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		
+
 		response.setContentType("text/html");
 
 		String employeeNo = request.getParameter("eno");
@@ -46,22 +44,22 @@ public class RegisterServlet extends HttpServlet {
 		String NIC = request.getParameter("nic");
 		String Branch = request.getParameter("Branch");
 		String status = request.getParameter("Status");
-		
+
 		Roles.Role e = RegisterDao.getRoleById(role);
 		Branches.Branch b = RegisterDao.getBranchById(Branch);
-		
-		if(role.equals(e.getRole()) && Branch.equals(b.getDisplayName())) {
-			
+
+		if (role.equals(e.getRole()) && Branch.equals(b.getDisplayName())) {
+
 			System.out.println("getId : " + e.getId());
 			System.out.println("getDisplayName : " + b.getDisplayName());
-			
+
 			int roleID = e.getId();
 			int BranchID = b.getId();
-			
+
 			RegisterBean registerBean = new RegisterBean();
 
 			registerBean.setEmployeeNo(employeeNo);
-			
+
 			registerBean.setFirstName(firstName);
 			registerBean.setLastName(lastName);
 			registerBean.setUserName(userName);
@@ -79,23 +77,17 @@ public class RegisterServlet extends HttpServlet {
 
 			String userRegistered = registerDao.registerUser(registerBean);
 
-
 			if (userRegistered.equals("SUCCESS")) {
-				
-				session.setAttribute("Successed", "Success Message");
-				
+
+				session.setAttribute("Success_Message", "Success_Message");
 				request.getRequestDispatcher("/register.jsp").forward(request, response);
 			} else {
-				
-				session.setAttribute("error", "error message");
-				
-				request.setAttribute("errorMessage", "Registration Failed");
+
+				session.setAttribute("error_message", "error_message");
 				request.getRequestDispatcher("/register.jsp").forward(request, response);
 			}
-			
-		}
 
-		
+		}
 
 	}
 

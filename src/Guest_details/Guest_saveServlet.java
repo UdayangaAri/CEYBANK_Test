@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/Guest_saveServlet")
 public class Guest_saveServlet extends HttpServlet {
@@ -29,6 +30,8 @@ public class Guest_saveServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
 
 		String position = request.getParameter("position");
 		String cname = request.getParameter("name");
@@ -44,7 +47,7 @@ public class Guest_saveServlet extends HttpServlet {
 		String cst_nonst = request.getParameter("options");
 
 		String cpfno = request.getParameter("pfnovalue");
-		
+
 		Guest e = new Guest();
 
 		if (cst_nonst.equals("Guest") && !cpfno.equals("")) {
@@ -66,16 +69,17 @@ public class Guest_saveServlet extends HttpServlet {
 			e.setProf(cprof);
 			e.setSt_nonst(cst_nonst);
 			e.setPfno(cpfno);
-			
+
 			int status = GuestDAO.save(e);
 
 			if (status > 0) {
-				
-				out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
+
+				session.setAttribute("guestSaveMessage", "guestSaveMessage");
 				request.getRequestDispatcher("reservation.jsp").include(request, response);
 			} else {
-				System.out.println("failed");
-				out.println("Sorry! unable to save record");
+
+				session.setAttribute("guestSaveFailed", "guestSaveFailed");
+				request.getRequestDispatcher("reservation.jsp").include(request, response);
 			}
 
 		}

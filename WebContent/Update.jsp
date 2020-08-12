@@ -62,28 +62,45 @@
 				<div class="container">
 
 					<%
-						if (null != request.getAttribute("errorMessage")) {
-							%>
-					<div class="alert alert-danger" role="alert">Failed</div>
-					<% } %>
+						String Updated = (String) session.getAttribute("updated_message");
+						String Updated_Failed = (String) session.getAttribute("update_failed_message");
+						String Deactivated = (String) session.getAttribute("Deactivate_Message");
+						String Deactivated_Failed = (String) session.getAttribute("Deactivate_Failed");
+						String Activated = (String) session.getAttribute("Activate_Message");
+						String Activated_Failed = (String) session.getAttribute("Activate_Failed");
 
-<%
-							if (null != session.getAttribute("updated")) {
-						%>
-
-						<div class="alert alert-success" role="alert">User
-							Updated Successfully..</div>
-
-						<%
-							} else if (null != session.getAttribute("not_updated")) {
-						%>
-
-						<div class="alert alert-danger" role="alert">Cannot Update
-							the user..</div>
-
-						<%
-							}
-						%>
+						if (null != Updated) {
+					%>
+					<div class="alert alert-success" role="alert">User Updated
+						Successfully..</div>
+					<%
+						} else if (null != Updated_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Cannot Update
+						the user..</div>
+					<%
+						} else if (null != Deactivated) {
+					%>
+					<div class="alert alert-success" role="alert">Deactivated
+						successfully..</div>
+					<%
+						} else if (null != Deactivated_Failed) {
+					%>
+					<div class="alert alert-success" role="alert">Deactivate
+						Failed..</div>
+					<%
+						} else if (null != Activated) {
+					%>
+					<div class="alert alert-success" role="alert">Activated
+						successfully..</div>
+					<%
+						} else if (null != Activated_Failed) {
+					%>
+					<div class="alert alert-success" role="alert">Activate
+						Failed..</div>
+					<%
+						}
+					%>
 						
 						
 
@@ -171,6 +188,12 @@
         {
             window.history.forward();
         }
+        
+        window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
 
 

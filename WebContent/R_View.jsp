@@ -68,6 +68,46 @@
 				<div class="container">
 
 					<!-- /#Type Body Here -->
+					
+					<%
+						String Deleted = (String) session.getAttribute("roleDeleteMessage");
+						String Delete_Failed = (String) session.getAttribute("roleDeleteFailed");
+						String Edited = (String) session.getAttribute("roleEditMessage");
+						String Edited_Failed = (String) session.getAttribute("roleEditFailed");
+						String Saved = (String) session.getAttribute("roleSaveMessage");
+						String Saved_Faild = (String) session.getAttribute("roleSaveFailed");
+
+						if (null != Deleted) {
+					%>
+					<div class="alert alert-success" role="alert">Deleted
+						Successfully..!</div>
+					<%
+						} else if (null != Delete_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Delete Failed..!</div>
+					<%
+						} else if (null != Edited) {
+					%>
+					<div class="alert alert-success" role="alert">Edited
+						Successfully..!</div>
+					<%
+						} else if (null != Edited_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Edit Failed..!</div>
+					<%
+						} else if (null != Saved) {
+					%>
+					<div class="alert alert-success" role="alert">Saved
+						Successfully..!</div>
+					<%
+						} else if (null != Saved_Faild) {
+					%>
+					<div class="alert alert-danger" role="alert">Save Failed..!</div>
+					<%
+						}
+					%>
+					
+					
 
 					<h3>View Roles</h3>
 
@@ -197,6 +237,12 @@
         {
             window.history.forward();
         }
+        
+        window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
 
 

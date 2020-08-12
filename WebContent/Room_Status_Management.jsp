@@ -94,7 +94,6 @@
 
 								<%
 									String Status_Succeed = (String) session.getAttribute("StatusSucceedMessage");
-								
 									String Status_Failed = (String) session.getAttribute("StatusFailedMessage");
 
 									if (null != Status_Succeed) {
@@ -486,6 +485,7 @@
 		function noBack() {
 			window.history.forward();
 		}
+		
 		window.setTimeout(function() {
 			$(".alert").fadeTo(500, 0).slideUp(500, function() {
 				$(this).remove();
