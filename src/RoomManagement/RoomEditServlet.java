@@ -41,7 +41,7 @@ public class RoomEditServlet extends HttpServlet {
 		response.setContentType("text/html");  
         PrintWriter out=response.getWriter(); 
         
-        HttpSession session1 = request.getSession();
+        HttpSession session = request.getSession();
           
         String sid=request.getParameter("id");  
         int id=Integer.parseInt(sid);  
@@ -95,15 +95,19 @@ public class RoomEditServlet extends HttpServlet {
 
 			if (logs > 0) {
 
-				session1.setAttribute("RoomViewAlt", "editedMessageRM");
+				session.setAttribute("RMEditMessage", "RMEditMessage");
 	            response.sendRedirect("room_view.jsp");  
 
 			} else {
-				out.println("Sorry! unable to update record");
+				
+				session.setAttribute("RMEditFailed", "RMEditFailed");
+				response.sendRedirect("room_view.jsp");
 			}
 
 		} else {
-			out.println("Sorry! unable to update record");
+			
+			session.setAttribute("RMEditFailed", "RMEditFailed");
+			response.sendRedirect("room_view.jsp");
 		}
           
         out.close(); 

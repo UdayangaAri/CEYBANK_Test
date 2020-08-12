@@ -56,10 +56,10 @@
 
 	<div class="d-flex" id="sidebar-wrapper">
 
-		<!-- Sidebar -->
+		<!-- Side-bar -->
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
-		<!-- /#sidebar-wrapper -->
+		<!-- /#side-bar-wrapper -->
 
 		<!-- Page Content -->
 		<div class=container-fluid>

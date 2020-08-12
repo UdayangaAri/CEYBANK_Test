@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Log.Log;
 import Log.LogDAO;
@@ -34,6 +35,8 @@ public class RoomType_editServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
 
 		String id = request.getParameter("room_type_id");
 		int sid = Integer.parseInt(id);
@@ -60,25 +63,25 @@ public class RoomType_editServlet extends HttpServlet {
 		log.setEdited_unit(edited_unit);
 
 		int status = roomTypeDAO.update(e);
-		
+
 		if (status > 0) {
 
-			 int logs = LogDAO.InsertLog(log);
-		     
-			 if(logs>0){  
-				 
-				
-				 out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
-					response.sendRedirect("RoomTypeMasterView.jsp");
-                 
-             }
-        	 else
-             {
-                 out.println("Sorry! unable to update record");  
-             }  
-			
+			int logs = LogDAO.InsertLog(log);
+
+			if (logs > 0) {
+
+				session.setAttribute("edit_succeed_Message", "edit_succeed_Message");
+				response.sendRedirect("RoomTypeMasterView.jsp");
+			} else {
+
+				session.setAttribute("edit_failed_Message", "edit_failed_Message");
+				response.sendRedirect("RoomTypeMasterView.jsp");
+			}
+
 		} else {
-			out.println("Sorry! unable to update record");
+
+			session.setAttribute("edit_failed_Message", "edit_failed_Message");
+			response.sendRedirect("RoomTypeMasterView.jsp");
 		}
 
 		out.close();
