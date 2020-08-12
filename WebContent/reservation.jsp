@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="java.util.Date"%>
@@ -25,7 +26,6 @@
 <html lang="en">
 
 <%
-
 	ResultSet resultset = null;
 	ResultSet rs = null;
 	
@@ -63,11 +63,8 @@
 
 <%
 	String Employees_Branch = (String) session.getAttribute("branch");
-
 	String Guest_Branch = (String) session.getAttribute("branch");
-
 	String Username = (String) session.getAttribute("Username");
-
 	String Pos = (String) request.getAttribute("Pos");
 	String cname = (String) request.getAttribute("name");
 	String cnic = (String) request.getAttribute("nic");
@@ -78,10 +75,8 @@
 	String err = (String) request.getAttribute("wrong");
 	String cno = (String) request.getAttribute("cno");
 	String xString = (String) request.getAttribute("xString");
-
 	String Staff = "Staff";
 	String Guest = "Public";
-
 	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
 
@@ -485,3 +480,4 @@
 </body>
 
 </html>
+
