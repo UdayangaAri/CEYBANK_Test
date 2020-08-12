@@ -127,45 +127,48 @@ div.a {
 
 
 									<!-- /#Type Body Here -->
-									
-<form action="" method="post">
+
+									<form action="" method="post">
 
 										<div class="row mt-1 mb-1">
 
-	
+
 											<div class="col-25">
 												<p>
 													<b><b>Select Branch</b></b>
 												</p>
 
 											</div>
-											
-										
+
+
 											<div class="col-65">
 
 												<select name="branchidforRates" id="branchidforRates"
-													required onchange="this.form.submit()">
+													required onchange="this.form.submit()" onchange="my()">
 
 													<%
-													String x = request.getParameter("branchidforRates");
+														String x = request.getParameter("branchidforRates");
+													session.setAttribute("TranslateBranch", x);
 														String RecieveBranch = (String) session.getAttribute("Branch_Name_Value");
 
 														String takenameofbranchname = RoomRatesDAO.getBranchName(x);
-														
+
 														//System.out.println("*********************** branch name1 : "+takenameofbranchname);
-														session.setAttribute("Branch_Name_Value",takenameofbranchname);
+														
+														session.setAttribute("Branch_Name_Value", takenameofbranchname);
 
 														//-----------------------------------------------------------------------------------------------------------------------
 														if (x != null) {
 													%>
-													<option value="" disabled selected><%=takenameofbranchname %></option>
+													<option value="" disabled selected><%=takenameofbranchname%></option>
+													<% //System.out.println("*********************** takenameofbranchname : "+takenameofbranchname);
 
 
-													<%
+												
 														} else if (RecieveBranch != null) {
 													%>
-													<option value="" disabled selected><%=RecieveBranch %></option>
-													<%
+													<option value="" disabled selected><%=RecieveBranch%></option>
+													<% //System.out.println("*********************** RecieveBranch : "+RecieveBranch);
 														} else {
 													%>
 													<option value="" disabled selected>Select a Branch</option>
@@ -190,19 +193,20 @@ div.a {
 													%>
 												</select>
 											</div>
-											
-											
+
+
 
 										</div>
 										<%
-										//System.out.println("takenameofbranchname: "+takenameofbranchname); 
-										//System.out.println("RecieveBranch: "+RecieveBranch); 
-										int idBranch = RoomRatesDAO.getBranchID(takenameofbranchname);
-									//	System.out.println("idBranch: "+idBranch); 
-										session.setAttribute("Branch_Name_For_Form",idBranch);
-											%>
-</form>
-<form action="" method="post">
+											//System.out.println("takenameofbranchname: "+takenameofbranchname); 
+											//System.out.println("RecieveBranch: "+RecieveBranch); 
+											int idBranch = RoomRatesDAO.getBranchID(takenameofbranchname);
+											//	System.out.println("idBranch: "+idBranch); 
+											session.setAttribute("Branch_Name_For_Form", idBranch);
+											//System.out.println("AAAAAAAAAAAAAAAAAAAAAA "+idBranch); 
+										%>
+									</form>
+									<form action="" method="post">
 										<div class="row mt-1 mb-1">
 
 
@@ -212,16 +216,24 @@ div.a {
 												</p>
 
 											</div>
-											
+
 											<div class="col-65">
 												<select name="blockidforRates" id="blockidforRates" required
-													onchange="this.form.submit()" >
+													onchange="this.form.submit()">
 
 													<%
+													
+													
+													
+													
 														String y = request.getParameter("blockidforRates");
+													session.setAttribute("TranslateBlock", y);
+													
+													
 														String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
 
 														String takenameofblockName = RoomRatesDAO.getBlockName(y);
+													//	System.out.println("*********************** block name 2 : "+takenameofblockName);
 
 														session.setAttribute("Block_Name_Value", takenameofblockName);
 														//-----------------------------------------------------------------------------------------------------------------------
@@ -232,10 +244,14 @@ div.a {
 
 
 													<%
+												
+												//	System.out.println("*********************** takenameofblockName : "+takenameofblockName);
 														} else if (RecieveBlock != null) {
 													%>
 													<option value="" disabled selected><%=RecieveBlock%></option>
 													<%
+												//	
+													//System.out.println("*********************** RecieveBlock : "+RecieveBlock);
 														} else {
 													%>
 													<option value="" disabled selected>Select a Block</option>
@@ -246,7 +262,6 @@ div.a {
 
 
 													<%
-														
 														String Q2 = "select * from block where block_location=?";
 														Connection c2 = DBConnection.getConnection();
 														PreparedStatement p2 = c2.prepareStatement(Q2);
@@ -263,23 +278,34 @@ div.a {
 													%>
 												</select>
 											</div>
-											
+
 										</div>
-<%
+										<%
+											//System.out.println("takenameofblockName: "+takenameofblockName); 
+											//System.out.println("RecieveBlock: "+RecieveBlock); 
+											int idBlock = RoomRatesDAO.getBlockID(takenameofblockName);
+											//System.out.println("idBlock: "+idBlock); 
+											session.setAttribute("Block_Name_For_Form", idBlock);
+										%>
+									</form>
 
 
-//System.out.println("takenameofblockName: "+takenameofblockName); 
-//System.out.println("RecieveBlock: "+RecieveBlock); 
-int idBlock = RoomRatesDAO.getBlockID(takenameofblockName);
-//System.out.println("idBlock: "+idBlock); 
-session.setAttribute("Block_Name_For_Form",idBlock);
- 
-
-											%>
-											</form>
-											
-											
-											<form action="" method="post">
+							<form action="RoomRatesAddServlet" method="post">
+							<%
+							String SessionTranslateBranch = (String) session.getAttribute("TranslateBranch");
+							System.out.println("-----------------SessionTranslateBranch : "+SessionTranslateBranch);
+							
+							String SessionTranslateBlock = (String) session.getAttribute("TranslateBlock");
+							System.out.println("-----------------SessionTranslateBlock : "+SessionTranslateBlock);
+							
+							
+							%>
+							<p id="aa"></p>
+							  <input type="hidden" id="SessionBranchID" name="SessionBranchID" value="<%=SessionTranslateBranch %>">
+							<input type="hidden" id="SessionBlockID" name="SessionBlockID" value="<%=SessionTranslateBlock%>">
+							
+						
+						
 										<div class="row mt-1 mb-1">
 
 
@@ -289,46 +315,31 @@ session.setAttribute("Block_Name_For_Form",idBlock);
 												</p>
 
 											</div>
-											
+
 											<div class="col-65">
 												<select name="roomtypeforRates" id="roomtypeforRates"
-													required 	onchange="this.form.submit()">
+													required >
 
 													<%
-															String z = request.getParameter("roomtypeforRates");
-												//	System.out.println("1 . Z :  "+z);
+														String z = request.getParameter("roomtypeforRates");
+															//System.out.println("1 . Z :  "+z);
 														String RecieveRoomType = (String) session.getAttribute("Room_Name_Value");
-													//	System.out.println("2 . RecieveRoomType :  "+RecieveRoomType);
+														//	System.out.println("2 . RecieveRoomType :  "+RecieveRoomType);
 
 														String takenameofRoomType = RoomRatesDAO.getRoomTypeName(z);
-													//	System.out.println("3 . takenameofRoomType :  "+takenameofRoomType);
+															//System.out.println("-------------------------------------- takenameofRoomType :  "+takenameofRoomType);
 
 														session.setAttribute("Room_Name_Value", takenameofRoomType);
 														//System.out.println("4 . takenameofRoomType :  "+takenameofRoomType);
 														//System.out.println("z:" + z);
-														
-													//	System.out.println("takenameofRoomType:" + takenameofRoomType);
-													//	System.out.println("RecieveRoomType:" + RecieveRoomType);
+
+														//	System.out.println("takenameofRoomType:" + takenameofRoomType);
+															//System.out.println(" -------------------------------- RecieveRoomType:" + RecieveRoomType);
 														//-------------------------------------------------------------------------------------------------------------------------------------
+%>
+													<option value="" disabled selected>Select a Room type</option>
 
-														if (z != null) {
-															
-													%>
-													<option value="" disabled selected><%=takenameofRoomType%></option>
-	<%
-														} else if (RecieveRoomType != null) {
-															
-													%>
-													<option value="" disabled selected><%=RecieveRoomType%></option>
-													<%
-														} else {
-													%>
-													<option value="" disabled selected>Select a Room
-														Type</option>
-
-													<%
-														}
-													%>
+												
 
 
 
@@ -338,7 +349,7 @@ session.setAttribute("Block_Name_For_Form",idBlock);
 														PreparedStatement p3 = c3.prepareStatement(Q3);
 														p3.setString(1, y);
 														//System.out.println("block_location = branch code :" + branch);
-															;
+														;
 														r3 = p3.executeQuery();
 														//
 														while (r3.next()) {
@@ -348,7 +359,7 @@ session.setAttribute("Block_Name_For_Form",idBlock);
 															PreparedStatement p4 = c4.prepareStatement(Q4);
 															p4.setString(1, r3.getString(1));
 															String bb = r3.getString(1);
-															
+
 															r4 = p4.executeQuery();
 															while (r4.next()) {
 																//System.out.println("room name: " + r4.getString(1));
@@ -363,23 +374,21 @@ session.setAttribute("Block_Name_For_Form",idBlock);
 												</select>
 
 											</div>
-	
+
 
 										</div>
 										<%
+											//System.out.println("takenameofRoomType: "+takenameofRoomType); 
+											//System.out.println("RecieveRoomType: "+RecieveRoomType); 
+											int idRoomType = RoomRatesDAO.getRoomTypeID(takenameofRoomType);
+											//System.out.println("idRoomType: "+idRoomType);
+											session.setAttribute("RoomType_Name_For_Form", idRoomType);
+										%>
+								
 
 
-//System.out.println("takenameofRoomType: "+takenameofRoomType); 
-//System.out.println("RecieveRoomType: "+RecieveRoomType); 
-int idRoomType = RoomRatesDAO.getRoomTypeID(takenameofRoomType);
-//System.out.println("idRoomType: "+idRoomType);
-session.setAttribute("RoomType_Name_For_Form",idRoomType);
-%>
-</form>
-											
-										
-											
-										<form action="" method="post">	
+
+								
 										<div class="row mt-1 mb-1">
 
 
@@ -389,11 +398,11 @@ session.setAttribute("RoomType_Name_For_Form",idRoomType);
 												</p>
 
 											</div>
-											
+
 											<div class="col-65">
 												<select name="mealtypeforRates" id="mealtypeforRates"
 													required>
-	
+
 
 													<option value="" disabled selected>Select meal
 														type</option>
@@ -403,21 +412,20 @@ session.setAttribute("RoomType_Name_For_Form",idRoomType);
 													<option value="c">c</option>
 													<option value="d">d</option>
 
-													
+
 												</select>
 
 											</div>
-										
+
 
 										</div>
-	
-											<%
-										//	String mealtype = request.getParameter("mealtypeforRates");  
-										//	System.out.println("44444444444444444444444444444444 RecieveRoomType: "+mealtype); %>
-											
 
-</form>
-<form action="" method="post">
+										<%
+											//	String mealtype = request.getParameter("mealtypeforRates");  
+											//	System.out.println("44444444444444444444444444444444 RecieveRoomType: "+mealtype);
+										%>
+
+
 										<div class="row mt-1 mb-1">
 
 
@@ -427,22 +435,20 @@ session.setAttribute("RoomType_Name_For_Form",idRoomType);
 												</p>
 
 											</div>
-											
+
 											<div class="col-25">
 												<input type="text" style="text-align: center"
-										class="form-control" name="Rate" id="Rate"
-										required>
+													class="form-control" name="Rate" id="Rate" required>
 
-												
+
 											</div>
-											
+
 										</div>
 										<%
 											//String rate = request.getParameter("rrate");  
-										//	System.out.println("555555555555555555555555555555 RecieveRoomType: "+rate); %>
-											</form>
-											
-											<form action="" method="post">
+											//	System.out.println("555555555555555555555555555555 RecieveRoomType: "+rate);
+										%>
+							
 										<div class="row mt-1 mb-1">
 
 
@@ -457,7 +463,7 @@ session.setAttribute("RoomType_Name_For_Form",idRoomType);
 
 												<input type="text" id="Discount" name="Discount" value="">
 											</div>
-										
+
 
 											<div class="col-25">
 												<label onclick="javascript:yesnoCheck();"> <input
@@ -476,51 +482,52 @@ session.setAttribute("RoomType_Name_For_Form",idRoomType);
 													Percentage
 												</label>
 
-										
+
 											</div>
-	</div>
-											<%
-												String discount = request.getParameter("Discount");  
-											//System.out.println("66666666666666666666666666666 RecieveRoomType: "+discount); %>
-											</form>
-											
-											
-<form action="RoomRatesAddServlet" method="post">
-
-
-											<div class="row mt-1 mb-1" style="float: right">
-
-												<div class="row center">
-
-													<input type="submit"
-														style="float: right; margin-right: 250px;" value="Add">
-												</div>
-											</div>
-											</form>
 										</div>
+										<%
+											String discount = request.getParameter("Discount");
+											//System.out.println("66666666666666666666666666666 RecieveRoomType: "+discount);
+										%>
 									
 
+
+								
+
+
+										<div class="row mt-1 mb-1" style="float: right">
+
+											<div class="row center">
+
+												<input type="submit"
+													style="float: right; margin-right: 250px;" value="Add">
+											</div>
+										</div>
+									</form>
 								</div>
+
+
 							</div>
-
 						</div>
-						<!-- Content Row -->
-
-
-
-
 
 					</div>
+					<!-- Content Row -->
+
+
+
+
 
 				</div>
+
 			</div>
 		</div>
+	</div>
 
-	
+
 
 	<!-- /#page-content-wrapper -->
 
-<jsp:include page="Footer.jsp"></jsp:include>
+	<jsp:include page="Footer.jsp"></jsp:include>
 
 
 	<script src="vendor/jquery/jquery.min.js"></script>
@@ -528,6 +535,14 @@ session.setAttribute("RoomType_Name_For_Form",idRoomType);
 
 	<!-- Menu Toggle Script -->
 	<script>
+	
+	var name = '<%= session.getAttribute("TranslateBranch") %>';
+	
+	function my(){
+		document.getElementById("aa").innerHTML = name;
+
+	}
+	
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");

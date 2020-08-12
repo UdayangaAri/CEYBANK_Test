@@ -36,55 +36,66 @@ public class RoomRatesAddServlet extends HttpServlet {
 		doGet(request, response);
 		HttpSession session = request.getSession();
 		
-		String branch = request.getParameter("idBranch");  
 
-		String block = request.getParameter("idBlock");  
+		String passBranchID = request.getParameter("SessionBranchID");  
+		System.out.println("Branch ID : "+passBranchID);
 		
-		String roomtype = request.getParameter("idRoomType");  
+		
+		String passBlockID = request.getParameter("SessionBlockID");  
+		System.out.println(" Block ID : "+passBlockID);
+
+		
+		
+		
+		String roomtype = request.getParameter("roomtypeforRates");  
+		System.out.println("roomtype : "+roomtype);
 
 		String mealplan = request.getParameter("mealtypeforRates");  
+		System.out.println("mealplan : "+mealplan);
 	
 
 		String rate = request.getParameter("Rate");  
+		System.out.println("Rate : "+rate);
 
 		String discount = request.getParameter("Discount");  
-		
-		RoomRates rr = new RoomRates();
-		
-		
-		String Branch_For_Form = (String) session.getAttribute("Branch_Name_For_Form");
-		 rr.setBranch(branch);
-		System.out.println("branch : "+Branch_For_Form );
-		
-		String Block_For_Form = (String) session.getAttribute("Block_Name_For_Form");
-		rr.setBlock(block);
-		System.out.println("block : "+Block_For_Form);
-		
-		
-		String RoomType_Name_For_Form = (String) session.getAttribute("RoomType_Name_For_Form");
-		rr.setRoomtype(roomtype);
-		System.out.println("roomtype : "+RoomType_Name_For_Form);
-		
-		rr.setMealplan(mealplan);
-		System.out.println("mealplan : "+mealplan);
-		
-		rr.setBrate(rate);
-		System.out.println("rate : "+rate);
-		
-		rr.setDiscout(discount);
 		System.out.println("discount : "+discount);
 		
+		//RoomRates rr = new RoomRates();
+		
+		
+	//	String Branch_For_Form = (String) session.getAttribute("Branch_Name_For_Form");
+		 //rr.setBranch(branch);
+		//System.out.println("branch : "+Branch_For_Form );
+		
+		//String Block_For_Form = (String) session.getAttribute("Block_Name_For_Form");
+		//rr.setBlock(block);
+		//System.out.println("block : "+Block_For_Form);
+		
+		
+	//	String RoomType_Name_For_Form = (String) session.getAttribute("RoomType_Name_For_Form");
+	//	rr.setRoomtype(roomtype);
+		//System.out.println("roomtype : "+RoomType_Name_For_Form);
+		
+	//	rr.setMealplan(mealplan);
+		//System.out.println("mealplan : "+mealplan);
+		
+	//	rr.setBrate(rate);
+		//System.out.println("rate : "+rate);
+		
+	//	rr.setDiscout(discount);
+		//System.out.println("discount : "+discount);
+		
 	//	 System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
-        int status=RoomRatesDAO.saveRatesMnagement(rr); 
+    //    int status=RoomRatesDAO.saveRatesMnagement(rr); 
         
-        if(status>0){  
+     //   if(status>0){  
         	
-            request.getRequestDispatcher("home.jsp").include(request, response);  
-        }else{  
-        	 request.getRequestDispatcher("index.jsp").include(request, response);  
-        }  
+     //       request.getRequestDispatcher("home.jsp").include(request, response);  
+     //   }else{  
+        //	 request.getRequestDispatcher("index.jsp").include(request, response);  
+        //}  
           
-        out.close(); 
+        //out.close(); 
 
 }
 }

@@ -53,14 +53,14 @@ public class RoomRatesDAO {
 				PreparedStatement ps = con.prepareStatement("SELECT RoomTypeName FROM roomtypes where roomTypeId=?;");
 
 				ps.setString(1, RoomName);
-				System.out.println("******************************Room type ID : " + RoomName);
+				//System.out.println("******************************Room type ID : " + RoomName);
 				ResultSet rs = ps.executeQuery();
 				if (rs.next()) {
 
 					
 r.setRoom_Type(rs.getString(1));
 					status = rs.getString(1);
-				System.out.println("******************************Room type name : " + rs.getString(1));
+				//System.out.println("******************************Room type name : " + rs.getString(1));
 
 				}
 				con.close();
@@ -92,7 +92,7 @@ r.setRoom_Type(rs.getString(1));
 					
 r.setBlock_name(rs.getString(1));
 					status = rs.getString(1);
-					System.out.println("22222222222222222222222222222222");
+					//System.out.println("22222222222222222222222222222222");
 				//	System.out.println("****************************** branchname : " + rs.getString(1));
 
 				}
