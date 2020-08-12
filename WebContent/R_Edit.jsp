@@ -25,9 +25,7 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -73,7 +71,6 @@
 							<div class="col-25">
 								<p>Role Id</p>
 
-
 							</div>
 
 							<div class="col-75">
@@ -86,6 +83,7 @@
 
 							<div class="col-25">
 								<p>Role Name</p>
+								
 
 							</div>
 
@@ -104,7 +102,8 @@
 
 							<div class="col-75">
 								<input type="text" name="desc" id="desc"
-									value="<%=e.getRoleDesc()%>" onchange="myFunction()"> <input
+									value="<%=e.getRoleDesc()%>" onchange="myFunction()"> 
+									<input
 									type="hidden" name="passingValue" id="passingValue">
 							</div>
 						</div>

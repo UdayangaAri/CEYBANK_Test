@@ -25,8 +25,10 @@
 <html lang="en">
 
 <%
+
 	ResultSet resultset = null;
 	ResultSet rs = null;
+	
 %>
 
 <head>
@@ -46,6 +48,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 
 <title>Home</title>
 
