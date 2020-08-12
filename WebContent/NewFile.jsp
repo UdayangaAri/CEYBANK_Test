@@ -1,21 +1,45 @@
 <!DOCTYPE html>
+<%@page import="java.util.concurrent.TimeUnit"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="RoomManagement.RoomDao"%>
+<%@page import="RoomManagement.Room"%>
+<%@page import="block_Register.blockDAO"%>
+<%@page import="block_Register.block"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="connections.DBConnection"%>
+<%@page import="Guest_details.GuestDAO"%>
+<%@page import="Guest_details.Guest"%>
+<%@page import="login.LoginDao"%>
+<%@page import="login.LoginBean"%>
+<%@page import="Roles.RoleDao"%>
+<%@page import="Roles.Role"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="Branches.BranchDao"%>
 <%@page import="java.util.List"%>
 <%@page import="Branches.Branch"%>
+
 <html lang="en">
 
 <%
-	String uid = (String) session.getAttribute("userId");
+	ResultSet resultset = null;
+	ResultSet rs = null;
 %>
 
 <head>
 
-
 <!-- #9999ff -->
 
-
+<link rel="stylesheet" type="text/css" href="css/All.css">
+<link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/login.css">
+
+
+<script type="text/javascript" src="js/clock.js"></script>
+
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -23,148 +47,625 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Login Page</title>
+<title>Home</title>
+
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+<%
+	ResultSet rs1 = null;
+	ResultSet rx = null;
+%>
 
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<%
+	String Employees_Branch = (String) session.getAttribute("branch");
 
+	String Guest_Branch = (String) session.getAttribute("branch");
 
+	String Username = (String) session.getAttribute("Username");
 
+	String Pos = (String) request.getAttribute("Pos");
+	String cname = (String) request.getAttribute("name");
+	String cnic = (String) request.getAttribute("nic");
+	String cmobile = (String) request.getAttribute("mobile");
+	String cemail = (String) request.getAttribute("email");
+	String cst_nonst = (String) request.getAttribute("st_nonst");
+	String cpfno = (String) request.getAttribute("pfno");
+	String err = (String) request.getAttribute("wrong");
+	String cno = (String) request.getAttribute("cno");
+	String xString = (String) request.getAttribute("xString");
 
+	String Staff = "Staff";
+	String Guest = "Public";
+
+	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
+%>
+
+<style>
+* {
+	box-sizing: border-box;
+}
+
+#regForm {
+	background-color: #ffffff;
+	margin: 100px auto;
+	font-family: Raleway;
+	padding: 40px;
+	width: 70%;
+	min-width: 300px;
+}
+
+h1 {
+	text-align: center;
+}
+
+input {
+	padding: 10px;
+	width: 100%;
+	font-size: 17px;
+	font-family: Raleway;
+	border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+	background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+	display: none;
+}
+
+button {
+	background-color: #4CAF50;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 17px;
+	font-family: Raleway;
+	cursor: pointer;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+#prevBtn {
+	background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbbbbb;
+	border: none;
+	border-radius: 50%;
+	display: inline-block;
+	opacity: 0.5;
+}
+
+.step.active {
+	opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+	background-color: #4CAF50;
+}
+</style>
 </head>
-
-<body onload="javascript:back_block() , noback()">
-
-
-	<div class="container">
-
-		<div class="my-5 py-5">
+<body>
 
 
+	<div class="d-flex" id="sidebar-wrapper">
 
-			<div class="card my-5 py-5"
-				style="max-width: 800px; align: center; left: 15%; border-top: none; border-left: none; border-right: none;">
+		<!-- Sidebar -->
 
+		<jsp:include page="_sidebar.jsp"></jsp:include>
+		<!-- /#sidebar-wrapper -->
 
+		<!-- Page Content -->
+		<div class=container-fluid>
+			<div id="content">
+				<jsp:include page="_navbar.jsp"></jsp:include>
 
-				<div class="card-header border-bottom"
-					style="height: 60px; background-color: #464646;">
-					<p>
-						<font color="#fffff" style="">Ceybank Holiday Homes </font>
-					</p>
+				<div class="container">
 
-				</div>
-
-
-
-
-				<%
-					if (null != request.getAttribute("errorMessage")) {
-				%>
-
-				<div class="alert alert-danger" role="alert">Invalid
-					Username/Password</div>
-
-				<%
-					}
-				%>
+					<!-- One "tab" for each step in the form: -->
 
 
-				<div class="row no-gutters">
-
-					<div class="col-md-4">
-
-						<br> <br> <img src="images/ceybank2.png"
-							class="image-cropper" style="text-align: center">
-					</div>
+<form action="" method="post">
 
 
-					<div class="col-md-7">
-
-						<div class="card-body">
-							<h5 style="text-align: center">Login</h5>
-							<br>
-							<form action="Login" method="post">
-
-<!-------------------------------------------------------------------------------------------------------------------------->
+						<br> <br> Guest Details <br> <br>
 
 
+						
 
+							<div class="row">
 
-								<div class="form-group">
-									<input type="text" style="text-align: center"
-										class="form-control" name="Username" placeholder="Username"
-										required>
+								<div class="col-20">
+									<p>Name</p>
 
 								</div>
 
-								<div class="form-group">
-									<input type="password" style="text-align: center;"
-										class="form-control" name="pass" placeholder="Password"
-										required>
+								<div class="col-75">
+
+									<input type="text" name="nameres" value="" placeholder="Name">
+								</div>
+
+							</div>
+
+
+							<div class="row">
+
+								<div class="col-20">
+									<p>NIC Number</p>
+
+								</div>
+
+								<div class="col-75">
+
+									<input type="text" name="nicres" value="" placeholder="NIC">
+								</div>
+
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-20">
+									<p>Mobile Number</p>
+
 								</div>
 
 
 
+								<div class="col-75">
 
-<!-------------------------------------------------------------------------------------------------------------------------->
-
-								<br>
-								<div>
-									<input type="submit" value="Login"
-										style="align: center; margin: 0 auto; display: block;">
+									<input type="text" name="mobileres" value=""
+										placeholder="Mobile">
 								</div>
-							</form>
 
 
+							</div>
+
+							<div class="row">
+
+								<div class="col-20">
+									<p>Email Address</p>
+
+								</div>
+
+								<div class="col-75">
+
+
+									<input type="email" name="emailres" value=""
+										placeholder="Email">
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-20">
+									<p>Guest Type</p>
+
+								</div>
+
+								
+							<div class="col-65">
+								<div style="float: left;">
+
+									<label onclick="javascript:yesnoCheck();"> <input
+										type="radio" name="options" id="noCheck" value="Public">Public
+									</label> <label onclick="javascript:yesnoCheck();"> <input
+										type="radio" name="options" id="yesCheck" checked
+										value="BOC Staff">BOC Staff
+									</label> <br>
+								</div>
+
+								<div class="col-40" style="float: right;" id="ifYes"
+									style="visibility: hidden">
+									<input type="text" id="yes" name="pfnovalue" value="pfnovalue"
+										placeholder="PF Number">
+								</div>
+							</div>
+							
+							</div>
+					
+	<br> <br> Booking Details <br> <br>
+
+
+									
+									<div class="row">
+
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Check in Date :</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-25">
+
+											<%
+												String checkin_d = request.getParameter("checkin");
+												session.setAttribute("checkin", checkin_d);
+
+												String checkin = (String) session.getAttribute("checkin");
+
+												System.out.println("checkin ::: " + checkin);
+											%>
+											<input type='date' value="<%=checkin%>" name="checkin"
+												class="form-control" onchange="this.form.submit();" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+
+										</div>
+
+										<div class="col-25" style="text-align: center">
+											<p>
+												<b><b>Checkout Date :</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-25">
+
+											<%
+												String checkout_d = request.getParameter("checkout");
+												session.setAttribute("checkout", checkout_d);
+
+												String checkout = (String) session.getAttribute("checkout");
+
+												System.out.println("checkout ::: " + checkout);
+											%>
+
+											<input type='date' value="<%=checkout%>" name="checkout"
+												class="form-control" onchange="this.form.submit();" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+
+										</div>
+
+									</div>
+
+								
+
+									<%
+										try {
+
+											Connection con = DBConnection.getConnection();
+											//System.out.println("Printing connection object " + con);
+
+											Statement statement = con.createStatement();
+											Statement st = con.createStatement();
+
+											rx = statement.executeQuery("select * from block");
+
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									%>
+
+
+									<div class="row">
+
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Select Block</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-75">
+											<select name="block_in_r" id="block_in_r"
+												onchange="this.form.submit();">
+												<%
+													String x = request.getParameter("block_in_r");
+													String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
+
+													block z = blockDAO.getBlocksByUserIdForRSM(x);
+
+													block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock);
+
+													session.setAttribute("Block_Name_Value", x);
+
+													if (x != null) {
+
+														//System.out.println("RecieveBlock ::: " + RecieveBlock);
+												%>
+
+												<option value="" disabled selected><%=z.getBlock_name()%></option>
+
+												<%
+													} else if (RecieveBlock != null) {
+												%>
+
+												<option value="" disabled selected><%=r.getBlock_name()%></option>
+
+												<%
+													} else {
+												%>
+												<option value="" disabled selected>Select a Block</option>
+
+												<%
+													}
+												%>
+
+												<%
+													try {
+														String Query = "select * from block where block_location=?";
+														Connection con = DBConnection.getConnection();
+
+														PreparedStatement psmtX = con.prepareStatement(Query);
+														psmtX.setString(1, Employees_Branch);
+
+														rs1 = psmtX.executeQuery();
+														while (rs1.next()) {
+												%>
+												<option value=<%=rs1.getInt("blockID")%>><%=rs1.getString("block_name")%></option>
+												<%
+													}
+
+													} catch (Exception e) {
+														e.printStackTrace();
+													}
+												%>
+
+
+											</select>
+										</div>
+									</div>
+
+
+									<div class="row">
+
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Select Room No</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-75">
+											<select name="room_in_r" id="room_in_r"
+												onchange="this.form.submit();">
+
+												<%
+													String rname = request.getParameter("room_in_r");
+													session.setAttribute("Room_Name_Value", rname);
+
+													String roomGuest = (String) session.getAttribute("roomGuest");
+
+													String room1 = (String) session.getAttribute("Room_Name_Value");
+
+													String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
+
+													Room rm = RoomDao.getRoomById(room1);
+
+													if (rname != null) {
+												%>
+												<option value="" disabled selected><%=rm.getRoomName()%></option>
+
+
+												<%
+													}
+
+													else {
+												%>
+												<option value="" disabled selected>Select a Room</option>
+
+												<%
+													}
+												%>
+
+												<%
+													try {
+
+														String Query = "select * from rooms where blockID=?";
+														Connection con = DBConnection.getConnection();
+
+														PreparedStatement psmt = con.prepareStatement(Query);
+														psmt.setString(1, Block_Name_Value);
+
+														rs = psmt.executeQuery();
+														while (rs.next()) {
+												%>
+												<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
+												<%
+													}
+
+													} catch (Exception e) {
+														e.printStackTrace();
+													}
+												%>
+											</select>
+										</div>
+									</div>
+
+									<div class="row">
+
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Select Meal Plan</b></b>
+											</p>
+
+										</div>
+
+										<div class="col-75">
+											<select>
+
+												<option value="bb">Bead and Breakfast</option>
+												<option value="hb">Half board</option>
+												<option value="fb">Full Board</option>
+												<option value="ronly">Room Only</option>
+
+											</select>
+										</div>
+									</div>
+
+
+	<div class="row">
+
+										<div class="col-25" style="text-align: left">
+											<p>
+												<b><b>Price :</b></b>
+											</p>
+
+										</div>
+										<%
+											//System.out.println("checkIn ::: " + checkin);
+											//System.out.println("checkOut ::: " + checkout);
+
+											SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+											if (checkin != null && checkout != null) {
+
+												try {
+													String price = "1500";
+													Date date1 = myFormat.parse(checkin);
+													Date date2 = myFormat.parse(checkout);
+													long diff = date2.getTime() - date1.getTime();
+													//System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+
+													long dur = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+													int durInt = (int) dur;
+													int Tprice = 1500;
+
+													//System.out.println("durInt ::: " + durInt);
+
+													int tot = durInt * Tprice;
+													//System.out.println("tot ::: " + tot);
+
+													String str1 = Integer.toString(tot);
+													session.setAttribute("str1", str1);
+
+												} catch (java.text.ParseException e) {
+													e.printStackTrace();
+												}
+											}
+											String strx = (String) session.getAttribute("str1");
+											//System.out.println("str1 ::: " + strx);
+
+											if (strx != null) {
+										%>
+
+										<div class="col-25">
+											<input type="text" name="Room_Price_tot" readonly
+												style="float: right;" id="Room_Price_tot"
+												value="Rs.<%=strx%>" placeholder="Price">
+										</div>
+
+										<%
+											} else {
+										%>
+
+										<div class="col-25">
+											<input type="text" name="Room_Price_tot" readonly
+												style="float: right;" id="Room_Price_tot" value="Rs.0"
+												placeholder="Price">
+										</div>
+
+										<%
+											}
+										%>
+
+
+									</div>
+
+
+
+
+
+
+					
+					<div style="overflow: auto;">
+					
+						<div style="float: right;">
+							
+							<button type="button" id="nextBtn">Submit</button>
+							
 						</div>
 					</div>
+					
+					
+					<!-- Circles which indicates the steps of the form: -->
+					
+					
+					</form>
 
+
+					<script>
+						
+
+
+					<script src="vendor/jquery/jquery.min.js"></script>
+					<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+					<!-- Menu Toggle Script -->
+					<script>
+						$("#menu-toggle").click(function(e) {
+							e.preventDefault();
+							$("#wrapper").toggleClass("active");
+						});
+						$(document).ready(function() {
+							$('#sidebarCollapse').on('click', function() {
+								$('#sidebar').toggleClass('active');
+							});
+						});
+						
+						var dropdown = document.getElementsByClassName("dropdown-btn");
+						var i;
+						for (i = 0; i < dropdown.length; i++) {
+							dropdown[i].addEventListener("click", function() {
+								this.classList.toggle("active");
+								var dropdownContent = this.nextElementSibling;
+								if (dropdownContent.style.display === "block") {
+									dropdownContent.style.display = "none";
+								} else {
+									dropdownContent.style.display = "block";
+								}
+							});
+						}
+						window.history.forward();
+						function noBack() {
+							window.history.forward();
+						}
+						var today = new Date().toISOString().split('T')[0];
+						document.getElementsByName("checkin")[0].setAttribute('min', today);
+						document.getElementsByName("checkout")[0].setAttribute('min', today);
+						document.getElementsByName("dob")[0].setAttribute('max', today);
+						function yesnoCheck() {
+							if (document.getElementById('yesCheck').checked) {
+								document.getElementById('ifYes').style.visibility = 'visible';
+							} else
+								document.getElementById('ifYes').style.visibility = 'hidden';
+						}
+						function my1() {
+							$(document).ready(function() {
+								$("#update").modal('show');
+								$tr = $this.closest('tr');
+								tr = $(this).closet('tr');
+							});
+						}
+						window.setTimeout(function() {
+							$(".alert").fadeTo(500, 0).slideUp(500, function() {
+								$(this).remove();
+							});
+						}, 2000);
+					</script>
 				</div>
-
-
 			</div>
 		</div>
 	</div>
-
-
-	<script>
-		$("#menu-toggle").click(function(e) {
-			e.preventDefault();
-			$("#wrapper").toggleClass("active");
-		});
-
-		$(document).ready(function() {
-
-			$('#sidebarCollapse').on('click', function() {
-				$('#sidebar').toggleClass('active');
-			});
-
-		});
-
-		var dropdown = document.getElementsByClassName("dropdown-btn");
-		var i;
-
-		for (i = 0; i < dropdown.length; i++) {
-			dropdown[i].addEventListener("click", function() {
-				this.classList.toggle("active");
-				var dropdownContent = this.nextElementSibling;
-				if (dropdownContent.style.display === "block") {
-					dropdownContent.style.display = "none";
-				} else {
-					dropdownContent.style.display = "block";
-				}
-			});
-		}
-
-		window.history.forward();
-		function noBack() {
-			window.history.forward();
-		}
-	</script>
-
 </body>
-
 
 </html>
