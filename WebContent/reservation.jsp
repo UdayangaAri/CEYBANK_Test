@@ -25,8 +25,10 @@
 <html lang="en">
 
 <%
+
 	ResultSet resultset = null;
 	ResultSet rs = null;
+	
 %>
 
 <head>
