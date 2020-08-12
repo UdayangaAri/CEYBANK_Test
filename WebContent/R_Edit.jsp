@@ -73,7 +73,6 @@
 							<div class="col-25">
 								<p>Role Id</p>
 
-
 							</div>
 
 							<div class="col-75">
