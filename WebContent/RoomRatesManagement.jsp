@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="RoomRates.RoomRatesDAO"%>
 <%@page import="RoomStatus.StatusRooms"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="connections.DBConnection"%>
@@ -84,19 +85,13 @@ div.a {
 <body onload="startTime()">
 	<%
 		try {
-
 			Connection con = DBConnection.getConnection();
-			System.out.println("Printing connection object " + con);
-
+			//System.out.println("Printing connection object " + con);
 			Statement statement = con.createStatement();
 			Statement st = con.createStatement();
-
 			r1 = statement.executeQuery("SELECT * FROM branches;");
 			//rs = st.executeQuery("select * from branches");
-
-		}
-
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	%>
@@ -125,53 +120,89 @@ div.a {
 
 								<div class="card-header py-3">
 
-									<h4 class="m-0 font-weight-bold text-primary">Room Status</h4>
+									<h4 class="m-0 font-weight-bold text-primary">Room Rates
+										Management</h4>
 								</div>
 								<div class="card-body" style="left: 30%">
 
 
 									<!-- /#Type Body Here -->
-									<form action="" method="post">
-
+									
+<form action="" method="post">
 
 										<div class="row mt-1 mb-1">
 
-
+	
 											<div class="col-25">
 												<p>
 													<b><b>Select Branch</b></b>
 												</p>
 
 											</div>
+											
+										
 											<div class="col-65">
 
 												<select name="branchidforRates" id="branchidforRates"
 													required onchange="this.form.submit()">
 
 													<%
-														//	System.out.println("***************************");
-														String branchidforRates = request.getParameter("branchidforRates");
-														//session.setAttribute("branchNameRates", b);
+													String x = request.getParameter("branchidforRates");
+														String RecieveBranch = (String) session.getAttribute("Branch_Name_Value");
 
-														//System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA : "+b);
-														//	session.setAttribute("blockNAme", resultset.getString(3));
+														String takenameofbranchname = RoomRatesDAO.getBranchName(x);
+														
+														//System.out.println("*********************** branch name1 : "+takenameofbranchname);
+														session.setAttribute("Branch_Name_Value",takenameofbranchname);
+
+														//-----------------------------------------------------------------------------------------------------------------------
+														if (x != null) {
+													%>
+													<option value="" disabled selected><%=takenameofbranchname %></option>
+
+
+													<%
+														} else if (RecieveBranch != null) {
+													%>
+													<option value="" disabled selected><%=RecieveBranch %></option>
+													<%
+														} else {
+													%>
+													<option value="" disabled selected>Select a Branch</option>
+
+													<%
+														}
 													%>
 
-													<option value="" disabled selected>Select Branch</option>
+
 													<%
-														while (r1.next()) {
+														try {
+															while (r1.next()) {
 													%>
 
 													<option value="<%=r1.getString(1)%>"><%=r1.getString(3)%></option>
 													<%
 														}
+
+														} catch (Exception e) {
+															e.printStackTrace();
+														}
 													%>
 												</select>
 											</div>
+											
+											
 
 										</div>
-
-
+										<%
+										//System.out.println("takenameofbranchname: "+takenameofbranchname); 
+										//System.out.println("RecieveBranch: "+RecieveBranch); 
+										int idBranch = RoomRatesDAO.getBranchID(takenameofbranchname);
+									//	System.out.println("idBranch: "+idBranch); 
+										session.setAttribute("Branch_Name_For_Form",idBranch);
+											%>
+</form>
+<form action="" method="post">
 										<div class="row mt-1 mb-1">
 
 
@@ -181,27 +212,45 @@ div.a {
 												</p>
 
 											</div>
+											
 											<div class="col-65">
 												<select name="blockidforRates" id="blockidforRates" required
-													onchange="this.form.submit()">
+													onchange="this.form.submit()" >
 
 													<%
-														//	System.out.println("***************************");
-														String blockidforRates = request.getParameter("blockidforRates");
-														//session.setAttribute("blockIDPass", b);
-														//String aa = RoomStatusDAO.getBlockNAmeByID(bb);
-														//	session.setAttribute("blockNAme", resultset.getString(3));
+														String y = request.getParameter("blockidforRates");
+														String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
+
+														String takenameofblockName = RoomRatesDAO.getBlockName(y);
+
+														session.setAttribute("Block_Name_Value", takenameofblockName);
+														//-----------------------------------------------------------------------------------------------------------------------
+
+														if (y != null) {
+													%>
+													<option value="" disabled selected><%=takenameofblockName%></option>
+
+
+													<%
+														} else if (RecieveBlock != null) {
+													%>
+													<option value="" disabled selected><%=RecieveBlock%></option>
+													<%
+														} else {
+													%>
+													<option value="" disabled selected>Select a Block</option>
+
+													<%
+														}
 													%>
 
-													<option value="" disabled selected>Select Block</option>
 
 													<%
-														//String a = RoomStatusDAO.getBlockNAmeByID(branchidforRates);
+														
 														String Q2 = "select * from block where block_location=?";
 														Connection c2 = DBConnection.getConnection();
-
 														PreparedStatement p2 = c2.prepareStatement(Q2);
-														p2.setString(1, branchidforRates);
+														p2.setString(1, x);
 														//System.out.println("block_location = branch code :" + branch);
 														r2 = p2.executeQuery();
 														while (r2.next()) {
@@ -214,8 +263,23 @@ div.a {
 													%>
 												</select>
 											</div>
+											
 										</div>
+<%
 
+
+//System.out.println("takenameofblockName: "+takenameofblockName); 
+//System.out.println("RecieveBlock: "+RecieveBlock); 
+int idBlock = RoomRatesDAO.getBlockID(takenameofblockName);
+//System.out.println("idBlock: "+idBlock); 
+session.setAttribute("Block_Name_For_Form",idBlock);
+ 
+
+											%>
+											</form>
+											
+											
+											<form action="" method="post">
 										<div class="row mt-1 mb-1">
 
 
@@ -225,49 +289,72 @@ div.a {
 												</p>
 
 											</div>
+											
 											<div class="col-65">
 												<select name="roomtypeforRates" id="roomtypeforRates"
-													required onchange="this.form.submit()">
+													required 	onchange="this.form.submit()">
 
 													<%
-														//System.out.println("***************************");
+															String z = request.getParameter("roomtypeforRates");
+												//	System.out.println("1 . Z :  "+z);
+														String RecieveRoomType = (String) session.getAttribute("Room_Name_Value");
+													//	System.out.println("2 . RecieveRoomType :  "+RecieveRoomType);
 
-														//String IDofblockroom = request.getParameter("roomno");
-														//	System.out.println("ID from session : "+IDofblockroom);
+														String takenameofRoomType = RoomRatesDAO.getRoomTypeName(z);
+													//	System.out.println("3 . takenameofRoomType :  "+takenameofRoomType);
 
-														String roomtypeforRates = request.getParameter("roomtypeforRates");
-														//System.out.println("roomtypeforRates : "+roomtypeforRates);
-														//session.setAttribute("blockIDPass", b);
-														//String aaa = RoomStatusDAO.getBlockNAmeByID(bbb);
-														//	session.setAttribute("blockNAme", resultset.getString(3));
+														session.setAttribute("Room_Name_Value", takenameofRoomType);
+														//System.out.println("4 . takenameofRoomType :  "+takenameofRoomType);
+														//System.out.println("z:" + z);
+														
+													//	System.out.println("takenameofRoomType:" + takenameofRoomType);
+													//	System.out.println("RecieveRoomType:" + RecieveRoomType);
+														//-------------------------------------------------------------------------------------------------------------------------------------
+
+														if (z != null) {
+															
+													%>
+													<option value="" disabled selected><%=takenameofRoomType%></option>
+	<%
+														} else if (RecieveRoomType != null) {
+															
+													%>
+													<option value="" disabled selected><%=RecieveRoomType%></option>
+													<%
+														} else {
+													%>
+													<option value="" disabled selected>Select a Room
+														Type</option>
+
+													<%
+														}
 													%>
 
-													<option value="" disabled selected>Select Room
-														Types</option>
+
 
 													<%
 														String Q3 = "SELECT distinct roomType FROM ceybank_rest.rooms where blockID=?";
 														Connection c3 = DBConnection.getConnection();
-
 														PreparedStatement p3 = c3.prepareStatement(Q3);
-														p3.setString(1, blockidforRates);
+														p3.setString(1, y);
 														//System.out.println("block_location = branch code :" + branch);
+															;
 														r3 = p3.executeQuery();
+														//
 														while (r3.next()) {
-															//String idofblockroom = r3.getString(4);
-															System.out.println("id while loop : " + r3.getString(1));
-															//session.setAttribute("roomno", r3.getString(4));
-
-															String Q4 = "SELECT distinct RoomTypeName FROM roomtypes where roomTypeId=?";
+															String Q4 = "SELECT * FROM roomtypes where roomTypeId=?";
+															//distinct RoomTypeName 
 															Connection c4 = DBConnection.getConnection();
 															PreparedStatement p4 = c4.prepareStatement(Q4);
 															p4.setString(1, r3.getString(1));
+															String bb = r3.getString(1);
+															
 															r4 = p4.executeQuery();
 															while (r4.next()) {
-																System.out.println("room name: " + r4.getString(1));
+																//System.out.println("room name: " + r4.getString(1));
 													%>
 
-													<option value=""><%=r4.getString(1)%></option>
+													<option value="<%=r4.getString(1)%>"><%=r4.getString(2)%></option>
 
 													<%
 														}
@@ -276,11 +363,61 @@ div.a {
 												</select>
 
 											</div>
-
-
+	
 
 										</div>
+										<%
 
+
+//System.out.println("takenameofRoomType: "+takenameofRoomType); 
+//System.out.println("RecieveRoomType: "+RecieveRoomType); 
+int idRoomType = RoomRatesDAO.getRoomTypeID(takenameofRoomType);
+//System.out.println("idRoomType: "+idRoomType);
+session.setAttribute("RoomType_Name_For_Form",idRoomType);
+%>
+</form>
+											
+										
+											
+										<form action="" method="post">	
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-25">
+												<p>
+													<b><b>Meal plan </b></b>
+												</p>
+
+											</div>
+											
+											<div class="col-65">
+												<select name="mealtypeforRates" id="mealtypeforRates"
+													required>
+	
+
+													<option value="" disabled selected>Select meal
+														type</option>
+
+													<option value="a">a</option>
+													<option value="b">b</option>
+													<option value="c">c</option>
+													<option value="d">d</option>
+
+													
+												</select>
+
+											</div>
+										
+
+										</div>
+	
+											<%
+										//	String mealtype = request.getParameter("mealtypeforRates");  
+										//	System.out.println("44444444444444444444444444444444 RecieveRoomType: "+mealtype); %>
+											
+
+</form>
+<form action="" method="post">
 										<div class="row mt-1 mb-1">
 
 
@@ -290,10 +427,22 @@ div.a {
 												</p>
 
 											</div>
+											
 											<div class="col-25">
-												<input type="text" name="Rate" id="Rate" value="" required>
+												<input type="text" style="text-align: center"
+										class="form-control" name="Rate" id="Rate"
+										required>
+
+												
 											</div>
+											
 										</div>
+										<%
+											//String rate = request.getParameter("rrate");  
+										//	System.out.println("555555555555555555555555555555 RecieveRoomType: "+rate); %>
+											</form>
+											
+											<form action="" method="post">
 										<div class="row mt-1 mb-1">
 
 
@@ -306,38 +455,50 @@ div.a {
 
 											<div class="col-25">
 
-												<input type="text" id="Rate" name="Rate" value=""
-													>
+												<input type="text" id="Discount" name="Discount" value="">
 											</div>
+										
 
 											<div class="col-25">
 												<label onclick="javascript:yesnoCheck();"> <input
-													type="radio" name="options" id="Amount" 
-													value="<%   String assignRate_Amount=request.getParameter("Rate");
-												System.out.println("rate = "+assignRate_Amount);%>">
+													type="radio" name="options" id="Amount"
+													value="<%String assignRate_Amount = request.getParameter("Rate");
+			//System.out.println("rate = "+assignRate_Amount);%>">
 													Amount
 												</label>
 											</div>
 
 											<div class="col-25">
 												<label onclick="javascript:yesnoCheck();"> <input
-													type="radio" name="options" id="Percentage" value="<%  
-													String assignRate_Percentage=request.getParameter("Rate");
-												System.out.println("rate = "+assignRate_Percentage);%>">
+													type="radio" name="options" id="Percentage"
+													value="<%String assignRate_Percentage = request.getParameter("Rate");
+			//System.out.println("rate = "+assignRate_Percentage);%>">
 													Percentage
 												</label>
 
+										
 											</div>
+	</div>
+											<%
+												String discount = request.getParameter("Discount");  
+											//System.out.println("66666666666666666666666666666 RecieveRoomType: "+discount); %>
+											</form>
 											
-						<div class="row mt-1 mb-1" style="float: right">
-						
+											
+<form action="RoomRatesAddServlet" method="post">
 
-							<input type="reset" value="Clear" style="margin-right: 16px;">
-							<input type="submit" style="float: left; margin-right: 250px;" value="Next">
-					
-</div>
+
+											<div class="row mt-1 mb-1" style="float: right">
+
+												<div class="row center">
+
+													<input type="submit"
+														style="float: right; margin-right: 250px;" value="Add">
+												</div>
+											</div>
+											</form>
 										</div>
-									</form>
+									
 
 								</div>
 							</div>
@@ -355,25 +516,11 @@ div.a {
 			</div>
 		</div>
 
-	</div>
+	
 
 	<!-- /#page-content-wrapper -->
 
-
-
-	<footer class="footer"
-		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
-		<div class="container-fluid">
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
-				<li class="nav-link" style="text-color: #fff; text-align: center"><font
-					color="#fffff">Developed By BOC IT Unit</font></li>
-			</ul>
-
-		</div>
-	</footer>
-
+<jsp:include page="Footer.jsp"></jsp:include>
 
 
 	<script src="vendor/jquery/jquery.min.js"></script>
@@ -385,18 +532,13 @@ div.a {
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
 		});
-
 		$(document).ready(function() {
-
 			$('#sidebarCollapse').on('click', function() {
 				$('#sidebar').toggleClass('active');
 			});
-
 		});
-
 		var dropdown = document.getElementsByClassName("dropdown-btn");
 		var i;
-
 		for (i = 0; i < dropdown.length; i++) {
 			dropdown[i].addEventListener("click", function() {
 				this.classList.toggle("active");
@@ -408,7 +550,6 @@ div.a {
 				}
 			});
 		}
-
 		window.history.forward();
 		function noBack() {
 			window.history.forward();

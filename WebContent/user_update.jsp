@@ -86,6 +86,7 @@
 		<div class=container-fluid>
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
+				
 				<%
 					if (e.getStatus() == null) {
 
@@ -94,14 +95,27 @@
 					} else {
 				%>
 
-
 				<div class="container">
+				
+				<div class="container mt-5 mb-5">
+
+					<!-- body start -->
+
+					<div class="container mt-3 a">
+
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">User Update Page</h4>
+							</div>
+							<div class="card-body" style="left: 30%">
 
 					<form method="POST" action="EditServlet2" method="post">
 
 
 
-						<h3>User update Page</h3>
+						
 
 						<%
 							if (e.getStatus() == null) {
@@ -126,7 +140,7 @@
 							</div>
 
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="empno" readonly
 									value="<%=e.getEmployeeNo()%>" required>
 							</div>
@@ -140,7 +154,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="fname" value="<%=e.getFirstName()%>"
 									required>
 							</div>
@@ -154,7 +168,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="lname" value="<%=e.getLastName()%>"
 									required>
 							</div>
@@ -169,24 +183,23 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="nic" value="<%=e.getNIC()%>"
 									pattern=".{10,12}">
 							</div>
 						</div>
 
 
-						<br> <br>
-
+						<br> 
 
 						<div class="row">
 
 							<div class="col-25">
-								<p>Phone & Mobile</p>
+								<p>Phone And Mobile</p>
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="phone" value="<%=e.getPhoneNo()%>"
 									pattern=".{8,10}" style='width: 49.5%' required> <input
 									type="text" pattern=".{8,10}" style='width: 49.5%'
@@ -202,7 +215,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="email" name="email" value="<%=e.getEmail()%>">
 							</div>
 						</div>
@@ -216,12 +229,12 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="address" value="<%=e.getAddress()%>">
 							</div>
 						</div>
 
-						<br> <br>
+						<br> 
 
 
 
@@ -233,7 +246,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<input type="text" name="uname" readonly
 									value="<%=e.getUsername()%>" required data-container="body"
 									data-toggle="popover" data-placement="top" data-trigger="hover"
@@ -251,7 +264,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 							<%
 										Roles.Role z = EmpDao.getRIdByName(e.getRole());
 							System.out.println("z.getRole() : "+z.getRole());
@@ -282,7 +295,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 							<%
 										Branches.Branch b = EmpDao.getBIdByName(e.getBranch());
 									%>
@@ -311,7 +324,7 @@
 
 							</div>
 
-							<div class="col-75">
+							<div class="col-65">
 								<%
 									if (e.getStatus().equals("Deactive")) {
 								%>
@@ -335,7 +348,7 @@
 
 
 
-						<br> <br>
+						<br>
 
 						<div class="row">
 
@@ -344,7 +357,7 @@
 
 							</div>
 
-							<div class="col-75" style="float: right">
+							<div class="col-65" style="float: right">
 
 								<button type="submit" style='float: right; margin-left: 15px'
 									class="btn btn-primary" name="edit" value="Edit & Save">
@@ -456,7 +469,9 @@
 					}
 				%>
 
-
+</div>
+</div></div>
+</div>
 			</div>
 
 		</div>
@@ -464,20 +479,7 @@
 	</div>
 	<!-- /#page-content-wrapper -->
 
-
-	<footer class="footer"
-		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
-		<div class="container-fluid">
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
-				<li class="nav-link" style="text-color: #fff; text-align: center"><font
-					color="#fffff">Developed By BOC IT Unit</font></li>
-			</ul>
-
-		</div>
-	</footer>
-
+<jsp:include page="Footer.jsp"></jsp:include>
 
 
 	<script src="vendor/jquery/jquery.min.js"></script>

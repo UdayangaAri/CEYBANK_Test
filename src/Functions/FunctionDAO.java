@@ -1,4 +1,4 @@
-package access;
+package Functions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,24 @@ import connections.DBConnection;
 
 public class FunctionDAO {
 	
-	 
+	 public static int save(Functions e){  
+	        int status=0;  
+	        try{  
+	            Connection con = DBConnection.getConnection();
+	            PreparedStatement ps=con.prepareStatement(  
+	                         "insert into functions(mainFunction,subFunction) values (?,?)");  
+	            
+	            ps.setString(1,e.getMainFunction()); 
+	            ps.setString(2,e.getSubFunction()); 
+	           
+	            
+	            status=ps.executeUpdate();  
+	            
+	            con.close();  
+	        }catch(Exception ex){ex.printStackTrace();}  
+	          
+	        return status;  
+	    }   
 	
 
 	
