@@ -26,7 +26,6 @@
 
 <%
 
-
 	ResultSet resultset = null;
 	ResultSet rs = null;
 	
