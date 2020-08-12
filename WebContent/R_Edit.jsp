@@ -103,7 +103,8 @@
 
 							<div class="col-75">
 								<input type="text" name="desc" id="desc"
-									value="<%=e.getRoleDesc()%>" onchange="myFunction()"> <input
+									value="<%=e.getRoleDesc()%>" onchange="myFunction()"> 
+									<input
 									type="hidden" name="passingValue" id="passingValue">
 							</div>
 						</div>
