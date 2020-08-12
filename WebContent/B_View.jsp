@@ -15,8 +15,6 @@
 	ResultSet rs = null;
 %>
 
-
-
 <head>
 
 <!-- #9999ff -->
@@ -25,11 +23,10 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +36,6 @@
 <title>View Branches</title>
 
 </head>
-
 
 <body onload="startTime()">
 
@@ -245,19 +241,7 @@
 	</div>
 	<!-- /#page-content-wrapper -->
 
-	<footer class="footer"
-		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
-		<div class="container-fluid">
-
-			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-
-				<li class="nav-link" style="text-color: #fff; text-align: center"><font
-					color="#fffff">Developed By BOC IT Unit</font></li>
-			</ul>
-
-		</div>
-	</footer>
-
+	<jsp:include page="Footer.jsp"></jsp:include>
 
 
 
@@ -294,8 +278,9 @@
 				}
 			});
 		}
-		
+
 		window.history.forward();
+
         function noBack()
         {
             window.history.forward();
@@ -306,6 +291,11 @@
 				$(this).remove();
 			});
 		}, 2000);
+
+		function noBack() {
+			window.history.forward();
+		}
+
 	</script>
 
 

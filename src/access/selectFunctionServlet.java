@@ -2,8 +2,7 @@ package access;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import block_Register.block;
-import block_Register.blockDAO;
-import login.LoginDao;
+import Functions.FunctionDAO;
+import Functions.*;
+
+
 
 @WebServlet("/selectFunctionServlet")
 public class selectFunctionServlet extends HttpServlet {
@@ -78,7 +78,8 @@ public class selectFunctionServlet extends HttpServlet {
 		      
 			  
 		    if(status<0){  
-		    	 int b = FunctionDAO.getAllFunctionIDs(ff);
+		    
+		    	 int b= FunctionDAO.getAllFunctionIDs(ff);
 	    		out.print("<div class='alert alert-success' role='alert'>" + "Sorry! unable to save record" +"</div>"); 
 	    		 session.setAttribute("error", "failed Message");
 	    		 

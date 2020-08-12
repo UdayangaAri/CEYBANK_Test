@@ -40,29 +40,32 @@ public class ReservationSaveServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		String blockName = request.getParameter("blockID");
-		String roomNo = request.getParameter("RoomNo");
-		String roomName = request.getParameter("Roomname");
-		String roomType = request.getParameter("RoomType");
+		String guestName = request.getParameter("guestName");
+		String guestNic = request.getParameter("guestNic");
+		String guestEmail = request.getParameter("guestEmail");
+		String guestPhone = request.getParameter("guestPhone");
+		
+		String guestBlock = request.getParameter("guestBlock");
+		String guestRoom = request.getParameter("guestRoom");
+		String guestMeal = request.getParameter("guestMeal");
 		String checkIn = request.getParameter("checkin");
 		String checkOut = request.getParameter("checkout");
-		
-		System.out.println("checkIn ::: "+checkIn);
-		System.out.println("checkOut ::: "+checkOut);
-		
-		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		String inputString1 = "23 01 1997";
-//		String inputString2 = "27 04 1997";
+		String guestPrice = request.getParameter("guestPrice");
 
-		try {
-		    Date date1 = myFormat.parse(checkIn);
-		    Date date2 = myFormat.parse(checkOut);
-		    long diff = date2.getTime() - date1.getTime();
-		    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-		} catch (java.text.ParseException e) {
-		    e.printStackTrace();
-		}
-//		
+		
+//		System.out.println("guestName ::: "+ guestName);
+//		System.out.println("guestNic ::: "+ guestNic);
+//		System.out.println("guestEmail ::: "+ guestEmail);
+//		System.out.println("guestPhone ::: "+ guestPhone);
+//		System.out.println("guestBlock ::: "+ guestBlock);
+//		System.out.println("guestRoom ::: "+ guestRoom);
+//		System.out.println("guestMeal ::: "+ guestMeal);
+//		System.out.println("checkIn ::: "+ checkIn);
+//		System.out.println("checkOut ::: "+ checkOut);
+//		System.out.println("guestPrice ::: "+ guestPrice);
+		
+		
+		
 //		//int i=Integer.parseInt(roomType);  
 //
 //		block_Register.block e = blockDAO.getBlocksById(blockName);

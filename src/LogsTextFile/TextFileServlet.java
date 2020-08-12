@@ -32,12 +32,20 @@ public class TextFileServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		doGet(request, response);
+
 		//System.out.println("dddddddddddddddd");
+
+		System.out.println("dddddddddddddddd");
+
 
 		response.setContentType("text/plain");
 		response.setHeader("Content-Disposition", "attachment; filename=\"Logs Details.txt\"");
 
+
 		//System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
+		System.out.println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+
 
 		try {
 			OutputStream outputStream = response.getOutputStream();

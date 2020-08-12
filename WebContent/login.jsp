@@ -17,6 +17,7 @@
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/login.css">
 
+
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,7 +44,7 @@
 
 
 
-			<div class="card my-5 py-5"
+			<div class="card my-1 py-5"
 				style="max-width: 800px; align: center; left: 15%; border-top: none; border-left: none; border-right: none;">
 
 
@@ -82,8 +83,7 @@
 
 
 						<div class="card-body">
-							<h5 style="text-align: center">Login</h5>
-							<br>
+							<br><br>
 							<form action="Login" method="post">
 								<div class="form-group">
 
