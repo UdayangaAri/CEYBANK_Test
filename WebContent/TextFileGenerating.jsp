@@ -26,12 +26,8 @@
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
-
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 
 
@@ -39,7 +35,6 @@
 
 
 <meta charset="utf-8">
-
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -54,13 +49,6 @@
 	padding: 20px;
 }
 </style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>Roles Access Page</title>
-
 
 </head>
 
@@ -79,16 +67,9 @@
 			resultset = statement.executeQuery("select * from role");
 			rs = st.executeQuery("select * from branches");
 
-
 		}
 
 		catch (Exception e) {
-
-			
-		}
-	
-	catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	%>
@@ -96,17 +77,10 @@
 
 	<div class="d-flex" id="sidebar-wrapper">
 
-
 		<!-- Side-bar -->
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
 		<!-- /#side-bar-wrapper -->
-
-		<!-- Sidebar -->
-
-		<jsp:include page="_sidebar.jsp"></jsp:include>
-		<!-- /#sidebar-wrapper -->
-
 
 		<!-- Page Content -->
 		<div class=container-fluid>
@@ -114,7 +88,6 @@
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
-
 					<div class="container mt-5 mb-5">
 
 						<!-- body start -->
@@ -154,60 +127,10 @@
 		</div>
 
 
-				<div class="container mt-5 mb-5">
-
-					<!-- body start -->
-
-					<div class="container mt-3 a">
-
-						<div class="card shadow mb-4">
-
-							<div class="card-header py-3">
-
-								<h4 class="m-0 font-weight-bold text-primary">Select Role</h4>
-							</div>
-							<div class="card-body" style="left: 30%">
-				
-						
-<form  class="forms" action="TextFileServlet" method="post">
-					
-
-
-
-				
-				<div class="container mt-5 a">
-
-						<div class="card shadow mb-4">
-
-							<div class="card-header py-3">
-
-								<h4 class="m-0 font-weight-bold text-primary">Download</h4>
-							</div>
-							<div class="card-body" style="left: 30%">
-							<input type="submit" style="float: left; margin-right: 250px;" value="Download">
-				</div>
-				</div></div>
-				</form>
-	
-				</div>
-				</div>
-				</div>
-				
-				
-				</div>
-				</div>
-				</div>
-				</div>
-
-
 	</div>
 	<!-- /#page-content-wrapper -->
 
-
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-<jsp:include page="Footer.jsp"></jsp:include>
-
 
 
 

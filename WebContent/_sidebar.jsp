@@ -122,7 +122,6 @@
 
 			<ul class="collapse list-unstyled" id="pageSubmenu">
 
-
 				<%
 					for (RoleFunction e : list) {
 						int i = Integer.parseInt(e.getFunctionID());
@@ -212,87 +211,6 @@
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 				<img src="images/uses.png" alt="" border=3 height=27 width=27
 				style="float: left; margin-right: 0.5em"> User Management
-
-			
-			<% 
-for (RoleFunction e : list) {
-int i = Integer.parseInt(e.getFunctionID()); 
-//System.out.println("i value : "+i);
- //if(i == 5 || i == 6){
-	 if(i == 6){%>	
- 
-				<li >
-				<a href="block_view.jsp" style="color: #fafafa; background-color: transparent;">
-				Block Management
-				</a>
-				</li>
-
-<%}}%>
-	
-<% 
-for (RoleFunction e : list) {
-int i = Integer.parseInt(e.getFunctionID()); 
-//System.out.println("i value : "+i);
- //if(i == 5 || i == 6){
-	 if(i == 5){%>	
-				<li >
-				<a href="room_view.jsp" style="color: #fafafa; background-color: transparent;">
-				Room Management
-				</a>
-				</li>
-<%}}%>
-
-<% 
-for (RoleFunction e : list) {
-int i = Integer.parseInt(e.getFunctionID()); 
-//System.out.println("i value : "+i);
- //if(i == 5 || i == 6){
-	 if(i == 16){%>	
-				<li >
-				<a href="Room_Status_Management.jsp" style="color: #fafafa; background-color: transparent;">
-				Room Status Management
-				</a>
-				</li>
-<%}}%>
-<% 
-for (RoleFunction e : list) {
-int i = Integer.parseInt(e.getFunctionID()); 
-//System.out.println("i value : "+i);
- //if(i == 5 || i == 6){
-	 if(i == 15){%>	
-				<li >
-				<a href="RoomRatesManagement.jsp" style="color: #fafafa; background-color: transparent;">
-				Room Rates Management
-				</a>
-				</li>
-<%}}%>
-
-
-
-			</ul>
-			</li>
-			
-
-
-<% 
-for (RoleFunction e : list) {
-int i = Integer.parseInt(e.getFunctionID()); 
-//System.out.println("i value : "+i);
- if(i == 7){%>	
-		<li >
-		<a href="TextFileGenerating.jsp" style="color: #fafafa; background-color: transparent;">
-		<img src="images/report.png" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em">
-		Reports
-		</a>
-		</li>
-<%}}%>
-	
-
-		<li>
-		<a href="#pageSubmenu1" style="color: #fafafa; background-color: transparent;" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-		<img src="images/uses.png" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em"> 
-		User Management
-
 		</a>
 			<ul class="collapse list-unstyled" id="pageSubmenu1">
 
@@ -402,7 +320,6 @@ int i = Integer.parseInt(e.getFunctionID());
 	</ul>
 
 </nav>
-
 
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -602,8 +519,6 @@ int i = Integer.parseInt(e.getFunctionID());
 
 
 </div>
-
-
 
 
 <script>
