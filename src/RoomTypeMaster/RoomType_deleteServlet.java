@@ -32,14 +32,13 @@ public class RoomType_deleteServlet extends HttpServlet {
 
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
+		
 		HttpSession session = request.getSession();
-
 
 		int i=Integer.parseInt(sid); 
 		
 		Room_type x = roomTypeDAO.getRoomTypeById(i);
 		 
-
 		String name = (String) request.getSession(false).getAttribute("empno");
 		String e_status = "Deleted";
 		String edited_unit = "Room Types";
@@ -61,19 +60,23 @@ public class RoomType_deleteServlet extends HttpServlet {
 		if(st>0){  
         	int logs = LogDAO.InsertLog(log);
         
-        
-        if(logs>0){  
-            
-        	session.setAttribute("error_Message", "error_Message");
-        	
-    		response.sendRedirect("RoomTypeMasterView.jsp");
-            
-        }
-        }
-   	 	else
-        {
-            out.println("Sorry! unable to update record");  
-        }  
+        	if (logs > 0) {
+
+				session.setAttribute("delete_succeed_Message", "delete_succeed_Message");
+				response.sendRedirect("RoomTypeMasterView.jsp");
+
+			} else {
+
+				session.setAttribute("delete_failed_Message", "delete_failed_Message");
+				response.sendRedirect("RoomTypeMasterView.jsp");
+
+			}
+		} else {
+
+			session.setAttribute("delete_failed_Message", "delete_failed_Message");
+			response.sendRedirect("RoomTypeMasterView.jsp");
+
+		}
 		
 		
 	}

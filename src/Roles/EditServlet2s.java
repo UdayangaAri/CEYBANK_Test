@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Log.Log;
 import Log.LogDAO;
@@ -36,7 +37,7 @@ public class EditServlet2s extends HttpServlet {
 		response.setContentType("text/html");  
         PrintWriter out=response.getWriter();  
         
-        
+        HttpSession session = request.getSession();
           
         String sid=request.getParameter("id");  
         int id=Integer.parseInt(sid);  
@@ -73,22 +74,22 @@ public class EditServlet2s extends HttpServlet {
         if(status>0){  
         	int logs = LogDAO.InsertLog(log);
         	
-        	 if(logs>0){  
-     
-        		 out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" +"</div>");
-                 response.sendRedirect("R_View.jsp"); 
-                 
-             }
-        	 else
-             {
-                 out.println("Sorry! unable to update record");  
-             }  
-        	
-        }
-        else
-        {  
-            out.println("Sorry! unable to update record");  
-        }  
+        	if (logs > 0) {
+
+				session.setAttribute("roleEditMessage", "roleEditMessage");
+				response.sendRedirect("R_View.jsp");
+
+			} else {
+
+				session.setAttribute("roleEditFailed", "roleEditFailed");
+				response.sendRedirect("R_View.jsp");
+			}
+
+		} else {
+			
+			session.setAttribute("roleEditFailed", "roleEditFailed");
+			response.sendRedirect("R_View.jsp");
+		}
           
         out.close();  
 	}

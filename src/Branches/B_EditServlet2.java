@@ -67,6 +67,7 @@ public class B_EditServlet2 extends HttpServlet {
 			String name1 = (String) request.getSession(false).getAttribute("empno");
 
 			Branch e = new Branch();
+
 			e.setId(id);
 			e.setName(name);
 			e.setDisplayName(dname);
@@ -90,16 +91,19 @@ public class B_EditServlet2 extends HttpServlet {
 				int logs = LogDAO.InsertLog(log);
 
 				if (logs > 0) {
-
-					session.setAttribute("branchEditError", "branchEditError");
+					session.setAttribute("branchActivateMessage", "branchActivateMessage");
 					response.sendRedirect("B_View.jsp");
 
 				} else {
-					out.println("Sorry! unable to update record");
+
+					session.setAttribute("branchActivateFailed", "branchActivateFailed");
+					response.sendRedirect("B_View.jsp");
 				}
 
 			} else {
-				out.println("Sorry! unable to update record");
+
+				session.setAttribute("branchActivateFailed", "branchActivateFailed");
+				response.sendRedirect("B_View.jsp");
 			}
 
 		}
@@ -133,39 +137,41 @@ public class B_EditServlet2 extends HttpServlet {
 
 				if (logs > 0) {
 
+					session.setAttribute("branchDeactivateMessage", "branchDeactivateMessage");
 					response.sendRedirect("B_View.jsp");
 
 				} else {
-					out.println("Sorry! unable to update record");
+
+					session.setAttribute("branchDeactivateFailed", "branchDeactivateFailed");
+					response.sendRedirect("B_View.jsp");
 				}
 
 			} else {
-				out.println("Sorry! unable to update record");
+
+				session.setAttribute("branchDeactivateFailed", "branchDeactivateFailed");
+				response.sendRedirect("B_View.jsp");
 			}
 
 		} else if (request.getParameter("Activate") != null) {
 
 			Branch e = new Branch();
-			
+
 			Branch x = BranchDao.getBranchById(sid);
 
 			String previousData = "Branch Id : " + x.getName();
 			String e_status = "Activated";
 			String edited_unit = "Branches";
 			String name1 = (String) request.getSession(false).getAttribute("empno");
-			
 
 			e.setId(id);
 			e.setStatus(AStatus);
-			
+
 			Log log = new Log();
 
 			log.setPrevious_data(previousData);
 			log.setEdited_by(name1);
 			log.setEdit_status(e_status);
 			log.setEdited_unit(edited_unit);
-			
-			
 
 			int status = BranchDao.deactivate(e);
 
@@ -174,15 +180,19 @@ public class B_EditServlet2 extends HttpServlet {
 				int logs = LogDAO.InsertLog(log);
 
 				if (logs > 0) {
-
+					session.setAttribute("branchActivateMessage", "branchActivateMessage");
 					response.sendRedirect("B_View.jsp");
 
 				} else {
-					out.println("Sorry! unable to update record");
+					
+					session.setAttribute("branchActivateFailed", "branchActivateFailed");
+					response.sendRedirect("B_View.jsp");
 				}
 
 			} else {
-				out.println("Sorry! unable to update record");
+				
+				session.setAttribute("branchActivateFailed", "branchActivateFailed");
+				response.sendRedirect("B_View.jsp");
 			}
 
 		}

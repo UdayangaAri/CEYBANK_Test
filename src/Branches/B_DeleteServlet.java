@@ -58,12 +58,16 @@ public class B_DeleteServlet extends HttpServlet {
 
 			if (logs > 0) {
 
-				session.setAttribute("errorMessage", "errorMessage");
+				session.setAttribute("branchDeleteMessage", "branchDeleteMessage");
+				response.sendRedirect("B_View.jsp");
+
+			}else {
+				session.setAttribute("branchDeleteFailed", "branchDeleteFailed");
 				response.sendRedirect("B_View.jsp");
 
 			}
 		} else {
-			session.setAttribute("CannotDeleteAlert", "CannotDeleteAlert");
+			session.setAttribute("branchDeleteFailed", "branchDeleteFailed");
 			response.sendRedirect("B_View.jsp");
 
 		}

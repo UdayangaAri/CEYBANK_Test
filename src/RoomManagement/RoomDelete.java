@@ -56,12 +56,17 @@ public class RoomDelete extends HttpServlet {
 
 			if (logs > 0) {
 
-				session.setAttribute("RoomViewAlt", "deleteMessageRMs");
+				session.setAttribute("RMDeleteMessage", "RMDeleteMessage");
 				response.sendRedirect("room_view.jsp");
 
+			}else {
+				
+				session.setAttribute("RMDeleteFailed", "RMDeleteFailed");
+				response.sendRedirect("room_view.jsp");
 			}
 		} else {
-			session.setAttribute("CannotDeleteAlertRM", "CannotDeleteAlertRM");
+			
+			session.setAttribute("RMDeleteFailed", "RMDeleteFailed");
 			response.sendRedirect("room_view.jsp");
 
 		}

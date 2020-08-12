@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Log.Log;
 import Log.LogDAO;
@@ -26,7 +27,9 @@ public class DeleteServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		 PrintWriter out=response.getWriter();  
+		PrintWriter out=response.getWriter();
+		
+		HttpSession session = request.getSession();
 		 
 		String sid=request.getParameter("id");  
         int id=Integer.parseInt(sid);  
@@ -55,18 +58,21 @@ public class DeleteServlet extends HttpServlet {
         	int logs = LogDAO.InsertLog(log);
         
         
-        if(logs>0){  
-            
-        	  out.print("<div class='alert alert-danger' role='alert'>" + "Record Deleted successfully!" +"</div>");  
-              response.sendRedirect("R_View.jsp");  
-      	
-            
-        }
-        }
-   	 	else
-        {
-            out.println("Sorry! unable to update record");  
-        }  
+        	if (logs > 0) {
+
+				session.setAttribute("roleDeleteMessage", "roleDeleteMessage");
+				response.sendRedirect("R_View.jsp");
+
+			} else {
+				
+				session.setAttribute("roleDeleteFailed", "roleDeleteFailed");
+				response.sendRedirect("R_View.jsp");
+			}
+		} else {
+			
+			session.setAttribute("roleDeleteFailed", "roleDeleteFailed");
+			response.sendRedirect("R_View.jsp");
+		}
    	
 	}
 
