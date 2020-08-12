@@ -16,7 +16,7 @@
 	ResultSet resultset = null;
 	ResultSet rs = null;
 %>
-
+ 
 <head>
 
 <!-- #9999ff -->
@@ -72,6 +72,7 @@
 
 							<div class="col-25">
 								<p>Role Id</p>
+
 
 							</div>
 
