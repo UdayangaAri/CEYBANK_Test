@@ -25,9 +25,7 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
