@@ -47,7 +47,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Home</title>
+
+<title>Reservation Room Details</title>
 
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -82,84 +83,53 @@
 	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
 
+
 <style>
-* {
-	box-sizing: border-box;
-}
-
-#regForm {
-	background-color: #ffffff;
-	margin: 100px auto;
-	font-family: Raleway;
-	padding: 40px;
-	width: 70%;
-	min-width: 300px;
-}
-
-h1 {
-	text-align: center;
-}
-
-input {
-	padding: 10px;
-	width: 100%;
-	font-size: 17px;
-	font-family: Raleway;
-	border: 1px solid #aaaaaa;
-}
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-	background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-.tab {
-	display: none;
-}
-
-button {
-	background-color: #4CAF50;
-	color: #ffffff;
-	border: none;
-	padding: 10px 20px;
-	font-size: 17px;
-	font-family: Raleway;
-	cursor: pointer;
-}
-
-button:hover {
-	opacity: 0.8;
-}
-
-#prevBtn {
-	background-color: #bbbbbb;
-}
-
-/* Make circles that indicate the steps of the form: */
-.step {
-	height: 15px;
-	width: 15px;
-	margin: 0 2px;
-	background-color: #bbbbbb;
-	border: none;
-	border-radius: 50%;
+a {
+	text-decoration: none;
 	display: inline-block;
-	opacity: 0.5;
+	padding: 8px 16px;
 }
 
-.step.active {
-	opacity: 1;
+a:hover {
+	background-color: #ddd;
+	color: black;
 }
 
-/* Mark the steps that are finished and valid: */
-.step.finish {
+.previous {
+	background-color: #f1f1f1;
+	color: black;
+}
+
+.next {
 	background-color: #4CAF50;
+	color: white;
+}
+
+.round {
+	border-radius: 50%;
+}
+
+div.c {
+	text-align: right;
+}
+
+div.a {
+	width: 80%;
+}
+
+.center {
+	margin: auto;
+	width: 30%;
+	padding: 20px;
+}
 }
 </style>
-</head>
-<body>
 
+</head>
+
+
+<body>
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -170,119 +140,40 @@ button:hover {
 
 		<!-- Page Content -->
 		<div class=container-fluid>
+
 			<div id="content">
+
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
 
-					<!-- One "tab" for each step in the form: -->
+					<div class="container mt-5 mb-5">
 
+						<!-- body start -->
 
-<form action="" method="post">
+						<div class="container mt-3 a">
 
+							<div class="card shadow mb-4">
 
-						<br> <br> Guest Details <br> <br>
+								<div class="card-header py-3">
 
-
-						
-
-							<div class="row">
-
-								<div class="col-20">
-									<p>Name</p>
-
+									<h4 class="m-0 font-weight-bold text-primary">Reservation</h4>
 								</div>
-
-								<div class="col-75">
-
-									<input type="text" name="nameres" value="" placeholder="Name">
-								</div>
-
-							</div>
-
-
-							<div class="row">
-
-								<div class="col-20">
-									<p>NIC Number</p>
-
-								</div>
-
-								<div class="col-75">
-
-									<input type="text" name="nicres" value="" placeholder="NIC">
-								</div>
-
-
-							</div>
-
-							<div class="row">
-
-								<div class="col-20">
-									<p>Mobile Number</p>
-
-								</div>
-
-
-
-								<div class="col-75">
-
-									<input type="text" name="mobileres" value=""
-										placeholder="Mobile">
-								</div>
-
-
-							</div>
-
-							<div class="row">
-
-								<div class="col-20">
-									<p>Email Address</p>
-
-								</div>
-
-								<div class="col-75">
-
-
-									<input type="email" name="emailres" value=""
-										placeholder="Email">
-								</div>
-
-							</div>
-
-							<div class="row">
-
-								<div class="col-20">
-									<p>Guest Type</p>
-
-								</div>
-
 								
-							<div class="col-65">
-								<div style="float: left;">
+								<div class="card-body" style="left: 30%">
 
-									<label onclick="javascript:yesnoCheck();"> <input
-										type="radio" name="options" id="noCheck" value="Public">Public
-									</label> <label onclick="javascript:yesnoCheck();"> <input
-										type="radio" name="options" id="yesCheck" checked
-										value="BOC Staff">BOC Staff
-									</label> <br>
-								</div>
-
-								<div class="col-40" style="float: right;" id="ifYes"
-									style="visibility: hidden">
-									<input type="text" id="yes" name="pfnovalue" value="pfnovalue"
-										placeholder="PF Number">
-								</div>
-							</div>
-							
-							</div>
-					
-	<br> <br> Booking Details <br> <br>
+<!--------------------------------------------->
+<!--------------------------------------------->
+<!--------------------------------------------->
+<!--------------------------------------------->
+<!--------------------------------------------->
 
 
-									
-									<div class="row">
+
+								<form action="ReservationSendServlet" class="forms" method="post">
+
+
+<div class="row">
 
 										<div class="col-25" style="text-align: left">
 											<p>
@@ -299,7 +190,7 @@ button:hover {
 
 												String checkin = (String) session.getAttribute("checkin");
 
-												System.out.println("checkin ::: " + checkin);
+												//System.out.println("checkin ::: " + checkin);
 											%>
 											<input type='date' value="<%=checkin%>" name="checkin"
 												class="form-control" onchange="this.form.submit();" /> <span
@@ -324,7 +215,7 @@ button:hover {
 
 												String checkout = (String) session.getAttribute("checkout");
 
-												System.out.println("checkout ::: " + checkout);
+												//System.out.println("checkout ::: " + checkout);
 											%>
 
 											<input type='date' value="<%=checkout%>" name="checkout"
@@ -337,23 +228,7 @@ button:hover {
 
 									</div>
 
-								
 
-									<%
-										try {
-
-											Connection con = DBConnection.getConnection();
-											//System.out.println("Printing connection object " + con);
-
-											Statement statement = con.createStatement();
-											Statement st = con.createStatement();
-
-											rx = statement.executeQuery("select * from block");
-
-										} catch (Exception e) {
-											e.printStackTrace();
-										}
-									%>
 
 
 									<div class="row">
@@ -370,17 +245,17 @@ button:hover {
 												onchange="this.form.submit();">
 												<%
 													String x = request.getParameter("block_in_r");
+													session.setAttribute("Block_Name_Value", x);
+
 													String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
 
 													block z = blockDAO.getBlocksByUserIdForRSM(x);
 
 													block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock);
 
-													session.setAttribute("Block_Name_Value", x);
-
 													if (x != null) {
 
-														//System.out.println("RecieveBlock ::: " + RecieveBlock);
+														System.out.println("RecieveBlock ::: " + RecieveBlock);
 												%>
 
 												<option value="" disabled selected><%=z.getBlock_name()%></option>
@@ -425,6 +300,13 @@ button:hover {
 										</div>
 									</div>
 
+</form>
+
+
+
+								<form action="ReservationSaveServlet" class="forms"
+									method="post">
+
 
 									<div class="row">
 
@@ -436,36 +318,15 @@ button:hover {
 										</div>
 
 										<div class="col-75">
-											<select name="room_in_r" id="room_in_r"
-												onchange="this.form.submit();">
+											<select name="room_in_r" id="room_in_r">
 
 												<%
-													String rname = request.getParameter("room_in_r");
-													session.setAttribute("Room_Name_Value", rname);
-
 													String roomGuest = (String) session.getAttribute("roomGuest");
 
-													String room1 = (String) session.getAttribute("Room_Name_Value");
-
 													String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
-
-													Room rm = RoomDao.getRoomById(room1);
-
-													if (rname != null) {
 												%>
-												<option value="" disabled selected><%=rm.getRoomName()%></option>
 
-
-												<%
-													}
-
-													else {
-												%>
 												<option value="" disabled selected>Select a Room</option>
-
-												<%
-													}
-												%>
 
 												<%
 													try {
@@ -491,6 +352,15 @@ button:hover {
 										</div>
 									</div>
 
+									<input type="hidden" name="checkinNxt" value="<%=checkin%>">
+									<input type="hidden" name="checkoutNxt" value="<%=checkout%>">
+									<input type="hidden" name="BlockNxt" value="<%=RecieveBlock%>">
+
+									<%
+										System.out.println("checkin ::: " + checkin);
+										System.out.println("checkout ::: " + checkout);
+									%>
+
 									<div class="row">
 
 										<div class="col-25" style="text-align: left">
@@ -501,7 +371,7 @@ button:hover {
 										</div>
 
 										<div class="col-75">
-											<select>
+											<select name="MealTypeNxt" required>
 
 												<option value="bb">Bead and Breakfast</option>
 												<option value="hb">Half board</option>
@@ -513,7 +383,7 @@ button:hover {
 									</div>
 
 
-	<div class="row">
+									<div class="row">
 
 										<div class="col-25" style="text-align: left">
 											<p>
@@ -578,94 +448,210 @@ button:hover {
 											}
 										%>
 
-
 									</div>
+									
+
+<!--------------------------------------------->
+<!--------------------------------------------->
+<!--------------------------------------------->
+<!--------------------------------------------->
+<!--------------------------------------------->
+
+									
+
+										<div class="row">
+
+											<div class="col-20">
+												<p>Name</p>
+
+											</div>
+
+											<div class="col-65 ml-3">
+
+												<input type="text" name="nameres" value=""
+													placeholder="Name" required>
+											</div>
+
+										</div>
+
+
+										<div class="row">
+
+											<div class="col-20">
+												<p>NIC Number</p>
+
+											</div>
+
+											<div class="col-65 ml-3">
+
+												<input type="text" name="nicres" value="" 
+												required placeholder="NIC">
+											</div>
+
+
+										</div>
+
+										<div class="row">
+
+											<div class="col-20">
+												<p>Mobile Number</p>
+
+											</div>
 
 
 
+											<div class="col-65 ml-3">
+
+												<input type="text" name="mobileres" value=""
+													required placeholder="Mobile">
+											</div>
 
 
+										</div>
 
-					
-					<div style="overflow: auto;">
-					
-						<div style="float: right;">
+										<div class="row">
+
+											<div class="col-20">
+												<p>Email Address</p>
+
+											</div>
+
+											<div class="col-65 ml-3">
+
+
+												<input type="email" name="emailres" value=""
+													required placeholder="Email">
+											</div>
+
+										</div>
+
+										<div class="row">
+
+											<div class="col-20">
+												<p>Guest Type</p>
+
+											</div>
+
+
+											<div class="col-65">
+												<div class="ml-3" style="float: left;">
+
+													<label onclick="javascript:yesnoCheck();"> <input
+														type="radio" name="options" id="noCheck" value="Public">Public
+													</label> <label onclick="javascript:yesnoCheck();"> <input
+														type="radio" name="options" id="yesCheck" checked
+														value="BOC Staff">BOC Staff
+													</label> <br>
+												</div>
+
+												<div class="col-40 ml-3" style="float: right;" id="ifYes"
+													style="visibility: hidden">
+													<input type="text" id="yes" name="pfnovalue" value=""
+														placeholder="PF Number">
+												</div>
+											</div>
+
+										</div>
+										<br>
+										
+											
+										
+									
+
+
+								</div>
+								
+								<div class="card-footer text-muted">
 							
-							<button type="button" id="nextBtn">Submit</button>
-							
+
+											<button type="submit" class="btn btn-outline-dark">></button>
+								
+								
+								</div>
+								</form>
+							</div>
+
 						</div>
+
+						<!-- cards end -->
+
 					</div>
-					
-					
-					<!-- Circles which indicates the steps of the form: -->
-					
-					
-					</form>
 
-
-					<script>
-						
-
-
-					<script src="vendor/jquery/jquery.min.js"></script>
-					<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-					<!-- Menu Toggle Script -->
-					<script>
-						$("#menu-toggle").click(function(e) {
-							e.preventDefault();
-							$("#wrapper").toggleClass("active");
-						});
-						$(document).ready(function() {
-							$('#sidebarCollapse').on('click', function() {
-								$('#sidebar').toggleClass('active');
-							});
-						});
-						
-						var dropdown = document.getElementsByClassName("dropdown-btn");
-						var i;
-						for (i = 0; i < dropdown.length; i++) {
-							dropdown[i].addEventListener("click", function() {
-								this.classList.toggle("active");
-								var dropdownContent = this.nextElementSibling;
-								if (dropdownContent.style.display === "block") {
-									dropdownContent.style.display = "none";
-								} else {
-									dropdownContent.style.display = "block";
-								}
-							});
-						}
-						window.history.forward();
-						function noBack() {
-							window.history.forward();
-						}
-						var today = new Date().toISOString().split('T')[0];
-						document.getElementsByName("checkin")[0].setAttribute('min', today);
-						document.getElementsByName("checkout")[0].setAttribute('min', today);
-						document.getElementsByName("dob")[0].setAttribute('max', today);
-						function yesnoCheck() {
-							if (document.getElementById('yesCheck').checked) {
-								document.getElementById('ifYes').style.visibility = 'visible';
-							} else
-								document.getElementById('ifYes').style.visibility = 'hidden';
-						}
-						function my1() {
-							$(document).ready(function() {
-								$("#update").modal('show');
-								$tr = $this.closest('tr');
-								tr = $(this).closet('tr');
-							});
-						}
-						window.setTimeout(function() {
-							$(".alert").fadeTo(500, 0).slideUp(500, function() {
-								$(this).remove();
-							});
-						}, 2000);
-					</script>
 				</div>
 			</div>
 		</div>
+
 	</div>
+	<!-- /#page-content-wrapper -->
+
+
+
+
+	<jsp:include page="Footer.jsp"></jsp:include>
+
+
+
+
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Menu Toggle Script -->
+	<script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+		$(document).ready(function() {
+			$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+			});
+		});
+		var dropdown = document.getElementsByClassName("dropdown-btn");
+		var i;
+		for (i = 0; i < dropdown.length; i++) {
+			dropdown[i].addEventListener("click", function() {
+				this.classList.toggle("active");
+				var dropdownContent = this.nextElementSibling;
+				if (dropdownContent.style.display === "block") {
+					dropdownContent.style.display = "none";
+				} else {
+					dropdownContent.style.display = "block";
+				}
+			});
+		}
+		window.history.forward();
+		function noBack() {
+			window.history.forward();
+		}
+		var today = new Date().toISOString().split('T')[0];
+		document.getElementsByName("checkin")[0].setAttribute('min', today);
+		document.getElementsByName("checkout")[0].setAttribute('min', today);
+		document.getElementsByName("dob")[0].setAttribute('max', today);
+		
+		
+		function yesnoCheck() {
+			if (document.getElementById('yesCheck').checked) {
+				document.getElementById('ifYes').style.visibility = 'visible';
+			} else
+				document.getElementById('ifYes').style.visibility = 'hidden';
+		}
+		
+		function my1() {
+			$(document).ready(function() {
+				$("#update").modal('show');
+				$tr = $this.closest('tr');
+				tr = $(this).closet('tr');
+			});
+		}
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
+	</script>
+
+
+
 </body>
 
 </html>
