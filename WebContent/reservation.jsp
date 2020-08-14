@@ -296,18 +296,14 @@ div.a {
 														}
 													%>
 
-
 												</select>
 											</div>
 										</div>
 
 									</form>
 
-
-
 									<form action="ReservationSaveServlet" class="forms"
 										method="post">
-
 
 										<div class="row">
 
@@ -383,7 +379,6 @@ div.a {
 											</div>
 										</div>
 
-
 										<div class="row">
 
 											<div class="col-25" style="text-align: left">
@@ -451,7 +446,6 @@ div.a {
 
 										</div>
 
-
 										<!--------------------------------------------->
 										<!--------------------------------------------->
 										<!--------------------------------------------->
@@ -462,7 +456,6 @@ div.a {
 											<li class="list-group-item">Guest Details</li>
 
 										</ul>
-
 
 										<div class="row">
 
@@ -478,8 +471,7 @@ div.a {
 											</div>
 
 										</div>
-
-
+										
 										<div class="row">
 
 											<div class="col-25" style="text-align: left">
@@ -493,7 +485,6 @@ div.a {
 													placeholder="NIC">
 											</div>
 
-
 										</div>
 
 										<div class="row">
@@ -503,14 +494,11 @@ div.a {
 
 											</div>
 
-
-
 											<div class="col-75">
 
 												<input type="text" name="mobileres" value="" required
 													placeholder="Mobile">
 											</div>
-
 
 										</div>
 
@@ -522,7 +510,6 @@ div.a {
 											</div>
 
 											<div class="col-75">
-
 
 												<input type="email" name="emailres" value="" required
 													placeholder="Email">
@@ -536,7 +523,6 @@ div.a {
 												<p>Guest Type</p>
 
 											</div>
-
 
 											<div class="col-75">
 												<div class="ml-3" style="float: left;">
@@ -562,9 +548,7 @@ div.a {
 
 								<div class="card-footer text-muted">
 
-
 									<button type="submit" class="btn btn-outline-dark">Save</button>
-
 
 								</div>
 								</form>
