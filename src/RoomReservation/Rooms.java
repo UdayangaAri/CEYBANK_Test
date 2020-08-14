@@ -2,20 +2,40 @@ package RoomReservation;
 
 public class Rooms {
 
+	protected String Checkin;
+	protected String Checkout;
+
+	protected String Block;
+	protected String RoomNo;
+	protected String MealPlan;
+
+	protected String Price;
+
 	protected String Guestname;
 	protected String GuestMobile;
 	protected String GuestNIC;
 	protected String GuestEmail;
 	protected String GuestType;
-
-	protected String Block;
-	protected String RoomNo;
-	protected String MealPlan;
-	protected String Checkin;
-	protected String Checkout;
+	protected String PF;
 
 	public String getGuestname() {
 		return Guestname;
+	}
+
+	public String getPrice() {
+		return Price;
+	}
+
+	public void setPrice(String price) {
+		Price = price;
+	}
+
+	public String getPF() {
+		return PF;
+	}
+
+	public void setPF(String pF) {
+		PF = pF;
 	}
 
 	public void setGuestname(String guestname) {
