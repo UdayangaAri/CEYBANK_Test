@@ -28,7 +28,6 @@
 <%
 	ResultSet resultset = null;
 	ResultSet rs = null;
-	
 %>
 
 <head>
@@ -50,7 +49,7 @@
 <meta name="author" content="">
 
 
-<title>Home</title>
+<title>Reservation Room Details</title>
 
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -81,12 +80,52 @@
 %>
 
 
+<style>
+a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
+}
+
+a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.previous {
+	background-color: #f1f1f1;
+	color: black;
+}
+
+.next {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.round {
+	border-radius: 50%;
+}
+
+div.c {
+	text-align: right;
+}
+
+div.a {
+	width: 80%;
+}
+
+.center {
+	margin: auto;
+	width: 30%;
+	padding: 20px;
+}
+}
+</style>
+
 </head>
 
 
-<body onload="startTime()">
-
-
+<body>
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -97,255 +136,299 @@
 
 		<!-- Page Content -->
 		<div class=container-fluid>
-			<div id="content">
-				<jsp:include page="_navbar.jsp"></jsp:include>
 
+			<div id="content">
+
+				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
 
+					<div class="container mt-5 mb-5">
 
+						<!-- body start -->
 
-					<div>
+						<div class="container mt-3 a">
 
-						<a href="index.jsp">Index drawer</a> <br>
-						
-						<a href="NewFile.jsp">reservation.next drawer</a> <br>
-						
-						<a href="mytest.jsp">my test drawer</a> <br>
-						
-						<br>
+							<div class="card shadow mb-4">
 
+								<div class="card-header py-3">
 
-						<div class="card border-dark text-center">
-
-							<div class="card-body">
-
-								<div class="row">
-
-									<div class="col-65">
-										<form action="Guest_ViewServlet" method="post">
-
-											<%
-												if (cno == null) {
-											%>
-
-											<input type="search" name="search" required class="search"
-												value="" placeholder="NIC/BOC PF Number/ Mobile Number"
-												style="margin-right: 16px;">
-
-											<%
-												} else {
-											%>
-											<input type="search" name="search" required class="search"
-												value="<%=cno%>"
-												placeholder="NIC/BOC PF Number/ Mobile Number"
-												style="margin-right: 16px;">
-
-											<%
-												}
-											%>
-										
-									</div>
-
-									<div class="col-25">
-
-										<button type="submit" name="search"
-											style="float: left; margin-left: 16px; text-align: center;"
-											class="btn btn-primary">Search</button>
-										</form>
-
-										<button type="button"
-											style="margin-left: 16px; text-align: center;"
-											class="btn btn-primary" data-toggle="modal"
-											data-target=".bd-example-modal-lg">
-											Add Guest<img src="images/add.png" alt="" border=3 height=15
-												width=15
-												style="text-align: center; float: right; margin-left: 0.5em">
-										</button>
-
-									</div>
+									<h4 class="m-0 font-weight-bold text-primary">Reservation</h4>
 								</div>
 
-								<%
-									if (err == "this is wrong") {
-								%>
-								<br>
-								<div class='alert alert-danger' role='alert'>Please
-									register the guest first..</div>
+								<div class="card-body" style="left: 30%">
 
-								<%
-									}
-								%>
+									<!--------------------------------------------->
+									<!--------------------------------------------->
+									<!--------------------------------------------->
+									<!--------------------------------------------->
+									<!--------------------------------------------->
 
-								<form method="POST" class="forms" action="Guest_ViewServlet"
-									method="post" style="align: center">
+									<form action="" class="forms" method="post">
 
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item">Room Details</li>
 
-									<div class="row">
+										</ul>
+										<div class="row">
 
-										<div class="col-25">
-											<p>
-												<b><b>Guest Details</b></b>
-											</p>
-
-										</div>
-
-										<div class="col-75"></div>
-									</div>
-
-									<div class="row">
-
-										<div class="col-20">
-											<p>Name</p>
-
-										</div>
-
-										<%
-											if (cname == null) {
-										%>
-
-										<div class="col-75">
-											<input type="text" name="nameview" value="" readonly
-												placeholder="Name">
-										</div>
-
-										<%
-											} else {
-										%>
-
-										<div class="col-75">
-											<input type="text" name="nameview"
-												value="<%=Pos%> <%=cname%>" readonly placeholder="Name">
-										</div>
-
-										<%
-											}
-										%>
-
-									</div>
-
-
-									<div class="row">
-
-										<div class="col-20">
-											<p>NIC Number</p>
-
-										</div>
-
-										<%
-											if (cnic == null) {
-										%>
-
-										<div class="col-75">
-											<input type="text" name="nameview" value="" readonly
-												placeholder="NIC">
-										</div>
-
-										<%
-											} else {
-										%>
-
-										<div class="col-75">
-											<input type="text" name="nameview" value="<%=cnic%>" readonly
-												placeholder="NIC">
-										</div>
-
-										<%
-											}
-										%>
-									</div>
-
-
-									<div class="row">
-
-										<div class="col-20">
-											<p>Mobile Number</p>
-
-										</div>
-
-										<%
-											if (cmobile == null) {
-										%>
-
-										<div class="col-75">
-											<input type="text" name="mobileview" value="" readonly
-												placeholder="Mobile">
-										</div>
-
-
-										<%
-											} else {
-										%>
-										<div class="col-75">
-											<input type="text" name="mobileview" value="<%=cmobile%>"
-												readonly placeholder="Mobile">
-										</div>
-
-										<%
-											}
-										%>
-
-									</div>
-
-									<div class="row">
-
-										<div class="col-20">
-											<p>Email Address</p>
-
-										</div>
-
-										<%
-											if (cemail == null) {
-										%>
-
-										<div class="col-75">
-											<input type="email" name="emailview" value="" readonly
-												placeholder="Email">
-										</div>
-
-										<%
-											} else {
-										%>
-
-
-										<div class="col-75">
-											<input type="email" name="emailview" value="<%=cemail%>"
-												readonly placeholder="Email">
-										</div>
-
-										<%
-											}
-										%>
-									</div>
-									<div class="row">
-
-
-										<div class="col-20">
-											<p>Guest Type</p>
-
-										</div>
-
-										<div class="col-75">
-											<%
-												if (cpfno == null) {
-											%>
-
-											<div class="col-25">
-
-
-												<input type="text" name="pfnovalue" readonly
-													style="float: left;" id="pfnovalue" value="Public"
-													placeholder="Public">
+											<div class="col-25" style="text-align: left">
+												<p>
+													<b><b>Check in Date</b></b>
+												</p>
 
 											</div>
 
+											<div class="col-25">
+
+												<%
+													String checkin_d = request.getParameter("checkin");
+													session.setAttribute("checkin", checkin_d);
+
+													String checkin = (String) session.getAttribute("checkin");
+
+													//System.out.println("checkin ::: " + checkin);
+												%>
+												<input type='date' value="<%=checkin%>" name="checkin"
+													class="form-control" onchange="this.form.submit();" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+
+											</div>
+
+											<div class="col-25" style="text-align: center">
+												<p>
+													<b><b>Checkout Date</b></b>
+												</p>
+
+											</div>
 
 											<div class="col-25">
 
+												<%
+													String checkout_d = request.getParameter("checkout");
+													session.setAttribute("checkout", checkout_d);
 
-												<input type="text" name="pfnovalue" readonly
-													style="float: right;" id="pfnovalue" value=""
-													placeholder="No PF Number..">
+													String checkout = (String) session.getAttribute("checkout");
+
+													//System.out.println("checkout ::: " + checkout);
+												%>
+
+												<input type='date' value="<%=checkout%>" name="checkout"
+													class="form-control" onchange="this.form.submit();" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+
+											</div>
+
+										</div>
+
+
+
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>
+													<b><b>Select Block</b></b>
+												</p>
+
+											</div>
+
+											<div class="col-75">
+												<select name="block_in_r" id="block_in_r"
+													onchange="this.form.submit();">
+													<%
+														String x = request.getParameter("block_in_r");
+														session.setAttribute("Block_Name_Value", x);
+
+														String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
+
+														block z = blockDAO.getBlocksByUserIdForRSM(x);
+
+														block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock);
+
+														if (x != null) {
+
+															System.out.println("RecieveBlock ::: " + RecieveBlock);
+													%>
+
+													<option value="" disabled selected><%=z.getBlock_name()%></option>
+
+													<%
+														} else if (RecieveBlock != null) {
+													%>
+
+													<option value="" disabled selected><%=r.getBlock_name()%></option>
+
+													<%
+														} else {
+													%>
+													<option value="" disabled selected>Select a Block</option>
+
+													<%
+														}
+													%>
+
+													<%
+														try {
+															String Query = "select * from block where block_location=?";
+															Connection con = DBConnection.getConnection();
+
+															PreparedStatement psmtX = con.prepareStatement(Query);
+															psmtX.setString(1, Employees_Branch);
+
+															rs1 = psmtX.executeQuery();
+															while (rs1.next()) {
+													%>
+													<option value=<%=rs1.getInt("blockID")%>><%=rs1.getString("block_name")%></option>
+													<%
+														}
+
+														} catch (Exception e) {
+															e.printStackTrace();
+														}
+													%>
+
+
+												</select>
+											</div>
+										</div>
+
+									</form>
+
+
+
+									<form action="ReservationSaveServlet" class="forms"
+										method="post">
+
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>
+													<b><b>Select Room No</b></b>
+												</p>
+
+											</div>
+
+											<div class="col-75">
+												<select name="room_in_r" id="room_in_r">
+
+													<%
+														String roomGuest = (String) session.getAttribute("roomGuest");
+
+														String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
+													%>
+
+													<option value="" disabled selected>Select a Room</option>
+
+													<%
+														try {
+
+															String Query = "select * from rooms where blockID=?";
+															Connection con = DBConnection.getConnection();
+
+															PreparedStatement psmt = con.prepareStatement(Query);
+															psmt.setString(1, Block_Name_Value);
+
+															rs = psmt.executeQuery();
+															while (rs.next()) {
+													%>
+													<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
+													<%
+														}
+
+														} catch (Exception e) {
+															e.printStackTrace();
+														}
+													%>
+												</select>
+											</div>
+										</div>
+
+										<input type="hidden" name="checkinNxt" value="<%=checkin%>">
+										<input type="hidden" name="checkoutNxt" value="<%=checkout%>">
+										<input type="hidden" name="BlockNxt" value="<%=RecieveBlock%>">
+
+										<%
+											System.out.println("checkin ::: " + checkin);
+											System.out.println("checkout ::: " + checkout);
+										%>
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>
+													<b><b>Select Meal Plan</b></b>
+												</p>
+
+											</div>
+
+											<div class="col-75">
+												<select name="MealTypeNxt" required>
+
+													<option value="bb">Bead and Breakfast</option>
+													<option value="hb">Half board</option>
+													<option value="fb">Full Board</option>
+													<option value="ronly">Room Only</option>
+
+												</select>
+											</div>
+										</div>
+
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>
+													<b><b>Price :</b></b>
+												</p>
+
+											</div>
+											<%
+												//System.out.println("checkIn ::: " + checkin);
+												//System.out.println("checkOut ::: " + checkout);
+
+												SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+												if (checkin != null && checkout != null) {
+
+													try {
+														String price = "1500";
+														Date date1 = myFormat.parse(checkin);
+														Date date2 = myFormat.parse(checkout);
+														long diff = date2.getTime() - date1.getTime();
+														//System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+
+														long dur = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+														int durInt = (int) dur;
+														int Tprice = 1500;
+
+														//System.out.println("durInt ::: " + durInt);
+
+														int tot = durInt * Tprice;
+														//System.out.println("tot ::: " + tot);
+
+														String str1 = Integer.toString(tot);
+														session.setAttribute("str1", str1);
+
+													} catch (java.text.ParseException e) {
+														e.printStackTrace();
+													}
+												}
+												String strx = (String) session.getAttribute("str1");
+												//System.out.println("str1 ::: " + strx);
+
+												if (strx != null) {
+											%>
+
+											<div class="col-25">
+												<input type="text" name="Room_Price_tot" readonly
+													style="float: right;" id="Room_Price_tot"
+													value="Rs.<%=strx%>" placeholder="Price">
 											</div>
 
 											<%
@@ -353,67 +436,151 @@
 											%>
 
 											<div class="col-25">
-
-												<input type="text" name="pfnovalue" readonly
-													style="float: left;" id="pfnovalue" value="<%=cst_nonst%>"
-													placeholder=" BOC Staff">
-
+												<input type="text" name="Room_Price_tot" readonly
+													style="float: right;" id="Room_Price_tot" value="Rs.0"
+													placeholder="Price">
 											</div>
 
-
-											<div class="col-25">
-												<input type="text" name="pfnovalue" readonly
-													style="float: right;" id="pfnovalue" value="<%=cpfno%>"
-													placeholder="No PF Number..">
-											</div>
 											<%
 												}
 											%>
 
 										</div>
-									</div>
 
+
+										<!--------------------------------------------->
+										<!--------------------------------------------->
+										<!--------------------------------------------->
+										<!--------------------------------------------->
+										<!--------------------------------------------->
+
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item">Guest Details</li>
+
+										</ul>
+
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>Name</p>
+
+											</div>
+
+											<div class="col-75">
+
+												<input type="text" name="nameres" value=""
+													placeholder="Name" required>
+											</div>
+
+										</div>
+
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>NIC Number</p>
+
+											</div>
+
+											<div class="col-75">
+
+												<input type="text" name="nicres" value="" required
+													placeholder="NIC">
+											</div>
+
+
+										</div>
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>Mobile Number</p>
+
+											</div>
+
+
+
+											<div class="col-75">
+
+												<input type="text" name="mobileres" value="" required
+													placeholder="Mobile">
+											</div>
+
+
+										</div>
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>Email Address</p>
+
+											</div>
+
+											<div class="col-75">
+
+
+												<input type="email" name="emailres" value="" required
+													placeholder="Email">
+											</div>
+
+										</div>
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>Guest Type</p>
+
+											</div>
+
+
+											<div class="col-75">
+												<div class="ml-3" style="float: left;">
+
+													<label onclick="javascript:yesnoCheck();"> <input
+														type="radio" name="options" id="noCheck" value="Public">Public
+													</label> <label onclick="javascript:yesnoCheck();"> <input
+														type="radio" name="options" id="yesCheck" checked
+														value="BOC Staff">BOC Staff
+													</label> <br>
+												</div>
+
+												<div class="col-40 ml-3" style="float: right;" id="ifYes"
+													style="visibility: hidden">
+													<input type="text" id="yes" name="pfnovalue" value=""
+														placeholder="PF Number">
+												</div>
+											</div>
+
+										</div>
+										<br>
+								</div>
+
+								<div class="card-footer text-muted">
+
+
+									<button type="submit" class="btn btn-outline-dark">Save</button>
+
+
+								</div>
 								</form>
-
-
 							</div>
-							<div class="card-footer text-muted">
 
-
-								<div class="col-75"></div>
-
-								<button type="submit" name="Submit_res"
-									style="float: right; text-align: center;"
-									class="btn btn-primary">Submit</button>
-
-
-							</div>
 						</div>
 
+						<!-- cards end -->
 
 					</div>
 
 				</div>
-
-
-
-
-
 			</div>
-
-
-
 		</div>
 
-
-
 	</div>
-
-
 	<!-- /#page-content-wrapper -->
 
 
-	
+
 
 	<jsp:include page="Footer.jsp"></jsp:include>
 
@@ -455,12 +622,14 @@
 		document.getElementsByName("checkin")[0].setAttribute('min', today);
 		document.getElementsByName("checkout")[0].setAttribute('min', today);
 		document.getElementsByName("dob")[0].setAttribute('max', today);
+
 		function yesnoCheck() {
 			if (document.getElementById('yesCheck').checked) {
 				document.getElementById('ifYes').style.visibility = 'visible';
 			} else
 				document.getElementById('ifYes').style.visibility = 'hidden';
 		}
+
 		function my1() {
 			$(document).ready(function() {
 				$("#update").modal('show');
