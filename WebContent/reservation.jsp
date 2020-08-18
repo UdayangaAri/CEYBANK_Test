@@ -158,6 +158,24 @@ div.a {
 
 								<div class="card-body" style="left: 30%">
 
+									<%
+										if (null != session.getAttribute("Reservation_Succeed")) {
+									%>
+
+									<div class="alert alert-success" role="alert">Reservation
+										Succeed..</div>
+
+									<%
+										} else if (null != session.getAttribute("Reservation_Failed")) {
+									%>
+
+									<div class="alert alert-danger" role="alert">Reservation
+										Failed..</div>
+
+									<%
+										}
+									%>
+
 									<!--------------------------------------------->
 									<!--------------------------------------------->
 									<!--------------------------------------------->
@@ -190,7 +208,8 @@ div.a {
 													//System.out.println("checkin ::: " + checkin);
 												%>
 												<input type='date' value="<%=checkin%>" name="checkin"
-													class="form-control" onchange="this.form.submit();" /> <span
+													id="checkin" class="form-control"
+													onchange="this.form.submit();" /> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -216,7 +235,8 @@ div.a {
 												%>
 
 												<input type='date' value="<%=checkout%>" name="checkout"
-													class="form-control" onchange="this.form.submit();" /> <span
+													id="checkout" class="form-control"
+													onchange="this.form.submit();" /> <span
 													class="input-group-addon"> <span
 													class="glyphicon glyphicon-calendar"></span>
 												</span>
@@ -252,7 +272,7 @@ div.a {
 
 														if (x != null) {
 
-															System.out.println("RecieveBlock ::: " + RecieveBlock);
+															//System.out.println("RecieveBlock ::: " + RecieveBlock);
 													%>
 
 													<option value="" disabled selected><%=z.getBlock_name()%></option>
@@ -333,7 +353,7 @@ div.a {
 															rs = psmt.executeQuery();
 															while (rs.next()) {
 													%>
-													<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
+													<option value=<%=rs.getString("roomName")%>><%=rs.getString("roomName")%></option>
 													<%
 														}
 
@@ -350,8 +370,8 @@ div.a {
 										<input type="hidden" name="BlockNxt" value="<%=RecieveBlock%>">
 
 										<%
-											System.out.println("checkin ::: " + checkin);
-											System.out.println("checkout ::: " + checkout);
+											//System.out.println("checkin ::: " + checkin);
+											//System.out.println("checkout ::: " + checkout);
 										%>
 
 										<div class="row">
@@ -405,7 +425,10 @@ div.a {
 														//System.out.println("durInt ::: " + durInt);
 
 														int tot = durInt * Tprice;
-														//System.out.println("tot ::: " + tot);
+														
+														%>
+														
+														<%														//System.out.println("tot ::: " + tot);
 
 														String str1 = Integer.toString(tot);
 														session.setAttribute("str1", str1);
@@ -467,7 +490,7 @@ div.a {
 											</div>
 
 										</div>
-										
+
 										<div class="row">
 
 											<div class="col-25" style="text-align: left">
@@ -621,11 +644,24 @@ div.a {
 				tr = $(this).closet('tr');
 			});
 		}
+
 		window.setTimeout(function() {
 			$(".alert").fadeTo(500, 0).slideUp(500, function() {
 				$(this).remove();
 			});
 		}, 2000);
+
+		var cinValue = document.getElementById("checkin").value;
+		var coutValue = document.getElementById("checkout").value;
+		
+		function calc(){
+			
+			var tot_price = cinValue + coutValue;
+            /*display the result*/
+            var divobj = document.getElementById('tot_amount');
+            divobj.value = tot_price;
+            
+		}
 	</script>
 
 
