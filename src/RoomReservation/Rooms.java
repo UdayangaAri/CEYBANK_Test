@@ -5,10 +5,10 @@ public class Rooms {
 	protected String Checkin;
 	protected String Checkout;
 
+	protected String Branch;
 	protected String Block;
 	protected String RoomNo;
 	protected String MealPlan;
-
 	protected String Price;
 
 	protected String Guestname;
@@ -20,6 +20,14 @@ public class Rooms {
 
 	public String getGuestname() {
 		return Guestname;
+	}
+
+	public String getBranch() {
+		return Branch;
+	}
+
+	public void setBranch(String branch) {
+		Branch = branch;
 	}
 
 	public String getPrice() {
