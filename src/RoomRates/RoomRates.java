@@ -2,15 +2,38 @@ package RoomRates;
 
 public class RoomRates {
 
-
-	    protected String branch;
+	
+	protected String id;
+		public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+		protected String branch;
 	    protected String block;
 	    protected String roomtype;
 	    protected String mealplan;
 	    protected String brate;
 	    protected String discout;
+	    protected String dicount_type;
+	    protected String status;
 	    
+	   
+		
 	    
+		public String getDicount_type() {
+			return dicount_type;
+		}
+		public void setDicount_type(String dicount_type) {
+			this.dicount_type = dicount_type;
+		}
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
 		public String getBranch() {
 			return branch;
 		}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="RoomRates.RoomRates"%>
 <%@page import="RoomRates.RoomRatesDAO"%>
 <%@page import="RoomStatus.StatusRooms"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -26,6 +27,7 @@
 %>
 
 
+
 <head>
 
 <!-- #9999ff -->
@@ -44,7 +46,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Room Rates Management</title>
+<title>Room Rates Management - Edit</title>
 
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -108,6 +110,18 @@ div.a {
 
 				<div class="container">
 
+					<%
+						String sid = request.getParameter("id");
+
+						//System.out.println("******************** sid : " + sid);
+
+						int idd = RoomRatesDAO.updateRoomRates(sid);
+
+						RoomRates ew = RoomRatesDAO.getRoomRates(sid);
+					%>
+
+
+
 					<div class="container mt-5 mb-5">
 
 						<!-- body start -->
@@ -122,6 +136,44 @@ div.a {
 									<h4 class="m-0 font-weight-bold text-primary">Room Rates
 										Management</h4>
 									<a href='RoomRates_View.jsp'>Edit Room Rates </a> <br>
+								</div>
+								<div class="card-header py-3">
+									<p>
+									<p>
+										<button class="btn btn-primary" type="button"
+											data-toggle="collapse" data-target="#collapseExample"
+											aria-expanded="false" aria-controls="collapseExample">
+											Load Previous details in room Management</button>
+									</p>
+									<div class="collapse" id="collapseExample">
+										<div class="card card-body">
+
+
+											<%
+												String branch_name = RoomRatesDAO.getBranchName(ew.getBranch());
+												String block_name = RoomRatesDAO.getBlockName(ew.getBlock());
+												String room_type = RoomRatesDAO.getRoomTypeName(ew.getRoomtype());
+
+												String rate_name = ew.getBrate();
+												String discount_amount = ew.getDiscout();
+												String discount_name = ew.getDicount_type();
+											%>
+
+
+
+												<ul class="list-group list-group-flush">
+													<li class="list-group-item">Branch Name : <%=branch_name%></li>
+													<li class="list-group-item">Block Name : <%=block_name%></li>
+													<li class="list-group-item">Room Name : <%=room_type%></li>
+													<li class="list-group-item">Rate Name : <%=rate_name%></li>
+													<li class="list-group-item">Discount amount : <%=discount_amount%></li>
+													<li class="list-group-item">Discount name : <%=discount_name%></li>
+
+												</ul>
+											</div>
+
+										</div>
+									</div>
 								</div>
 								<div class="card-body" style="left: 30%">
 
@@ -147,7 +199,7 @@ div.a {
 
 												<select name="branchidforRates" id="branchidforRates"
 													required onchange="this.form.submit()" onchange="my()">
-
+													<option value="" disabled selected>Select a Branch</option>
 													<%
 														String x = request.getParameter("branchidforRates");
 														session.setAttribute("TranslateBranch", x);
@@ -215,7 +267,7 @@ div.a {
 											<div class="col-65">
 												<select name="blockidforRates" id="blockidforRates" required
 													onchange="this.form.submit()">
-
+													<option value="" disabled selected>Select a Block</option>
 													<%
 														String y = request.getParameter("blockidforRates");
 														session.setAttribute("TranslateBlock", y);
@@ -450,12 +502,11 @@ div.a {
 
 
 
-										<div class="row mt-1 mb-1" style="float: right">
+										<div class="row mt-1 mb-1 " style="float: right">
 
 											<div class="row center">
+												<button class="btn btn-primary" type="submit">Add</button>
 
-												<input type="submit"
-													style="float: right; margin-right: 250px;" value="Add">
 											</div>
 
 										</div>

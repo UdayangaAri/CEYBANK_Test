@@ -454,6 +454,7 @@
 		document.getElementsByName("checkin")[0].setAttribute('min', today);
 		document.getElementsByName("checkout")[0].setAttribute('min', today);
 		document.getElementsByName("dob")[0].setAttribute('max', today);
+	
 		function yesnoCheck() {
 			if (document.getElementById('yesCheck').checked) {
 				document.getElementById('ifYes').style.visibility = 'visible';

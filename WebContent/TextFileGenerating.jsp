@@ -50,7 +50,7 @@
 		try {
 
 			Connection con = DBConnection.getConnection();
-			System.out.println("Printing connection object " + con);
+		//	System.out.println("Printing connection object " + con);
 
 			Statement statement = con.createStatement();
 			Statement st = con.createStatement();
