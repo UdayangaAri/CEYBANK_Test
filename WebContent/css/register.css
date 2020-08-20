@@ -125,6 +125,7 @@ margin-top: 6px;
   width: 65%;
   margin-top: 6px;
    font-size: 15px;
+  
 }
 
 .col-75 {
@@ -135,7 +136,14 @@ margin-top: 6px;
   font-size: 15px;
 
 }
+.col-100 {
 
+  float: left;
+  width: 100%;
+  margin-top: 6px;
+  font-size: 15px;
+
+}
 
 /* Clear floats after the columns */
 .row:after {

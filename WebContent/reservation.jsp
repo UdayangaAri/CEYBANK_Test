@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="java.util.Date"%>
@@ -38,9 +37,7 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -58,7 +55,6 @@
 	ResultSet rs1 = null;
 	ResultSet rx = null;
 %>
-
 
 <%
 	String Employees_Branch = (String) session.getAttribute("branch");
@@ -78,7 +74,6 @@
 	String Guest = "Public";
 	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
-
 
 <style>
 a {
@@ -124,7 +119,6 @@ div.a {
 
 </head>
 
-
 <body>
 
 	<div class="d-flex" id="sidebar-wrapper">
@@ -154,6 +148,8 @@ div.a {
 								<div class="card-header py-3">
 
 									<h4 class="m-0 font-weight-bold text-primary">Reservation</h4>
+									<a href='mytest.jsp'>testing</a>
+									
 								</div>
 
 								<div class="card-body" style="left: 30%">
@@ -182,7 +178,12 @@ div.a {
 									<!--------------------------------------------->
 									<!--------------------------------------------->
 
+
 									<form action="" class="forms" method="post">
+
+										<%
+											
+										%>
 
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item">Room Details</li>
@@ -204,9 +205,10 @@ div.a {
 													session.setAttribute("checkin", checkin_d);
 
 													String checkin = (String) session.getAttribute("checkin");
-
+													
 													//System.out.println("checkin ::: " + checkin);
 												%>
+
 												<input type='date' value="<%=checkin%>" name="checkin"
 													id="checkin" class="form-control"
 													onchange="this.form.submit();" /> <span
@@ -228,7 +230,7 @@ div.a {
 												<%
 													String checkout_d = request.getParameter("checkout");
 													session.setAttribute("checkout", checkout_d);
-
+													
 													String checkout = (String) session.getAttribute("checkout");
 
 													//System.out.println("checkout ::: " + checkout);
@@ -245,8 +247,10 @@ div.a {
 
 										</div>
 
-
-
+								
+										<%
+											
+										%>
 
 										<div class="row">
 
@@ -261,29 +265,35 @@ div.a {
 												<select name="block_in_r" id="block_in_r"
 													onchange="this.form.submit();">
 													<%
+													
+													String RecieveBlock1 = (String) session.getAttribute("Block_Name_Value01"); 
+													//System.out.println("RecieveBlock 1 ::: " + RecieveBlock1);
+													
 														String x = request.getParameter("block_in_r");
 														session.setAttribute("Block_Name_Value", x);
 
-														String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
-
+														//System.out.println("x ::: " + x);
+														
 														block z = blockDAO.getBlocksByUserIdForRSM(x);
-
-														block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock);
-
+														block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock1);
 														if (x != null) {
-
-															//System.out.println("RecieveBlock ::: " + RecieveBlock);
+															
+															
 													%>
 
 													<option value="" disabled selected><%=z.getBlock_name()%></option>
 
 													<%
-														} else if (RecieveBlock != null) {
+													//System.out.println("z.get ::: " + z.getBlock_name());
+													
+														} else if (RecieveBlock1 != null) {
 													%>
 
 													<option value="" disabled selected><%=r.getBlock_name()%></option>
 
 													<%
+													//System.out.println("r.get ::: " + r.getBlock_name());
+													
 														} else {
 													%>
 													<option value="" disabled selected>Select a Block</option>
@@ -306,20 +316,16 @@ div.a {
 													<option value=<%=rs1.getInt("blockID")%>><%=rs1.getString("block_name")%></option>
 													<%
 														}
-
 														} catch (Exception e) {
 															e.printStackTrace();
 														}
 													%>
 
 												</select>
+
 											</div>
+
 										</div>
-
-									</form>
-
-									<form action="ReservationSaveServlet" class="forms"
-										method="post">
 
 										<div class="row">
 
@@ -331,15 +337,41 @@ div.a {
 											</div>
 
 											<div class="col-75">
-												<select name="room_in_r" id="room_in_r">
+												<select name="room_in_r" id="room_in_r"
+													onchange="this.form.submit();">
 
 													<%
+														String rname = request.getParameter("room_in_r");
+
+														session.setAttribute("Room_Name_Value", rname);
+														
+														String room1 = (String) session.getAttribute("Room_Name_Value");
+
 														String roomGuest = (String) session.getAttribute("roomGuest");
 
 														String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
-													%>
 
+														Room rm = RoomDao.getRoomById(room1);
+														
+														session.setAttribute("Block_Name_Value01", Block_Name_Value);
+
+														//System.out.println("rname ::: " + rname);
+
+														if (rname != null) {
+													%>
+													<option value="" disabled selected><%=rm.getRoomName()%></option>
+
+
+													<%
+														}
+
+														else {
+													%>
 													<option value="" disabled selected>Select a Room</option>
+
+													<%
+														}
+													%>
 
 													<%
 														try {
@@ -353,7 +385,7 @@ div.a {
 															rs = psmt.executeQuery();
 															while (rs.next()) {
 													%>
-													<option value=<%=rs.getString("roomName")%>><%=rs.getString("roomName")%></option>
+													<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
 													<%
 														}
 
@@ -365,13 +397,22 @@ div.a {
 											</div>
 										</div>
 
+									</form>
+
+									<form action="" class="forms" method="post">
+
 										<input type="hidden" name="checkinNxt" value="<%=checkin%>">
 										<input type="hidden" name="checkoutNxt" value="<%=checkout%>">
-										<input type="hidden" name="BlockNxt" value="<%=RecieveBlock%>">
+										<input type="hidden" name="BlockNxt" value="<%=RecieveBlock1%>">
+										<input type="hidden" name="checkinNxt" value="<%=room1%>">
 
 										<%
-											//System.out.println("checkin ::: " + checkin);
-											//System.out.println("checkout ::: " + checkout);
+											System.out.println("room1 ::: " + room1);
+
+											System.out.println("checkout ::: " + checkout);
+											System.out.println("checkin ::: " + checkin);
+
+											System.out.println("RecieveBlock o1 ::: " + RecieveBlock1);
 										%>
 
 										<div class="row">
@@ -384,7 +425,8 @@ div.a {
 											</div>
 
 											<div class="col-75">
-												<select name="MealTypeNxt" required>
+												<select name="MealTypeNxt" required
+													onchange="calculateAmount()">
 
 													<option value="bb">Bead and Breakfast</option>
 													<option value="hb">Half board</option>
@@ -408,38 +450,31 @@ div.a {
 												//System.out.println("checkOut ::: " + checkout);
 
 												SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-
 												if (checkin != null && checkout != null) {
-
 													try {
 														String price = "1500";
 														Date date1 = myFormat.parse(checkin);
 														Date date2 = myFormat.parse(checkout);
 														long diff = date2.getTime() - date1.getTime();
-														//System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
 
+														//System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
 														long dur = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 														int durInt = (int) dur;
 														int Tprice = 1500;
 
 														//System.out.println("durInt ::: " + durInt);
-
 														int tot = durInt * Tprice;
-														
-														%>
-														
-														<%														//System.out.println("tot ::: " + tot);
+
+														//System.out.println("tot ::: " + tot);
 
 														String str1 = Integer.toString(tot);
 														session.setAttribute("str1", str1);
-
 													} catch (java.text.ParseException e) {
 														e.printStackTrace();
 													}
 												}
 												String strx = (String) session.getAttribute("str1");
 												//System.out.println("str1 ::: " + strx);
-
 												if (strx != null) {
 											%>
 
@@ -475,6 +510,34 @@ div.a {
 											<li class="list-group-item">Guest Details</li>
 
 										</ul>
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>JS Value</p>
+
+											</div>
+
+											<div class="col-75">
+
+												<input type="text" name="totalout">
+											</div>
+
+										</div>
+
+										<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>JS Value</p>
+
+											</div>
+
+											<div class="col-75">
+
+												<input type="text" readonly name="totalout">
+											</div>
+
+										</div>
 
 										<div class="row">
 
@@ -570,7 +633,9 @@ div.a {
 									<button type="submit" class="btn btn-outline-dark">Save</button>
 
 								</div>
+
 								</form>
+
 							</div>
 
 						</div>
@@ -586,13 +651,7 @@ div.a {
 	</div>
 	<!-- /#page-content-wrapper -->
 
-
-
-
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -629,14 +688,12 @@ div.a {
 		document.getElementsByName("checkin")[0].setAttribute('min', today);
 		document.getElementsByName("checkout")[0].setAttribute('min', today);
 		document.getElementsByName("dob")[0].setAttribute('max', today);
-
 		function yesnoCheck() {
 			if (document.getElementById('yesCheck').checked) {
 				document.getElementById('ifYes').style.visibility = 'visible';
 			} else
 				document.getElementById('ifYes').style.visibility = 'hidden';
 		}
-
 		function my1() {
 			$(document).ready(function() {
 				$("#update").modal('show');
@@ -644,23 +701,21 @@ div.a {
 				tr = $(this).closet('tr');
 			});
 		}
-
 		window.setTimeout(function() {
 			$(".alert").fadeTo(500, 0).slideUp(500, function() {
 				$(this).remove();
 			});
 		}, 2000);
-
 		var cinValue = document.getElementById("checkin").value;
 		var coutValue = document.getElementById("checkout").value;
-		
-		function calc(){
-			
-			var tot_price = cinValue + coutValue;
-            /*display the result*/
-            var divobj = document.getElementById('tot_amount');
-            divobj.value = tot_price;
-            
+
+		function calculateAmount() {
+			var tot_price = val * 100;
+
+			var j = document.getElementById('Room_Price_tot');
+			/*display the result*/
+			var divobj = document.getElementById('totalout');
+			divobj.value = j;
 		}
 	</script>
 
@@ -669,4 +724,3 @@ div.a {
 </body>
 
 </html>
-

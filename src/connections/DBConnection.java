@@ -16,7 +16,7 @@ public class DBConnection {
 				con = DriverManager.getConnection(url, email, password);
 				
 				if (con != null){
-					
+					//System.out.println("successfully connected to DB");
 				}
 
 			} catch (ClassNotFoundException e) {

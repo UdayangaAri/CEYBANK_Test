@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <%@page import="connections.DBConnection"%>
 <%@page import="login.LoginDao"%>
@@ -18,7 +17,7 @@
 %>
 
 
-<head> 
+<head>
 
 <!-- #9999ff -->
 
@@ -39,8 +38,8 @@
 <title>Register Page</title>
 
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 
 
@@ -58,10 +57,7 @@ div.a {
 	width: 30%;
 	padding: 20px;
 }
-
-
 }
-
 </style>
 
 
@@ -72,7 +68,7 @@ div.a {
 
 	<%
 		try {
-			
+
 			Connection con = DBConnection.getConnection();
 			System.out.println("Printing connection object " + con);
 
@@ -86,7 +82,7 @@ div.a {
 		}
 	%>
 
-<div class="d-flex" id="sidebar-wrapper">
+	<div class="d-flex" id="sidebar-wrapper">
 
 		<!-- Sidebar -->
 
@@ -99,234 +95,240 @@ div.a {
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
-				
-				<div class="container mt-5 mb-5">
 
-					<!-- body start -->
+					<div class="container mt-5 mb-5">
 
-					<div class="container mt-3 a">
+						<!-- body start -->
 
-						<div class="card shadow mb-4">
+						<div class="container mt-3 a">
 
-							<div class="card-header py-3">
+							<div class="card shadow mb-4">
 
-								<h4 class="m-0 font-weight-bold text-primary">User Registration Page</h4>
+								<div class="card-header py-3">
+
+									<h4 class="m-0 font-weight-bold text-primary">User
+										Registration Page</h4>
+								</div>
+								<div class="card-body" style="left: 30%">
+
+
+									<!-- /#Type Body Here -->
+									<form method="POST" class="forms" action="RegisterServlet"
+										method="post">
+
+										<%
+											if (null != session.getAttribute("Successed")) {
+										%>
+
+										<div class="alert alert-success" role="alert">User
+											Registered Successfully..</div>
+
+										<%
+											} else if (null != session.getAttribute("error")) {
+										%>
+
+										<div class="alert alert-danger" role="alert">Cannot
+											Register the user..</div>
+
+										<%
+											}
+										%>
+
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-35">
+												<input type="text" name="eno"
+													placeholder="Enter Employee Number.." required>
+											</div>
+										</div>
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" name="fname"
+													placeholder="Enter First Name.." required>
+											</div>
+										</div>
+										<div class="row mt-1 mb-1">
+
+
+
+
+											<div class="col-65">
+												<input type="text" name="lname"
+													placeholder="Enter Last Name.." required>
+											</div>
+
+										</div>
+
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" name="nic" placeholder="Enter NIC.."
+													pattern=".{10,12}" required>
+											</div>
+										</div>
+
+
+										<br>
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" name="phoneno" pattern=".{8,10}"
+													placeholder="Enter Phone Number.." style='width: 49.5%'
+													required> <input type="text" maxlength="10"
+													style='width: 49.5%' name="mobile"
+													placeholder="Enter Mobile Number.." pattern=".{8,10}"
+													required>
+											</div>
+										</div>
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="email" name="email"
+													placeholder="Enter Email Address..">
+											</div>
+										</div>
+
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" name="address"
+													placeholder="Enter Address..">
+											</div>
+										</div>
+
+										<br>
+
+
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" name="uname"
+													placeholder="Enter User Name.." required>
+											</div>
+										</div>
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" name="defpwd"
+													placeholder="Enter Default Password.." required>
+											</div>
+										</div>
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<select name="role" required>
+
+													<option value="" disabled selected>Select Role</option>
+													<%
+														while (resultset.next()) {
+													%>
+													<option><%=resultset.getString(2)%></option>
+													<%
+														}
+													%>
+
+
+
+												</select>
+											</div>
+										</div>
+
+
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<select name="Branch" required>
+													<option value="" disabled selected>Select Branch</option>
+													<%
+														while (rs.next()) {
+
+															if (rs.getString(9).equals("Active")) {
+													%>
+													<option><%=rs.getString(3)%></option>
+													<%
+														}
+														}
+													%>
+
+												</select>
+											</div>
+										</div>
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-65">
+												<input type="text" readonly name="Status" value="Active"
+													placeholder="Active" required>
+
+
+											</div>
+										</div>
+
+
+
+										<br> <br>
+										<div class="row" style="float: right">
+
+											<input type="reset" value="Clear" style="margin-right: 16px;">
+											<input type="submit"
+												style="float: left; margin-right: 250px;" value="Register">
+										</div>
+									</form>
+								</div>
 							</div>
-							<div class="card-body" style="left: 30%">
 
-
-								<!-- /#Type Body Here -->
-								<form method="POST" class="forms" action="RegisterServlet"
-						method="post">
-					
-						<%
-					if (null != session.getAttribute("Successed")) {
-				%>
-
-				<div class="alert alert-success" role="alert">User Registered Successfully..</div>
-
-				<%
-					}else if (null != session.getAttribute("error")) {
-				%>
-
-				<div class="alert alert-danger" role="alert">Cannot Register the user..</div>
-
-				<%
-					}
-				%>
-
-						
-						
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" name="eno"
-									placeholder="Enter Employee Number.." required>
-							</div>
 						</div>
+						<!-- Content Row -->
 
 
-						<div class="row mt-1 mb-1">
+
+						<div class="row">
 
 
-										<div class="col-65">
-								<input type="text" name="fname" placeholder="Enter First Name.."
-									required>
-							</div>
+
+
+
+
+							<!-- cards starts -->
+
+							<!-- cards end -->
 						</div>
-<div class="row mt-1 mb-1">
-
-
-								
-
-										<div class="col-65">
-								<input type="text" name="lname" placeholder="Enter Last Name.."
-									required>
-							</div>
-							
-						</div>
-
-
-
-							<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" name="nic" placeholder="Enter NIC.."
-									pattern=".{10,12}" required>
-							</div>
-						</div>
-
-
-						<br>
-
-
-							<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" name="phoneno" pattern=".{8,10}"
-									placeholder="Enter Phone Number.." style='width: 49.5%' required> 
-									
-									<input type="text" maxlength="10" style='width: 49.5%' name="mobile"
-									placeholder="Enter Mobile Number.." pattern=".{8,10}" required>
-							</div>
-						</div>
-
-
-							<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="email" name="email"
-									placeholder="Enter Email Address..">
-							</div>
-						</div>
-
-
-
-							<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" name="address" placeholder="Enter Address..">
-							</div>
-						</div>
-
-						<br>
-
-
-
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" name="uname" placeholder="Enter User Name.."
-									required>
-							</div>
-						</div>
-
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" name="defpwd"
-									placeholder="Enter Default Password.." required>
-							</div>
-						</div>
-
-
-							<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<select name="role" required>
-
-									<option value="" disabled selected>Select Role</option>
-									<%
-										while (resultset.next()) {
-									%>
-									<option><%=resultset.getString(2)%></option>
-									<%
-										}
-									%>
-
-
-
-								</select>
-							</div>
-						</div>
-
-
-
-							<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<select name="Branch" required>
-									<option value="" disabled selected>Select Branch</option>
-									<%
-										while (rs.next()) {
-
-											if (rs.getString(9).equals("Active")) {
-									%>
-									<option><%=rs.getString(3)%></option>
-									<%
-										}
-										}
-									%>
-
-								</select>
-							</div>
-						</div>
-	<div class="row mt-1 mb-1">
-
-
-										<div class="col-65">
-								<input type="text" readonly name="Status" value="Active"
-									placeholder="Active" required>
-
-
-							</div>
-						</div>
-
-
-
-						<br> <br>
-						<div class="row" style="float: right">
-
-							<input type="reset" value="Clear" style="margin-right: 16px;">
-							<input type="submit" style="float: left; margin-right: 250px;" value="Register">
-						</div>
-					</form>
-							</div>
-						</div>
-
 					</div>
-					<!-- Content Row -->
 
-					
-
-					<div class="row">
-				
-
-	
-		
-
-
-						<!-- cards starts -->
-
-						<!-- cards end -->
-					</div>
 				</div>
-
 			</div>
 		</div>
-		</div>
-		
+
 	</div>
 
 	<!-- /#page-content-wrapper -->
@@ -381,12 +383,11 @@ div.a {
 				}
 			});
 		}
-		
+
 		window.history.forward();
-        function noBack()
-        {
-            window.history.forward();
-        }
+		function noBack() {
+			window.history.forward();
+		}
 	</script>
 
 
@@ -394,4 +395,3 @@ div.a {
 </body>
 
 </html>
-
