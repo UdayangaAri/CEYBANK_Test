@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <%@page import="Branches.BranchDao"%>
 <%@page import="java.util.List"%>
@@ -152,9 +153,16 @@
 		function noBack() {
 			window.history.forward();
 		}
+		
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
 
 </body>
 
 
 </html>
+

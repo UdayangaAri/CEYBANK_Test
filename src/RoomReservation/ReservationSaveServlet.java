@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import RoomManagement.Room;
-import RoomManagement.RoomDao;
-import block_Register.blockDAO;
-
 @WebServlet("/ReservationSaveServlet")
 public class ReservationSaveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,40 +29,67 @@ public class ReservationSaveServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
-
-		String roomNo = request.getParameter("RoomNo");
-		String roomName = request.getParameter("Roomname");
-		String roomType = request.getParameter("RoomType");
-		String blockName = request.getParameter("blockID");
+		PrintWriter out = response.getWriter();
 		
-		int i=Integer.parseInt(roomType);  
-
-		block_Register.block e = blockDAO.getBlocksById(blockName);
-
-		int blockID = e.getId();
-
-		Room room = new Room();
-
-		String room_Status = "Available";
-
-		room.setRoomNo(roomNo);
-		room.setRoomName(roomName);
-		room.setRoomType(i);
-		room.setBlockID(blockID);
-		room.setRoomStatus(room_Status);
-
-		int status = RoomDao.save(room);
+		//////////////////////////////////////////////////////////////////////
+		
+		String checkinNxt = request.getParameter("checkinNxt");
+		String checkoutNxt = request.getParameter("checkoutNxt");
+		
+		String branch = (String) session.getAttribute("branch");
+		String BlockNxt = request.getParameter("BlockNxt");
+		String room_in_r = request.getParameter("room_in_r");
+		String MealTypeNxt = request.getParameter("MealTypeNxt");
+		
+		String Room_Price_tot = request.getParameter("Room_Price_tot");
+		
+		String nameres = request.getParameter("nameres");
+		String nicres = request.getParameter("nicres");
+		String mobileres = request.getParameter("mobileres");
+		String emailres = request.getParameter("emailres");
+		
+		String GuestType = request.getParameter("options");
+		String pfnovalue = request.getParameter("pfnovalue");
+		
+		System.out.println("BlockNxt ::: "+BlockNxt);
+		System.out.println("room_in_r ::: "+room_in_r);
+		
+		//////////////////////////////////////////////////////////////////////
+		
+		Rooms rooms = new Rooms();
+		
+		rooms.setCheckin(checkinNxt);
+		rooms.setCheckout(checkoutNxt);
+		
+		rooms.setBranch(branch);
+		rooms.setBlock(BlockNxt);
+		rooms.setRoomNo(room_in_r);
+		rooms.setMealPlan(MealTypeNxt);
+		
+		rooms.setPrice(Room_Price_tot);
+		
+		rooms.setGuestname(nameres);
+		rooms.setGuestNIC(nicres);
+		rooms.setGuestMobile(mobileres);
+		rooms.setGuestEmail(emailres);
+		
+		rooms.setGuestType(GuestType);
+		rooms.setPF(pfnovalue);
+		
+		int status = RoomDAO.save(rooms);
+		
 		if (status > 0) {
-			session.setAttribute("RoomViewAlt", "SaveMessageRMs");
-			request.getRequestDispatcher("room_view.jsp").include(request, response);
+			
+			session.setAttribute("Reservation_Succeed", "Reservation_Succeed");
+			request.getRequestDispatcher("reservation.jsp").include(request, response);
 		} else {
-			out.println("Sorry! unable to save record");
+			session.setAttribute("Reservation_Failed", "Reservation_Failed");
 		}
 
 		out.close();
+
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Log.Log;
 import Log.LogDAO;
@@ -34,21 +35,19 @@ public class Block_editServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
 
 		String id = request.getParameter("blockID");
 		int sid = Integer.parseInt(id);
 
-		
 		block x = blockDAO.getBlockById(id);
 
-		
-		
-		String previousData = "Block Type Id : " + x.getId() + " , Block Type Location : " + x.getLocation() + " , Block Type Name : " + x.getBlock_name() + " , Block Type Status : " + x.getBlock_status();
+		String previousData = "Block Type Id : " + x.getId() + " , Block Type Location : " + x.getLocation()
+				+ " , Block Type Name : " + x.getBlock_name() + " , Block Type Status : " + x.getBlock_status();
 		String e_status = "Edited";
 		String edited_unit = "Block Types";
 		String name = (String) request.getSession(false).getAttribute("empno");
-		
-	
 
 		String block_l = request.getParameter("block_l");
 		String block_n = request.getParameter("block_n");
@@ -66,34 +65,35 @@ public class Block_editServlet extends HttpServlet {
 			e.setLocation(branch_id);
 			e.setBlock_name(block_n);
 			e.setBlock_status(block_s);
-			
+
 			Log log = new Log();
 
 			log.setPrevious_data(previousData);
 			log.setEdited_by(name);
 			log.setEdit_status(e_status);
 			log.setEdited_unit(edited_unit);
-			
 
 			int status = blockDAO.update(e);
 			if (status > 0) {
-				
+
 				int logs = LogDAO.InsertLog(log);
-			     
-				 if(logs>0){  
+
+				if(logs>0){  
 					 
-					
-					 out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
-						response.sendRedirect("block_view.jsp");
+					session.setAttribute("blockEditMessage", "blockEditMessage");
+					response.sendRedirect("block_view.jsp");
 	                 
 	             }
-	        	 else
-	             {
-	                 out.println("Sorry! unable to update record");  
+	        	 else{
+	        		 
+	        		session.setAttribute("blockEditFailed", "blockEditFailed");
+					response.sendRedirect("block_view.jsp");  
 	             }  
 				
 			} else {
-				out.println("Sorry! unable to update record");
+				
+				session.setAttribute("blockEditFailed", "blockEditFailed");
+				response.sendRedirect("block_view.jsp");
 			}
 
 		}

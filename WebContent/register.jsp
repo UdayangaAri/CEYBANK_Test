@@ -82,8 +82,6 @@ div.a {
 		}
 	%>
 
-
-
 	<div class="d-flex" id="sidebar-wrapper">
 
 		<!-- Sidebar -->
