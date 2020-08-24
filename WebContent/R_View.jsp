@@ -107,11 +107,20 @@
 						}
 					%>
 					
+					<div class="container mt-5 a">
+
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">	View Roles </h4>
+								<a href='User_role_managent.jsp'>Add New Role</a> <br>
+							</div>
+							</div></div>
+
+				
+
 					
-
-					<h3>View Roles</h3>
-
-					<a href='User_role_managent.jsp'>Add New Role</a> <br>
 
 					<%
 						List<Role> list = RoleDao.getAllRoles();

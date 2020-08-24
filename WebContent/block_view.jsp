@@ -75,7 +75,7 @@
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
-				<h3>Add New Block</h3>
+			
 
 				<div class="container">
 
@@ -119,8 +119,17 @@
 						}
 					%>
 
+<div class="container mt-5 a">
 
-					<a href='block_save.jsp'>Add New block</a> <br>
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">	Add New Block </h4>
+								<a href='block_save.jsp'>Add New block</a> <br>
+							</div>
+							</div></div>
+			
 
 					<%
 						List<block> list = blockDAO.getAllBlocks();

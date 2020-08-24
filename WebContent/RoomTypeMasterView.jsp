@@ -108,8 +108,18 @@
 						}
 					%>
 
+<div class="container mt-5 a">
 
-					<a href='RoomType_Save.jsp'>Add New Room Type</a> <br>
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">Room Types</h4>
+								<a href='RoomType_Save.jsp'>Add New Room Type</a> <br>
+							</div>
+							</div></div>
+					
+					
 
 					<%
 						List<Room_type> list = roomTypeDAO.getAllRoomType();

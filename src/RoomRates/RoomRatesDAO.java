@@ -219,7 +219,7 @@ public class RoomRatesDAO {
 
 	public static List<RoomRates> getAllRoomRates() {
 
-		System.out.println("******%%%%%%%%%%%%%%%%%%%%%%%%%%% ********");
+	//	System.out.println("******%%%%%%%%%%%%%%%%%%%%%%%%%%% ********");
 		List<RoomRates> list = new ArrayList<RoomRates>();
 
 		try {
@@ -347,19 +347,19 @@ public class RoomRatesDAO {
 					"SELECT * FROM room_rates where branch_id=? AND block_id=? AND room_type=? AND meal_plan=? AND status=?;");
 			//System.out.println("1111111111111");
 			ps.setString(1, branchID);
-			System.out.println("--------------------- branchID : "+branchID);
+			//System.out.println("--------------------- branchID : "+branchID);
 		
 			ps.setString(2, blockID);
-			System.out.println("--------------------- blockID : "+blockID);
+			//System.out.println("--------------------- blockID : "+blockID);
 			
 			ps.setString(3, room);
-			System.out.println("--------------------- room : "+room);
+			//System.out.println("--------------------- room : "+room);
 			
 			ps.setString(4, meal);
-			System.out.println("--------------------- meal : "+meal);
+		//	System.out.println("--------------------- meal : "+meal);
 			
 			ps.setString(5, active_status);
-			System.out.println("--------------------- active_status : "+active_status);
+			//System.out.println("--------------------- active_status : "+active_status);
 		
 
 			ResultSet rs = ps.executeQuery();
@@ -367,16 +367,16 @@ public class RoomRatesDAO {
 			while (rs.next()) {
 				
 				b.setId(rs.getString(1));
-				 System.out.println("*****************  id : "+rs.getString(1));
+			//	 System.out.println("*****************  id : "+rs.getString(1));
 				b.setBranch(rs.getString(2));
-				 System.out.println("***************** branch id : "+rs.getString(2));
+			//	 System.out.println("***************** branch id : "+rs.getString(2));
 			
 				b.setBlock(rs.getString(3));
-				 System.out.println("***************** block id : "+rs.getString(3));
+		//		 System.out.println("***************** block id : "+rs.getString(3));
 				b.setRoomtype(rs.getString(4));
-				 System.out.println("***************** room : "+rs.getString(4));
+			//	 System.out.println("***************** room : "+rs.getString(4));
 				b.setMealplan(rs.getString(5));
-				 System.out.println("***************** meal : "+rs.getString(5));
+			//	 System.out.println("***************** meal : "+rs.getString(5));
 				b.setBrate(rs.getString(6));
 				b.setDiscout(rs.getString(7));
 

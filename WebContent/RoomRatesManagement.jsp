@@ -115,10 +115,10 @@ if (null != session.getAttribute("sucess")) {
 
 				<%
 }
-if (null != session.getAttribute("notsucess")) {
+if (null != session.getAttribute("have")) {
 						%>
 
-				<div class="alert alert-danger" role="alert">Sorry! .</div>
+				<div class="alert alert-danger" role="alert">Sorry! There are are such records. Please check the view.</div>
 
 				<%
 }

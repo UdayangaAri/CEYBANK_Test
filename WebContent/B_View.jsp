@@ -118,11 +118,19 @@
 						}
 					%>
 					
+<div class="container mt-5 a">
 
-					<h3>Branch List</h3>
+						<div class="card shadow mb-4">
 
-					<a href='B_management.jsp'>Add New Branch</a> <br>
+							<div class="card-header py-3">
 
+								<h4 class="m-0 font-weight-bold text-primary">	Branch List</h4>
+								<a href='User_role_managent.jsp'>Add New Role</a> <br>
+							</div>
+							</div></div>
+					
+
+				
 					<%
 						List<Branch> list = BranchDao.getAllBranches();
 					%>

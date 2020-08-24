@@ -190,14 +190,16 @@ div.a {
 
 					</div>
 					<!-- Content Row -->
+<div class="container mt-3 a">
 
-					<div class="row">
-						
-						
-						
-						<%//	System.out.println("^^^^^^^^^^^^^^^^^^^^^^blockName: " + a); %>
-							<h4 class="m-0 font-weight-bold text-primary text-sm-center" >Block Name : <%=a%></h4>
-					</div>
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">Room Status : <%=a%></h4>
+							</div>
+							</div></div>
+					
 
 
 					<div class="row">

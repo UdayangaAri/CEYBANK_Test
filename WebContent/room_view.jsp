@@ -53,7 +53,7 @@
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
-				<h3>Rooms</h3>
+				
 
 				<div class="container">
 
@@ -97,8 +97,17 @@
 						}
 					%>
 
+<div class="container mt-5 a">
 
-					<a href='room_save.jsp'>Add New room</a> <br>
+						<div class="card shadow mb-4">
+
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">	Rooms </h4>
+								<a href='room_save.jsp'>Add New room</a> <br>
+							</div>
+							</div></div>
+					
 					<%
 						List<Room> list = RoomDao.getAllRooms();
 					%>

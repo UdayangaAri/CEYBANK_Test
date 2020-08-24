@@ -35,7 +35,7 @@ public class RoomRatesAddServlet extends HttpServlet {
 
 		String passBranchID = request.getParameter("SessionBranchID");
 
-		System.out.println("Branch ID : " + passBranchID);
+	//	System.out.println("Branch ID : " + passBranchID);
 
 		String passBlockID = request.getParameter("SessionBlockID");
 
@@ -74,15 +74,15 @@ public class RoomRatesAddServlet extends HttpServlet {
 
 		
 		int check = RoomRatesDAO.checkValues(passBranchID, passBlockID, roomtype, mealplan, Activestatus);
-		System.out.println("check value : "+check);
+	//	System.out.println("check value : "+check);
 		if (check > 0)
 		{
-			System.out.println("yessssssssssssssssssssssssssss ");
-			session.setAttribute("notsucess", "notsucess"); 
+			//System.out.println("yessssssssssssssssssssssssssss ");
+			session.setAttribute("have", "have"); 
 			 request.getRequestDispatcher("RoomRatesManagement.jsp").include(request, response);
 		}
 		else if (check==0) {
-			System.out.println("noooooooooooooooooooooooooo ");
+			//System.out.println("noooooooooooooooooooooooooo ");
 			int status = RoomRatesDAO.saveRatesMnagement(rr);
 
 			if (status > 0)

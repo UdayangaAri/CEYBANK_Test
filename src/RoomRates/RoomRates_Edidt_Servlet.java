@@ -43,7 +43,7 @@ public class RoomRates_Edidt_Servlet extends HttpServlet {
 		String discount_percentage = request.getParameter("Percentagee");
 		String discount_amount = request.getParameter("Amountt");
 		String options = request.getParameter("options");
-
+		String Activestatus = "Active";
 		RoomRates rr = new RoomRates();
 
 		rr.setBranch(SessionBranch);
@@ -65,19 +65,39 @@ public class RoomRates_Edidt_Servlet extends HttpServlet {
 
 		}
 
-		rr.setStatus("Active");
+		rr.setStatus(Activestatus);
 
-		int status = RoomRatesDAO.saveRatesMnagement(rr);
-
-		if (status > 0) {
-
-			request.getRequestDispatcher("home.jsp").include(request, response);
-		} else {
-
-			request.getRequestDispatcher("index.jsp").include(request, response);
-
+		
+		int check = RoomRatesDAO.checkValues(SessionBranch, SessionBlock, SessionRoomType, SessionMealPlan, Activestatus);
+		//System.out.println("check value : "+check);
+		if (check > 0)
+		{
+			//System.out.println("yessssssssssssssssssssssssssss ");
+			session.setAttribute("have", "have"); 
+			 request.getRequestDispatcher("RoomRatesManagement.jsp").include(request, response);
 		}
+		else if (check==0) {
+			//System.out.println("noooooooooooooooooooooooooo ");
+			int status = RoomRatesDAO.saveRatesMnagement(rr);
 
+			if (status > 0)
+			{
+
+				session.setAttribute("sucess", "sucess"); 
+				 request.getRequestDispatcher("RoomRatesManagement.jsp").include(request, response);
+			} 
+			
+			else 
+			{
+
+				session.setAttribute("notsucess", "notsucess"); 
+				 request.getRequestDispatcher("RoomRatesManagement.jsp").include(request, response);
+
+			}
+			
+		}
+			
+		
 		out.close();
 
 	}
