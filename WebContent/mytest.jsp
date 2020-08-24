@@ -61,11 +61,8 @@
 
 <%
 	String Employees_Branch = (String) session.getAttribute("branch");
-
 	String Guest_Branch = (String) session.getAttribute("branch");
-
 	String Username = (String) session.getAttribute("Username");
-
 	String Pos = (String) request.getAttribute("Pos");
 	String cname = (String) request.getAttribute("name");
 	String cnic = (String) request.getAttribute("nic");
@@ -76,10 +73,8 @@
 	String err = (String) request.getAttribute("wrong");
 	String cno = (String) request.getAttribute("cno");
 	String xString = (String) request.getAttribute("xString");
-
 	String Staff = "Staff";
 	String Guest = "Public";
-
 	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
 
@@ -87,7 +82,6 @@
 * {
 	box-sizing: border-box;
 }
-
 #regForm {
 	background-color: #ffffff;
 	margin: 100px auto;
@@ -96,11 +90,9 @@
 	width: 70%;
 	min-width: 300px;
 }
-
 h1 {
 	text-align: center;
 }
-
 input {
 	padding: 10px;
 	width: 100%;
@@ -108,17 +100,14 @@ input {
 	font-family: Raleway;
 	border: 1px solid #aaaaaa;
 }
-
 /* Mark input boxes that gets an error on validation: */
 input.invalid {
 	background-color: #ffdddd;
 }
-
 /* Hide all steps by default: */
 .tab {
 	display: none;
 }
-
 button {
 	background-color: #4CAF50;
 	color: #ffffff;
@@ -128,15 +117,12 @@ button {
 	font-family: Raleway;
 	cursor: pointer;
 }
-
 button:hover {
 	opacity: 0.8;
 }
-
 #prevBtn {
 	background-color: #bbbbbb;
 }
-
 /* Make circles that indicate the steps of the form: */
 .step {
 	height: 15px;
@@ -148,11 +134,9 @@ button:hover {
 	display: inline-block;
 	opacity: 0.5;
 }
-
 .step.active {
 	opacity: 1;
 }
-
 /* Mark the steps that are finished and valid: */
 .step.finish {
 	background-color: #4CAF50;
@@ -311,7 +295,6 @@ button:hover {
 					<script>
 						var currentTab = 0; // Current tab is set to be the first tab (0)
 						showTab(currentTab); // Display the current tab
-
 						function showTab(n) {
 							// This function will display the specified tab of the form...
 							var x = document.getElementsByClassName("tab");
@@ -330,7 +313,6 @@ button:hover {
 							//... and run a function that will display the correct step indicator:
 							fixStepIndicator(n)
 						}
-
 						function nextPrev(n) {
 							// This function will figure out which tab to display
 							var x = document.getElementsByClassName("tab");
@@ -350,7 +332,6 @@ button:hover {
 							// Otherwise, display the correct tab:
 							showTab(currentTab);
 						}
-
 						function validateForm() {
 							// This function deals with validation of the form fields
 							var x, y, i, valid = true;
@@ -372,7 +353,6 @@ button:hover {
 							}
 							return valid; // return the valid status
 						}
-
 						function fixStepIndicator(n) {
 							// This function removes the "active" class of all steps...
 							var i, x = document.getElementsByClassName("step");
@@ -383,7 +363,6 @@ button:hover {
 							//... and adds the "active" class on the current step:
 							x[n].className += " active";
 						}
-
 						//////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -391,25 +370,19 @@ button:hover {
 						//////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////
-
 						$("#menu-toggle").click(function(e) {
 							e.preventDefault();
 							$("#wrapper").toggleClass("active");
 						});
-
 						
 						$(document).ready(function() {
-
 							$('#sidebarCollapse').on('click', function() {
 								$('#sidebar').toggleClass('active');
 							});
-
 						});
-
 						var dropdown = document
 								.getElementsByClassName("dropdown-btn");
 						var i;
-
 						for (i = 0; i < dropdown.length; i++) {
 							dropdown[i].addEventListener("click", function() {
 								this.classList.toggle("active");
@@ -421,7 +394,6 @@ button:hover {
 								}
 							});
 						}
-
 						window.history.forward();
 						function noBack() {
 							window.history.forward();

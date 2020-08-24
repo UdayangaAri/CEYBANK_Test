@@ -17,9 +17,12 @@
 	ResultSet rs = null;
 %>
 
+
+
+
 <head>
 
-<!-- #9999ff -->
+
 
 <link rel="stylesheet" type="text/css" href="css/All.css">
 <link rel="stylesheet" type="text/css" href="css/register.css">
@@ -27,7 +30,7 @@
 
 <script type="text/javascript" src="js/clock.js"></script>
 
-<!-- Custom styles for this template-->
+
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta name="viewport"

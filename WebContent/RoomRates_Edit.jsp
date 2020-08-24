@@ -137,122 +137,53 @@ div.a {
 										Management</h4>
 									<a href='RoomRates_View.jsp'>Edit Room Rates </a> <br>
 								</div>
-								<div class="card-header py-3">
-									<p>
-									<p>
-										<button class="btn btn-primary" type="button"
-											data-toggle="collapse" data-target="#collapseExample"
-											aria-expanded="false" aria-controls="collapseExample">
-											Load Previous details in room Management</button>
-									</p>
-									<div class="collapse" id="collapseExample">
-										<div class="card card-body">
-
-
-											<%
-												String branch_name = RoomRatesDAO.getBranchName(ew.getBranch());
-												String block_name = RoomRatesDAO.getBlockName(ew.getBlock());
-												String room_type = RoomRatesDAO.getRoomTypeName(ew.getRoomtype());
-
-												String rate_name = ew.getBrate();
-												String discount_amount = ew.getDiscout();
-												String discount_name = ew.getDicount_type();
-											%>
 
 
 
-												<ul class="list-group list-group-flush">
-													<li class="list-group-item">Branch Name : <%=branch_name%></li>
-													<li class="list-group-item">Block Name : <%=block_name%></li>
-													<li class="list-group-item">Room Name : <%=room_type%></li>
-													<li class="list-group-item">Rate Name : <%=rate_name%></li>
-													<li class="list-group-item">Discount amount : <%=discount_amount%></li>
-													<li class="list-group-item">Discount name : <%=discount_name%></li>
+								<%
+									String branch_name = RoomRatesDAO.getBranchName(ew.getBranch());
+									String block_name = RoomRatesDAO.getBlockName(ew.getBlock());
+									String room_type = RoomRatesDAO.getRoomTypeName(ew.getRoomtype());
 
-												</ul>
-											</div>
+									String rate_name = ew.getBrate();
+									String discount_amount = ew.getDiscout();
+									String discount_name = ew.getDicount_type();
+								%>
 
-										</div>
-									</div>
-								</div>
+
+
 								<div class="card-body" style="left: 30%">
 
 
 									<!-- /#Type Body Here -->
-									<%
-										String t = (String) session.getAttribute("TranslateBranch");
-									%>
-									<form action="" method="post">
+
+
+									<form action="RoomRates_Edidt_Servlet" method="post">
 
 										<div class="row mt-1 mb-1">
 
 
 											<div class="col-25">
 												<p>
-													<b><b>Select Branch</b></b>
+													<b><b>Branch</b></b>
 												</p>
 
 											</div>
 
 
 											<div class="col-65">
-
-												<select name="branchidforRates" id="branchidforRates"
-													required onchange="this.form.submit()" onchange="my()">
-													<option value="" disabled selected>Select a Branch</option>
-													<%
-														String x = request.getParameter("branchidforRates");
-														session.setAttribute("TranslateBranch", x);
-
-														String RecieveBranch = (String) session.getAttribute("Branch_Name_Value");
-
-														String takenameofbranchname = RoomRatesDAO.getBranchName(x);
-
-														session.setAttribute("Branch_Name_Value", takenameofbranchname);
-
-														//-----------------------------------------------------------------------------------------------------------------------
-														if (x != null) {
-													%>
-													<option value="" disabled selected><%=takenameofbranchname%></option>
-													<%
-														} else if (RecieveBranch != null) {
-													%>
-													<option value="" disabled selected><%=RecieveBranch%></option>
-													<%
-														} else {
-													%>
-													<option value="" disabled selected>Select a Branch</option>
-
-													<%
-														}
-													%>
-
-
-													<%
-														try {
-															while (r1.next()) {
-													%>
-
-													<option value="<%=r1.getString(1)%>"><%=r1.getString(3)%></option>
-
-													<%
-														}
-
-														} catch (Exception e) {
-															e.printStackTrace();
-														}
-													%>
-												</select>
+												<input type="text" style="text-align: center"
+													class="form-control" name="EditBranch" id="EditBranch"
+													disabled value="<%=branch_name%>">
+												<%
+													session.setAttribute("EditBranch", ew.getBranch());
+												%>
 											</div>
 
 
 
 										</div>
-										<%
-											int idBranch = RoomRatesDAO.getBranchID(takenameofbranchname);
 
-											session.setAttribute("Branch_Name_For_Form", idBranch);
-										%>
 
 										<div class="row mt-1 mb-1">
 
@@ -265,72 +196,17 @@ div.a {
 											</div>
 
 											<div class="col-65">
-												<select name="blockidforRates" id="blockidforRates" required
-													onchange="this.form.submit()">
-													<option value="" disabled selected>Select a Block</option>
-													<%
-														String y = request.getParameter("blockidforRates");
-														session.setAttribute("TranslateBlock", y);
-
-														String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
-
-														String takenameofblockName = RoomRatesDAO.getBlockName(y);
-
-														session.setAttribute("Block_Name_Value", takenameofblockName);
-
-														if (y != null) {
-													%>
-													<option value="" disabled selected><%=takenameofblockName%></option>
-
-
-													<%
-														} else if (RecieveBlock != null) {
-													%>
-													<option value="" disabled selected><%=RecieveBlock%></option>
-													<%
-														} else {
-													%>
-													<option value="" disabled selected>Select a Block</option>
-
-													<%
-														}
-													%>
-
-
-													<%
-														String Q2 = "select * from block where block_location=?";
-														Connection c2 = DBConnection.getConnection();
-														PreparedStatement p2 = c2.prepareStatement(Q2);
-														p2.setString(1, x);
-
-														r2 = p2.executeQuery();
-														while (r2.next()) {
-													%>
-
-													<option value="<%=r2.getString(1)%>"><%=r2.getString(3)%></option>
-
-													<%
-														}
-													%>
-												</select>
+												<input type="text" style="text-align: center"
+													class="form-control" name="EditBlock" id="EditBlock"
+													disabled value="<%=block_name%>">
+												<%
+													session.setAttribute("EditBlock", ew.getBlock());
+												%>
 											</div>
 
 										</div>
-									</form>
-									<form action="RoomRatesAddServlet" method="post">
 
-										<%
-											int idBlock = RoomRatesDAO.getBlockID(takenameofblockName);
 
-											session.setAttribute("Block_Name_For_Form", idBlock);
-
-											String SessionTranslateBlock = (String) session.getAttribute("TranslateBlock");
-										%>
-										<p id="aa"></p>
-										<input type="hidden" id="SessionBranchID"
-											name="SessionBranchID" value="<%=t%>"> <input
-											type="hidden" id="SessionBlockID" name="SessionBlockID"
-											value="<%=SessionTranslateBlock%>">
 
 
 
@@ -345,62 +221,17 @@ div.a {
 											</div>
 
 											<div class="col-65">
-												<select name="roomtypeforRates" id="roomtypeforRates"
-													required>
-
-													<%
-														String z = request.getParameter("roomtypeforRates");
-
-														String RecieveRoomType = (String) session.getAttribute("Room_Name_Value");
-
-														String takenameofRoomType = RoomRatesDAO.getRoomTypeName(z);
-
-														session.setAttribute("Room_Name_Value", takenameofRoomType);
-													%>
-													<option value="" disabled selected>Select a Room
-														type</option>
-
-
-
-
-
-													<%
-														String Q3 = "SELECT distinct roomType FROM ceybank_rest.rooms where blockID=?";
-														Connection c3 = DBConnection.getConnection();
-														PreparedStatement p3 = c3.prepareStatement(Q3);
-														p3.setString(1, y);
-
-														r3 = p3.executeQuery();
-														//
-														while (r3.next()) {
-															String Q4 = "SELECT * FROM roomtypes where roomTypeId=?";
-
-															Connection c4 = DBConnection.getConnection();
-															PreparedStatement p4 = c4.prepareStatement(Q4);
-															p4.setString(1, r3.getString(1));
-															String bb = r3.getString(1);
-
-															r4 = p4.executeQuery();
-															while (r4.next()) {
-													%>
-
-													<option value="<%=r4.getString(1)%>"><%=r4.getString(2)%></option>
-
-													<%
-														}
-														}
-													%>
-												</select>
-
+												<input type="text" style="text-align: center"
+													class="form-control" name="Editroom_type"
+													id="Editroom_type" disabled value="<%=room_type%>">
+												<%
+													session.setAttribute("Editroom_type", ew.getRoomtype());
+												%>
 											</div>
 
 
 										</div>
-										<%
-											int idRoomType = RoomRatesDAO.getRoomTypeID(takenameofRoomType);
 
-											session.setAttribute("RoomType_Name_For_Form", idRoomType);
-										%>
 
 
 
@@ -417,21 +248,12 @@ div.a {
 											</div>
 
 											<div class="col-65">
-												<select name="mealtypeforRates" id="mealtypeforRates"
-													required>
-
-
-													<option value="" disabled selected>Select meal
-														type</option>
-
-													<option value="Bread & Breakfast">Bread &
-														Breakfast</option>
-													<option value="Half board">Half board</option>
-													<option value="Full Board">Full Board</option>
-													<option value="Room only">Room only</option>
-
-
-												</select>
+												<input type="text" style="text-align: center"
+													class="form-control" name="EditMeal" id="EditMeal" disabled
+													value="<%=ew.getMealplan()%>">
+												<%
+													session.setAttribute("EditMeal", ew.getMealplan());
+												%>
 
 											</div>
 
@@ -505,7 +327,7 @@ div.a {
 										<div class="row mt-1 mb-1 " style="float: right">
 
 											<div class="row center">
-												<button class="btn btn-primary" type="submit">Add</button>
+												<button class="btn btn-primary" type="submit">Save</button>
 
 											</div>
 

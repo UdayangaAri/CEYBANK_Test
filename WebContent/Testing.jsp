@@ -60,14 +60,10 @@
 
 <%
 	String Employees_Branch = (String) session.getAttribute("branch");
-
 	String Guest_Branch = (String) session.getAttribute("branch");
-
 	String Username = (String) session.getAttribute("Username");
-
 	String Staff = "Staff";
 	String Guest = "Public";
-
 	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
 
@@ -106,15 +102,11 @@
 
 									<%
 										try {
-
 											Connection con = DBConnection.getConnection();
 											System.out.println("Printing connection object " + con);
-
 											Statement statement = con.createStatement();
 											Statement st = con.createStatement();
-
 											rx = statement.executeQuery("select * from block");
-
 										} catch (Exception e) {
 											e.printStackTrace();
 										}
@@ -140,16 +132,13 @@
 														String Query = "select * from block";
 														Connection con = DBConnection.getConnection();
 														//System.out.println("Printing connection object " + con);
-
 														PreparedStatement psmtX = con.prepareStatement(Query);
-
 														rs1 = psmtX.executeQuery();
 														while (rs1.next()) {
 												%>
 												<option value=<%=rs1.getInt("blockID")%>><%=rs1.getString("block_name")%></option>
 												<%
 													}
-
 													} catch (Exception e) {
 														e.printStackTrace();
 													}
@@ -178,7 +167,6 @@
 														String Query = "select * from rooms";
 														Connection con = DBConnection.getConnection();
 														//System.out.println("Printing connection object " + con);
-
 														PreparedStatement psmt = con.prepareStatement(Query);
 														rs = psmt.executeQuery();
 														while (rs.next()) {
@@ -186,7 +174,6 @@
 												<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
 												<%
 													}
-
 													} catch (Exception e) {
 														e.printStackTrace();
 													}
@@ -337,81 +324,53 @@
 				$('#sidebar').toggleClass('active');
 			});
 		});
-
 		var dropdown = document.getElementsByClassName("dropdown-btn");
-
 		var i;
-
 		for (i = 0; i < dropdown.length; i++) {
-
 			dropdown[i].addEventListener("click", function() {
-
 				this.classList.toggle("active");
-
 				var dropdownContent = this.nextElementSibling;
-
 				if (dropdownContent.style.display === "block") {
-
 					dropdownContent.style.display = "none";
-
 				} else {
 					dropdownContent.style.display = "block";
 				}
 			});
 		}
-
 		window.history.forward();
 		function noBack() {
 			window.history.forward();
 		}
-
 		var today = new Date().toISOString().split('T')[0];
-
 		document.getElementsByName("checkin")[0].setAttribute('min', today);
 		document.getElementsByName("checkout")[0].setAttribute('min', today);
 		document.getElementsByName("dob")[0].setAttribute('max', today);
-
 		function yesnoCheck() {
-
 			if (document.getElementById('yesCheck').checked) {
-
 				document.getElementById('ifYes').style.visibility = 'visible';
-
 			} else
-
 				document.getElementById('ifYes').style.visibility = 'hidden';
 		}
-
 		function my1() {
-
 			$(document).ready(function() {
-
 				$("#update").modal('show');
 				$tr = $this.closest('tr');
 				tr = $(this).closet('tr');
 			});
 		}
-
 		window.setTimeout(function() {
-
 			$(".alert").fadeTo(500, 0).slideUp(500, function() {
 				$(this).remove();
 			});
-
 		}, 2000);
-
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 		function getBlockValue(n) {
-
 			var x = document.getElementById("block_in_r");
-
 			var strUser = x.options[x.selectedIndex].value;
-
 			window.alert(strUser);
 			
 				<%try {

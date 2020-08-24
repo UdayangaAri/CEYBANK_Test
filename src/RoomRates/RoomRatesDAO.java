@@ -27,14 +27,12 @@ public class RoomRatesDAO {
 			PreparedStatement ps = con.prepareStatement("SELECT roomTypeId FROM roomtypes where RoomTypeName=?;");
 
 			ps.setString(1, roomTypeID);
-			// System.out.println("******************************branchID : " + blockID);
+
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 
 				r.setId(rs.getInt(1));
 				status = rs.getInt(1);
-				// System.out.println("****************************** name : " +
-				// rs.getString(1));
 
 			}
 			con.close();
@@ -57,15 +55,12 @@ public class RoomRatesDAO {
 			PreparedStatement ps = con.prepareStatement("SELECT RoomTypeName FROM roomtypes where roomTypeId=?;");
 
 			ps.setString(1, RoomName);
-			// System.out.println("******************************Room type ID : " +
-			// RoomName);
+
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 
 				r.setRoom_Type(rs.getString(1));
 				status = rs.getString(1);
-				// System.out.println("******************************Room type name : " +
-				// rs.getString(1));
 
 			}
 			con.close();
@@ -168,22 +163,22 @@ public class RoomRatesDAO {
 					"insert into room_rates(branch_id,block_id,room_type,meal_plan,rate,discount,dicount_type,status) values (?,?,?,?,?,?,?,?)");
 
 			ps.setString(1, rr.getBranch());
-			//System.out.println("++++++++++++++  ;"+rr.getBranch());
+			// System.out.println("++++++++++++++ ;"+rr.getBranch());
 			ps.setString(2, rr.getBlock());
-			//System.out.println("++++++++++++++  ;"+rr.getBlock());
+			// System.out.println("++++++++++++++ ;"+rr.getBlock());
 			ps.setString(3, rr.getRoomtype());
-			//System.out.println("++++++++++++++  ;"+rr.getRoomtype());
+			// System.out.println("++++++++++++++ ;"+rr.getRoomtype());
 			ps.setString(4, rr.getMealplan());
-		//	System.out.println("++++++++++++++  ;"+rr.getRoomtype());
+			// System.out.println("++++++++++++++ ;"+rr.getRoomtype());
 			ps.setString(5, rr.getBrate());
-		//	System.out.println("++++++++++++++  ;"+rr.getBrate());
+			// System.out.println("++++++++++++++ ;"+rr.getBrate());
 			ps.setString(6, rr.getDiscout());
-		//	System.out.println("++++++++++++++  ;"+rr.getDiscout());
+			// System.out.println("++++++++++++++ ;"+rr.getDiscout());
 			ps.setString(7, rr.getDicount_type());
-		//	System.out.println("++++++++++++++  ;"+rr.getDicount_type());
+			// System.out.println("++++++++++++++ ;"+rr.getDicount_type());
 			ps.setString(8, rr.getStatus());
-		//	System.out.println("++++++++++++++  ;"+rr.getStatus());
-			
+			// System.out.println("++++++++++++++ ;"+rr.getStatus());
+
 			status = ps.executeUpdate();
 
 			con.close();
@@ -222,131 +217,179 @@ public class RoomRatesDAO {
 		return status;
 	}
 
-	public static List<RoomRates> getAllRoomRates(){  
-	    	
-	    	
-	        List<RoomRates> list = new ArrayList<RoomRates>();  
-	          
-	        try{  
-	            Connection con = DBConnection.getConnection(); 
-	            PreparedStatement ps=con.prepareStatement("select * from room_rates ORDER BY id ASC;");  
-	            ResultSet rs=ps.executeQuery();  
-	            while(rs.next()){  
-	            	
-	            	RoomRates e = new RoomRates(); 
-	            	
-	            	e.setId(rs.getString(1));
-	                e.setBranch(rs.getString(2));
-					e.setBlock(rs.getString(3));
-					e.setRoomtype(rs.getString(4));
-					 e.setMealplan(rs.getString(5));
-						e.setBrate(rs.getString(6));
-						e.setDiscout(rs.getString(7));
-						 e.setDicount_type(rs.getString(8));
-							e.setStatus(rs.getString(9));
-						
-					
-				//	System.out.println(e.getBranch());
-					
+	public static List<RoomRates> getAllRoomRates() {
 
-	                list.add(e);
-	            }  
-	            con.close();  
-	        }
-	        catch(Exception e)
-	        {
-	        	e.printStackTrace();
-	        }  
-	          
-	        
-	        return list;  
-	    }
-		
-	
-	
-	  public static int deleteRoomRAtes(int id){  
-	        int status=0;  
-	        
-	        try{  
-	            Connection con = DBConnection.getConnection(); 
-	            PreparedStatement ps=con.prepareStatement("delete from room_rates where id=?");  
-	            //System.out.println("Printing connection object " + con);
-	            ps.setInt(1,id);  
-	            status=ps.executeUpdate();  
-	              
-	            con.close();  
-	        }catch(Exception e){e.printStackTrace();}  
-	          
-	        return status;  
-	    }  
-	
-		public static int updateRoomRates(String id) {
-			int status = 0;
+		System.out.println("******%%%%%%%%%%%%%%%%%%%%%%%%%%% ********");
+		List<RoomRates> list = new ArrayList<RoomRates>();
 
-			try {
-				Connection con = DBConnection.getConnection();
-				//System.out.println("Printing connection object " + con);
-				
-				
-				//System.out.println("id of the room rates in update dao "+ id);
-				
-			
-				//UPDATE `ceybank_rest`.`room_rates` SET `status` = 'Deactivated' WHERE (`id` = '62');
-					
-				PreparedStatement ps = con.prepareStatement("UPDATE room_rates SET status = 'Deactive' WHERE id = "+id+";");
+		try {
+			Connection con = DBConnection.getConnection();
+			PreparedStatement ps = con.prepareStatement("select * from room_rates ORDER BY id ASC;");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
 
-				status = ps.executeUpdate();
+				RoomRates e = new RoomRates();
 
-				//System.out.println(status);
+				e.setId(rs.getString(1));
+				e.setBranch(rs.getString(2));
+				e.setBlock(rs.getString(3));
+				e.setRoomtype(rs.getString(4));
+				e.setMealplan(rs.getString(5));
+				e.setBrate(rs.getString(6));
+				e.setDiscout(rs.getString(7));
+				e.setDicount_type(rs.getString(8));
+				e.setStatus(rs.getString(9));
 
-				con.close();
-			
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				// System.out.println(e.getBranch());
+
+				list.add(e);
 			}
-
-			return status;
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		public static RoomRates getRoomRates(String sid) {
-			RoomRates b = new RoomRates();
+		return list;
+	}
 
-			try {
-				Connection con = DBConnection.getConnection();
+	public static int deleteRoomRAtes(int id) {
+		int status = 0;
 
-				PreparedStatement ps = con.prepareStatement("select * from room_rates where id=?;");
-				
-				
-				ps.setString(1, sid);
-				System.out.println("--------------------- id : "+sid);
-				ResultSet rs = ps.executeQuery();
-				if (rs.next()) {
+		try {
+			Connection con = DBConnection.getConnection();
+			PreparedStatement ps = con.prepareStatement("delete from room_rates where id=?");
+			// System.out.println("Printing connection object " + con);
+			ps.setInt(1, id);
+			status = ps.executeUpdate();
 
-					
-					
-					b.setId(rs.getString(1));
-					//System.out.println("--------------------- id : "+b.getId());
-					b.setBranch(rs.getString(2));
-					//System.out.println("--------------------- id : "+b.getBranch());
-					b.setBlock(rs.getString(3));
-					//System.out.println("--------------------- id : "+b.getBlock());
-					b.setRoomtype(rs.getString(4));
-					//System.out.println("--------------------- id : "+b.getRoomtype());
-					b.setMealplan(rs.getString(5));
-					b.setBrate(rs.getString(6));
-					b.setDiscout(rs.getString(7));
-			
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
+	}
+
+	public static int updateRoomRates(String id) {
+		int status = 0;
+
+		try {
+			Connection con = DBConnection.getConnection();
+			// System.out.println("Printing connection object " + con);
+
+			// System.out.println("id of the room rates in update dao "+ id);
+
+			// UPDATE `ceybank_rest`.`room_rates` SET `status` = 'Deactivated' WHERE (`id` =
+			// '62');
+
+			PreparedStatement ps = con
+					.prepareStatement("UPDATE room_rates SET status = 'Deactive' WHERE id = " + id + ";");
+
+			status = ps.executeUpdate();
+
+			// System.out.println(status);
+
+			con.close();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return status;
+	}
+
+	public static RoomRates getRoomRates(String sid) {
+		RoomRates b = new RoomRates();
+
+		try {
+			Connection con = DBConnection.getConnection();
+
+			PreparedStatement ps = con.prepareStatement("select * from room_rates where id=?;");
+
+			ps.setString(1, sid);
+			// System.out.println("--------------------- id : "+sid);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				b.setId(rs.getString(1));
+				// System.out.println("--------------------- id : "+b.getId());
+				b.setBranch(rs.getString(2));
+				// System.out.println("--------------------- id : "+b.getBranch());
+				b.setBlock(rs.getString(3));
+				// System.out.println("--------------------- id : "+b.getBlock());
+				b.setRoomtype(rs.getString(4));
+				// System.out.println("--------------------- id : "+b.getRoomtype());
+				b.setMealplan(rs.getString(5));
+				b.setBrate(rs.getString(6));
+				b.setDiscout(rs.getString(7));
+
 				b.setDicount_type(rs.getString(8));
 				b.setStatus(rs.getString(9));
-					
-					
-				}
-				con.close();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
 
-			return b;
+			}
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
+		return b;
+	}
+	public static int checkValues(String branchID,String blockID,String room,String meal,String active_status) {
+//System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
+		int status = 0;
+
+		RoomRates b = new RoomRates();
+ 
+		try {
+			Connection con = DBConnection.getConnection();
+			//System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+			PreparedStatement ps = con.prepareStatement("\n" + 
+					"SELECT * FROM room_rates where branch_id=? AND block_id=? AND room_type=? AND meal_plan=? AND status=?;");
+			//System.out.println("1111111111111");
+			ps.setString(1, branchID);
+			System.out.println("--------------------- branchID : "+branchID);
+		
+			ps.setString(2, blockID);
+			System.out.println("--------------------- blockID : "+blockID);
+			
+			ps.setString(3, room);
+			System.out.println("--------------------- room : "+room);
+			
+			ps.setString(4, meal);
+			System.out.println("--------------------- meal : "+meal);
+			
+			ps.setString(5, active_status);
+			System.out.println("--------------------- active_status : "+active_status);
+		
+
+			ResultSet rs = ps.executeQuery();
+		
+			while (rs.next()) {
+				
+				b.setId(rs.getString(1));
+				 System.out.println("*****************  id : "+rs.getString(1));
+				b.setBranch(rs.getString(2));
+				 System.out.println("***************** branch id : "+rs.getString(2));
+			
+				b.setBlock(rs.getString(3));
+				 System.out.println("***************** block id : "+rs.getString(3));
+				b.setRoomtype(rs.getString(4));
+				 System.out.println("***************** room : "+rs.getString(4));
+				b.setMealplan(rs.getString(5));
+				 System.out.println("***************** meal : "+rs.getString(5));
+				b.setBrate(rs.getString(6));
+				b.setDiscout(rs.getString(7));
+
+				b.setDicount_type(rs.getString(8));
+				b.setStatus(rs.getString(9));
+			
+				status++;
+			}
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return status;
+	}
 }
