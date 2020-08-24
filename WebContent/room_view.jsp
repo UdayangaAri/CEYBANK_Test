@@ -43,10 +43,10 @@
 
 	<div class="d-flex" id="sidebar-wrapper">
 
-		<!-- Sidebar -->
+		<!-- Side-bar -->
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
-		<!-- /#sidebar-wrapper -->
+		<!-- /#side-bar-wrapper -->
 
 		<!-- Page Content -->
 		<div class=container-fluid>
@@ -58,26 +58,42 @@
 				<div class="container">
 
 					<!-- /#Type Body Here -->
+					
 					<%
-						String Message = (String) session.getAttribute("RoomViewAlt");
-						if (Message == "editedMessageRM") {
+						String Deleted = (String) session.getAttribute("RMDeleteMessage");
+						String Delete_Failed = (String) session.getAttribute("RMDeleteFailed");
+						String Edited = (String) session.getAttribute("RMEditMessage");
+						String Edited_Failed = (String) session.getAttribute("RMEditFailed");
+						String Saved = (String) session.getAttribute("RMSaveMessage");
+						String Saved_Failed = (String) session.getAttribute("RMSaveFailed");
+
+						if (null != Deleted) {
+					%>
+					<div class="alert alert-success" role="alert">Deleted
+						Successfully..!</div>
+					<%
+						} else if (null != Delete_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Delete Failed..!</div>
+					<%
+						} else if (null != Edited) {
 					%>
 					<div class="alert alert-success" role="alert">Edited
-						Successfully..</div>
+						Successfully..!</div>
 					<%
-						} else if (Message == "deleteMessageRMs") {
+						} else if (null != Edited_Failed) {
 					%>
-					<div class="alert alert-danger" role="alert">Deleted
-						Successfully..</div>
-
+					<div class="alert alert-danger" role="alert">Edit Failed..!</div>
 					<%
-						} else if (Message == "SaveMessageRMs") {
+						} else if (null != Saved) {
 					%>
-					<div class="alert alert-success" role="alert">Record Saved
-						Successfully..</div>
-
+					<div class="alert alert-success" role="alert">Saved
+						Successfully..!</div>
 					<%
-						} else {
+						} else if (null != Saved_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Save Failed..!</div>
+					<%
 						}
 					%>
 
@@ -181,6 +197,7 @@
 		function noBack() {
 			window.history.forward();
 		}
+		
 		window.setTimeout(function() {
 			$(".alert").fadeTo(500, 0).slideUp(500, function() {
 				$(this).remove();

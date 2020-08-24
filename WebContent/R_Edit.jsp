@@ -16,7 +16,7 @@
 	ResultSet resultset = null;
 	ResultSet rs = null;
 %>
-
+ 
 <head>
 
 <!-- #9999ff -->
@@ -25,9 +25,7 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -37,19 +35,17 @@
 
 <title>Edit Roles</title>
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
 <body onload="startTime()">
 
-
 	<div class="d-flex" id="sidebar-wrapper">
 
 		<!-- Sidebar -->
+
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
 		<!-- /#sidebar-wrapper -->
@@ -61,16 +57,16 @@
 
 				<div class="container">
 					<%
-				String sid = request.getParameter("id");
+						String sid = request.getParameter("id");
 
-				Role e = RoleDao.getRoleById(sid);
-			%>
+						Role e = RoleDao.getRoleById(sid);
+					%>
 
 					<form method="POST" class="forms" action="EditServlet2s"
 						method="post">
 
 						<h3>Edit Roles</h3>
-						
+
 						<div class="row">
 
 							<div class="col-25">
@@ -79,8 +75,8 @@
 							</div>
 
 							<div class="col-75">
-								<input type="text" name="id" id="id" readonly value="<%=e.getId()%>"
-									onchange="myFunction()" required>
+								<input type="text" name="id" id="id" readonly
+									value="<%=e.getId()%>" onchange="myFunction()" required>
 							</div>
 						</div>
 
@@ -88,12 +84,13 @@
 
 							<div class="col-25">
 								<p>Role Name</p>
+								
 
 							</div>
 
 							<div class="col-75">
-								<input type="text" name="name" id="name" value="<%=e.getRole()%>" 
-								onchange="myFunction()" required>
+								<input type="text" name="name" id="name"
+									value="<%=e.getRole()%>" onchange="myFunction()" required>
 							</div>
 						</div>
 
@@ -105,9 +102,10 @@
 							</div>
 
 							<div class="col-75">
-								<input type="text" name="desc" id="desc" value="<%=e.getRoleDesc()%>"
-								onchange="myFunction()">
-								<input type="hidden" name="passingValue" id="passingValue">
+								<input type="text" name="desc" id="desc"
+									value="<%=e.getRoleDesc()%>" onchange="myFunction()"> 
+									<input
+									type="hidden" name="passingValue" id="passingValue">
 							</div>
 						</div>
 
@@ -163,30 +161,26 @@
 				}
 			});
 		}
-		
+
 		window.history.forward();
-        function noBack()
-        {
-            window.history.forward();
-        }
+		function noBack() {
+			window.history.forward();
+		}
 	</script>
-	
+
 	<script>
-function myFunction() {
-	
-  var x = document.getElementById("id").value;
-  var y = document.getElementById("name").value;
-  var z = document.getElementById("desc").value;
-  
-  var q = x+y+z;
- 
-  var sendMyData = document.getElementById("passingValue");
-  
-  
-  
-  
-}
-</script>
+		function myFunction() {
+
+			var x = document.getElementById("id").value;
+			var y = document.getElementById("name").value;
+			var z = document.getElementById("desc").value;
+
+			var q = x + y + z;
+
+			var sendMyData = document.getElementById("passingValue");
+
+		}
+	</script>
 
 
 

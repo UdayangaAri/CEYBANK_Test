@@ -28,11 +28,11 @@ public class blockDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
 
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
-
-		HttpSession session = request.getSession();
 
 		block x = blockDAO.getBlockById(sid);
 
@@ -41,11 +41,8 @@ public class blockDeleteServlet extends HttpServlet {
 		String edited_unit = "Block Types";
 		String previousData = "Block Type Id : " + x.getId() + " , Block Type Location : " + x.getLocation()
 				+ " , Block Type Name : " + x.getBlock_name() + " , Block Type Status :" + x.getBlock_status();
-
+		
 		Log log = new Log();
-
-		System.out.println("previousData : " + previousData);
-		System.out.println("name : " + name);
 
 		log.setPrevious_data(previousData);
 		log.setEdit_status(e_status);
@@ -59,14 +56,17 @@ public class blockDeleteServlet extends HttpServlet {
 
 			if (logs > 0) {
 
-				session.setAttribute("DeletedMessage", "DeletedMessage");
+				session.setAttribute("blockDeleteMessage", "blockDeleteMessage");
 				response.sendRedirect("block_view.jsp");
-				out.print("<div class='alert alert-danger' role='alert'>" + "Record Deleted successfully!" + "</div>");
 
+			}else {
+
+				session.setAttribute("blockDeleteFailed", "blockDeleteFailed");
+				response.sendRedirect("block_view.jsp");
 			}
 		} else {
 
-			session.setAttribute("DeleteFailedMessage", "DeleteFailedMessage");
+			session.setAttribute("blockDeleteFailed", "blockDeleteFailed");
 			response.sendRedirect("block_view.jsp");
 		}
 

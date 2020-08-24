@@ -28,7 +28,6 @@
 	ResultSet resultset = null;
 	ResultSet rs = null;
 %>
-
 <head>
 
 <!-- #9999ff -->
@@ -47,7 +46,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-
 <title>Reservation Room Details</title>
 
 <!-- Custom styles for this template-->
@@ -56,10 +54,11 @@
 <%
 	ResultSet rs1 = null;
 	ResultSet rx = null;
-%>
 
+	/////////////////////////////////////////////////////////////////
 
-<%
+	/////////////////////////////////////////////////////////////////
+
 	String Employees_Branch = (String) session.getAttribute("branch");
 
 	String Guest_Branch = (String) session.getAttribute("branch");
@@ -79,57 +78,15 @@
 
 	String Staff = "Staff";
 	String Guest = "Public";
-
-	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
 %>
 
-
-<style>
-a {
-	text-decoration: none;
-	display: inline-block;
-	padding: 8px 16px;
-}
-
-a:hover {
-	background-color: #ddd;
-	color: black;
-}
-
-.previous {
-	background-color: #f1f1f1;
-	color: black;
-}
-
-.next {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.round {
-	border-radius: 50%;
-}
-
-div.c {
-	text-align: right;
-}
-
-div.a {
-	width: 80%;
-}
-
-.center {
-	margin: auto;
-	width: 30%;
-	padding: 20px;
-}
-}
-</style>
 
 </head>
 
 
-<body>
+<body onload="startTime()">
+
+
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -140,40 +97,31 @@ div.a {
 
 		<!-- Page Content -->
 		<div class=container-fluid>
-
 			<div id="content">
-
 				<jsp:include page="_navbar.jsp"></jsp:include>
+
 
 				<div class="container">
 
-					<div class="container mt-5 mb-5">
 
-						<!-- body start -->
 
-						<div class="container mt-3 a">
+					<div>
 
-							<div class="card shadow mb-4">
+						<br> <br>
 
-								<div class="card-header py-3">
 
-									<h4 class="m-0 font-weight-bold text-primary">Reservation</h4>
-								</div>
+						<div class="card border-dark text-center">
+
+
+
+
+							<div class="card-body">
+
+								<br>
+
+								<form>
 								
-								<div class="card-body" style="left: 30%">
-
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-
-
-
-								<form action="ReservationSendServlet" class="forms" method="post">
-
-
-<div class="row">
+									<div class="row">
 
 										<div class="col-25" style="text-align: left">
 											<p>
@@ -300,11 +248,9 @@ div.a {
 										</div>
 									</div>
 
-</form>
+								</form>
 
-
-
-								<form action="ReservationSaveServlet" class="forms"
+								<form action="" class="forms"
 									method="post">
 
 
@@ -449,145 +395,52 @@ div.a {
 										%>
 
 									</div>
-									
-
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-
-									
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Name</p>
-
-											</div>
-
-											<div class="col-65 ml-3">
-
-												<input type="text" name="nameres" value=""
-													placeholder="Name" required>
-											</div>
-
-										</div>
-
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>NIC Number</p>
-
-											</div>
-
-											<div class="col-65 ml-3">
-
-												<input type="text" name="nicres" value="" 
-												required placeholder="NIC">
-											</div>
-
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Mobile Number</p>
-
-											</div>
-
-
-
-											<div class="col-65 ml-3">
-
-												<input type="text" name="mobileres" value=""
-													required placeholder="Mobile">
-											</div>
-
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Email Address</p>
-
-											</div>
-
-											<div class="col-65 ml-3">
-
-
-												<input type="email" name="emailres" value=""
-													required placeholder="Email">
-											</div>
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Guest Type</p>
-
-											</div>
-
-
-											<div class="col-65">
-												<div class="ml-3" style="float: left;">
-
-													<label onclick="javascript:yesnoCheck();"> <input
-														type="radio" name="options" id="noCheck" value="Public">Public
-													</label> <label onclick="javascript:yesnoCheck();"> <input
-														type="radio" name="options" id="yesCheck" checked
-														value="BOC Staff">BOC Staff
-													</label> <br>
-												</div>
-
-												<div class="col-40 ml-3" style="float: right;" id="ifYes"
-													style="visibility: hidden">
-													<input type="text" id="yes" name="pfnovalue" value=""
-														placeholder="PF Number">
-												</div>
-											</div>
-
-										</div>
-										<br>
-										
-											
-										
-									
-
-
-								</div>
-								
-								<div class="card-footer text-muted">
-							
-
-											<button type="submit" class="btn btn-outline-dark">></button>
-								
-								
-								</div>
-								</form>
 							</div>
+							<div class="card-footer text-muted">
 
+								<button type="submit" class="btn btn-outline-dark">Save
+									Details</button>
+
+							</div>
 						</div>
 
-						<!-- cards end -->
-
+						</form>
 					</div>
 
+
 				</div>
+
 			</div>
+
+
+
+
+
 		</div>
 
+
+
 	</div>
+
+
+
+
+
+
 	<!-- /#page-content-wrapper -->
 
+	<footer class="footer"
+		style="background-color: #464646; z-index: 150; position: relative; margin-left: -15px; height: 40px; width: 103%;">
+		<div class="container-fluid">
 
+			<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 
+				<li class="nav-link" style="text-color: #fff; text-align: center"><font
+					color="#fffff">Developed By BOC IT Unit</font></li>
+			</ul>
 
-	<jsp:include page="Footer.jsp"></jsp:include>
+		</div>
+	</footer>
 
 
 
@@ -619,23 +472,17 @@ div.a {
 				}
 			});
 		}
-		window.history.forward();
-		function noBack() {
-			window.history.forward();
-		}
+
 		var today = new Date().toISOString().split('T')[0];
 		document.getElementsByName("checkin")[0].setAttribute('min', today);
 		document.getElementsByName("checkout")[0].setAttribute('min', today);
 		document.getElementsByName("dob")[0].setAttribute('max', today);
-		
-		
 		function yesnoCheck() {
 			if (document.getElementById('yesCheck').checked) {
 				document.getElementById('ifYes').style.visibility = 'visible';
 			} else
 				document.getElementById('ifYes').style.visibility = 'hidden';
 		}
-		
 		function my1() {
 			$(document).ready(function() {
 				$("#update").modal('show');

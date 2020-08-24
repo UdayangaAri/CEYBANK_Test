@@ -112,19 +112,18 @@ public class EditServlet2 extends HttpServlet {
 						int logs = LogDAO.InsertLog(log);
 
 						if (logs > 0) {
-							
-							session.setAttribute("updated", "success message");
-							out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
+
+							session.setAttribute("updated_message", "updated_message");
 							response.sendRedirect("Update.jsp");
 
 						} else {
-							session.setAttribute("not_updated", "failed message");
-							out.println("Sorry! unable to update record. Please check again and try.");
+							session.setAttribute("update_failed_message", "update_failed_message");
+							response.sendRedirect("Update.jsp");
 						}
 
 					} else {
-						session.setAttribute("not_updated", "failed message");
-						out.println("Sorry! unable to update record. Please check again and try.");
+						session.setAttribute("update_failed_message", "update_failed_message");
+						response.sendRedirect("Update.jsp");
 					}
 
 				} else if (request.getParameter("Deactivate") != null) {
@@ -154,19 +153,19 @@ public class EditServlet2 extends HttpServlet {
 
 						if (logs > 0) {
 
-							request.setAttribute("errorMessage", "Login Failed");
-
-							out.print("<div class='alert alert-success' role='alert'>" + "Deactivated successfully!"
-									+ "</div>");
-
+							session.setAttribute("Deactivate_Message", "Deactivate_Message");
 							response.sendRedirect("Update.jsp");
 
 						} else {
-							out.println("Sorry! unable to update record");
+							
+							session.setAttribute("Deactivate_Failed", "Deactivate_Failed");
+							response.sendRedirect("Update.jsp");
 						}
 
 					} else {
-						out.println("Sorry! unable to Deactivate");
+						
+						session.setAttribute("Deactivate_Failed", "Deactivate_Failed");
+						response.sendRedirect("Update.jsp");
 					}
 
 				} else if (request.getParameter("Activate") != null) {
@@ -196,20 +195,20 @@ public class EditServlet2 extends HttpServlet {
 
 						if (logs > 0) {
 
-							request.setAttribute("errorMessage", "Login Failed");
-
-							out.print("<div class='alert alert-success' role='alert'>" + "Deactivated successfully!"
-									+ "</div>");
-
+							session.setAttribute("Activate_Message", "Activate_Message");
 							response.sendRedirect("Update.jsp");
 
+
 						} else {
-							out.println("Sorry! unable to update record");
+							
+							session.setAttribute("Activate_Failed", "Activate_Failed");
+							response.sendRedirect("Update.jsp");
 						}
 
 					} else {
 
-						out.println("Sorry! unable to Activate");
+						session.setAttribute("Activate_Failed", "Activate_Failed");
+						response.sendRedirect("Update.jsp");
 					}
 
 				}

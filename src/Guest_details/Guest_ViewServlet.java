@@ -35,12 +35,9 @@ public class Guest_ViewServlet extends HttpServlet {
 
 		String sid = request.getParameter("search");
 
-		//System.out.println("sid 1 : "+sid);
-		
 		Guest e = GuestDAO.getGuestById(sid);
 		
-		//System.out.println("sid 2 : "+sid);
-
+		
 		String cno = sid;
 
 		String x = "this is wrong";

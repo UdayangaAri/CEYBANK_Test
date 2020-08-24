@@ -81,34 +81,27 @@ a {
 	display: inline-block;
 	padding: 8px 16px;
 }
-
 a:hover {
 	background-color: #ddd;
 	color: black;
 }
-
 .previous {
 	background-color: #f1f1f1;
 	color: black;
 }
-
 .next {
 	background-color: #4CAF50;
 	color: white;
 }
-
 .round {
 	border-radius: 50%;
 }
-
 div.c {
 	text-align: right;
 }
-
 div.a {
 	width: 80%;
 }
-
 .center {
 	margin: auto;
 	width: 30%;
@@ -203,7 +196,6 @@ div.a {
 												<%
 													String checkin_d = request.getParameter("checkin");
 													session.setAttribute("checkin", checkin_d);
-
 													String checkin = (String) session.getAttribute("checkin");
 													
 													//System.out.println("checkin ::: " + checkin);
@@ -232,7 +224,6 @@ div.a {
 													session.setAttribute("checkout", checkout_d);
 													
 													String checkout = (String) session.getAttribute("checkout");
-
 													//System.out.println("checkout ::: " + checkout);
 												%>
 
@@ -271,7 +262,6 @@ div.a {
 													
 														String x = request.getParameter("block_in_r");
 														session.setAttribute("Block_Name_Value", x);
-
 														//System.out.println("x ::: " + x);
 														
 														block z = blockDAO.getBlocksByUserIdForRSM(x);
@@ -306,10 +296,8 @@ div.a {
 														try {
 															String Query = "select * from block where block_location=?";
 															Connection con = DBConnection.getConnection();
-
 															PreparedStatement psmtX = con.prepareStatement(Query);
 															psmtX.setString(1, Employees_Branch);
-
 															rs1 = psmtX.executeQuery();
 															while (rs1.next()) {
 													%>
@@ -342,21 +330,15 @@ div.a {
 
 													<%
 														String rname = request.getParameter("room_in_r");
-
 														session.setAttribute("Room_Name_Value", rname);
 														
 														String room1 = (String) session.getAttribute("Room_Name_Value");
-
 														String roomGuest = (String) session.getAttribute("roomGuest");
-
 														String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
-
 														Room rm = RoomDao.getRoomById(room1);
 														
 														session.setAttribute("Block_Name_Value01", Block_Name_Value);
-
 														//System.out.println("rname ::: " + rname);
-
 														if (rname != null) {
 													%>
 													<option value="" disabled selected><%=rm.getRoomName()%></option>
@@ -364,7 +346,6 @@ div.a {
 
 													<%
 														}
-
 														else {
 													%>
 													<option value="" disabled selected>Select a Room</option>
@@ -375,20 +356,16 @@ div.a {
 
 													<%
 														try {
-
 															String Query = "select * from rooms where blockID=?";
 															Connection con = DBConnection.getConnection();
-
 															PreparedStatement psmt = con.prepareStatement(Query);
 															psmt.setString(1, Block_Name_Value);
-
 															rs = psmt.executeQuery();
 															while (rs.next()) {
 													%>
 													<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
 													<%
 														}
-
 														} catch (Exception e) {
 															e.printStackTrace();
 														}
@@ -408,10 +385,8 @@ div.a {
 
 										<%
 											System.out.println("room1 ::: " + room1);
-
 											System.out.println("checkout ::: " + checkout);
 											System.out.println("checkin ::: " + checkin);
-
 											System.out.println("RecieveBlock o1 ::: " + RecieveBlock1);
 										%>
 
@@ -448,7 +423,6 @@ div.a {
 											<%
 												//System.out.println("checkIn ::: " + checkin);
 												//System.out.println("checkOut ::: " + checkout);
-
 												SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
 												if (checkin != null && checkout != null) {
 													try {
@@ -456,17 +430,13 @@ div.a {
 														Date date1 = myFormat.parse(checkin);
 														Date date2 = myFormat.parse(checkout);
 														long diff = date2.getTime() - date1.getTime();
-
 														//System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
 														long dur = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 														int durInt = (int) dur;
 														int Tprice = 1500;
-
 														//System.out.println("durInt ::: " + durInt);
 														int tot = durInt * Tprice;
-
 														//System.out.println("tot ::: " + tot);
-
 														String str1 = Integer.toString(tot);
 														session.setAttribute("str1", str1);
 													} catch (java.text.ParseException e) {
@@ -708,10 +678,8 @@ div.a {
 		}, 2000);
 		var cinValue = document.getElementById("checkin").value;
 		var coutValue = document.getElementById("checkout").value;
-
 		function calculateAmount() {
 			var tot_price = val * 100;
-
 			var j = document.getElementById('Room_Price_tot');
 			/*display the result*/
 			var divobj = document.getElementById('totalout');

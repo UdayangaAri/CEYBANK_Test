@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/blockServlet")
 public class blockServlet extends HttpServlet {
@@ -31,12 +32,14 @@ public class blockServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		
+		HttpSession session = request.getSession();
 
 		String Block_branch = request.getParameter("Block_branch");
 		String block_name = request.getParameter("block_name");
 		String Block_status = request.getParameter("Block_status");
-		
-		System.out.println("branch : "+Block_branch);
+
+		System.out.println("branch : " + Block_branch);
 
 		Branches.Branch b = blockDAO.getBranchesById(Block_branch);
 
@@ -53,11 +56,13 @@ public class blockServlet extends HttpServlet {
 			int status = blockDAO.save(bb);
 
 			if (status > 0) {
-				
-				out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
+
+				session.setAttribute("blockSaveMessage", "blockSaveMessage");
 				request.getRequestDispatcher("block_view.jsp").include(request, response);
 			} else {
-				out.println("Sorry! unable to save record");
+
+				session.setAttribute("blockSaveFailed", "blockSaveFailed");
+				request.getRequestDispatcher("block_view.jsp").include(request, response);
 			}
 
 			out.close();

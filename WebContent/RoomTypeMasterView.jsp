@@ -54,10 +54,10 @@
 
 	<div class="d-flex" id="sidebar-wrapper">
 
-		<!-- Sidebar -->
+		<!-- Side-bar -->
 
 		<jsp:include page="_sidebar.jsp"></jsp:include>
-		<!-- /#sidebar-wrapper -->
+		<!-- /#side-bar-wrapper -->
 
 		<!-- Page Content -->
 		<div class=container-fluid>
@@ -67,17 +67,46 @@
 
 				<div class="container">
 
-<%
-						String Deleted = (String) session.getAttribute("error_Message");
+					<!-- /#Type Body Here -->
+					
+					<%
+						String Deleted = (String) session.getAttribute("delete_succeed_Message");
+						String Delete_Failed = (String) session.getAttribute("delete_failed_Message");
+						String Edited = (String) session.getAttribute("edit_succeed_Message");
+						String Edited_Failed = (String) session.getAttribute("edit_failed_Message");
+						String Saved = (String) session.getAttribute("save_succeed_Message");
+						String Saved_Failed = (String) session.getAttribute("save_failed_Message");
+
 						if (null != Deleted) {
 					%>
 					<div class="alert alert-success" role="alert">Deleted
-						Successfully..</div>
+						Successfully..!</div>
 					<%
-						} 
+						} else if (null != Delete_Failed) {
 					%>
+					<div class="alert alert-danger" role="alert">Delete Failed..!</div>
 
-					<!-- /#Type Body Here -->
+					<%
+						} else if (null != Edited) {
+					%>
+					<div class="alert alert-success" role="alert">Edited
+						Successfully..!</div>
+					<%
+						} else if (null != Edited_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Edit Failed..!</div>
+					<%
+						} else if (null != Saved) {
+					%>
+					<div class="alert alert-success" role="alert">Saved
+						Successfully..!</div>
+					<%
+						} else if (null != Saved_Failed) {
+					%>
+					<div class="alert alert-danger" role="alert">Save Failed..!</div>
+					<%
+						}
+					%>
 
 
 					<a href='RoomType_Save.jsp'>Add New Room Type</a> <br>
