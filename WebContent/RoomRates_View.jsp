@@ -18,11 +18,7 @@
 %>
 
 
-
-
 <head>
-
-
 
 <link rel="stylesheet" type="text/css" href="css/All.css">
 <link rel="stylesheet" type="text/css" href="css/register.css">
