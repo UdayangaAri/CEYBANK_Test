@@ -15,36 +15,31 @@ import Log.LogDAO;
 @WebServlet("/RoomRates_Delete_Servlet")
 public class RoomRates_Delete_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public RoomRates_Delete_Servlet() {
-        super();
-       
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public RoomRates_Delete_Servlet() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		String rid = request.getParameter("id");
 		int id = Integer.parseInt(rid);
 		int st = RoomRatesDAO.deleteRoomRAtes(id);
 
 		if (st > 0) {
-		
-		
+
 			response.sendRedirect("RoomRates_View.jsp");
 
-			
 		} else {
 			response.sendRedirect("RoomRates_View.jsp");
 		}
 	}
-		
-	
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

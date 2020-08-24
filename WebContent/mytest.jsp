@@ -121,6 +121,15 @@ div.a {
 
 <body>
 
+	<% 
+		String room11 = (String) session.getAttribute("room11");
+		System.out.println("room11 11 ::: " + room11);
+													
+		String RecieveBlock11 = (String) session.getAttribute("RecieveBlock11");
+		System.out.println("RecieveBlock 11 ::: " + RecieveBlock11);
+		%>
+
+
 	<div class="d-flex" id="sidebar-wrapper">
 
 		<!-- Sidebar -->
@@ -148,8 +157,6 @@ div.a {
 								<div class="card-header py-3">
 
 									<h4 class="m-0 font-weight-bold text-primary">Reservation</h4>
-									<a href='mytest.jsp'>testing</a>
-									
 								</div>
 
 								<div class="card-body" style="left: 30%">
@@ -177,6 +184,14 @@ div.a {
 									<!--------------------------------------------->
 									<!--------------------------------------------->
 									<!--------------------------------------------->
+							room1
+							mealname
+							RecieveBlock1
+							
+							
+										String RecieveBlock1 = (String) session.getAttribute("Block_Name_Value01");
+										String RecieveBlock1 = (String) session.getAttribute("Block_Name_Value01");
+										String RecieveBlock1 = (String) session.getAttribute("Block_Name_Value");
 
 
 									<form action="" class="forms" method="post">
@@ -189,65 +204,9 @@ div.a {
 											<li class="list-group-item">Room Details</li>
 
 										</ul>
-										<div class="row">
+										
 
-											<div class="col-25" style="text-align: left">
-												<p>
-													<b><b>Check in Date</b></b>
-												</p>
 
-											</div>
-
-											<div class="col-25">
-
-												<%
-													String checkin_d = request.getParameter("checkin");
-													session.setAttribute("checkin", checkin_d);
-
-													String checkin = (String) session.getAttribute("checkin");
-													
-													//System.out.println("checkin ::: " + checkin);
-												%>
-
-												<input type='date' value="<%=checkin%>" name="checkin"
-													id="checkin" class="form-control"
-													onchange="this.form.submit();" /> <span
-													class="input-group-addon"> <span
-													class="glyphicon glyphicon-calendar"></span>
-												</span>
-
-											</div>
-
-											<div class="col-25" style="text-align: center">
-												<p>
-													<b><b>Checkout Date</b></b>
-												</p>
-
-											</div>
-
-											<div class="col-25">
-
-												<%
-													String checkout_d = request.getParameter("checkout");
-													session.setAttribute("checkout", checkout_d);
-													
-													String checkout = (String) session.getAttribute("checkout");
-
-													//System.out.println("checkout ::: " + checkout);
-												%>
-
-												<input type='date' value="<%=checkout%>" name="checkout"
-													id="checkout" class="form-control"
-													onchange="this.form.submit();" /> <span
-													class="input-group-addon"> <span
-													class="glyphicon glyphicon-calendar"></span>
-												</span>
-
-											</div>
-
-										</div>
-
-								
 										<%
 											
 										%>
@@ -266,34 +225,33 @@ div.a {
 													onchange="this.form.submit();">
 													<%
 													
-													String RecieveBlock1 = (String) session.getAttribute("Block_Name_Value01"); 
-													//System.out.println("RecieveBlock 1 ::: " + RecieveBlock1);
 													
+														String RecieveBlock1 = (String) session.getAttribute("Block_Name_Value01");
+														//System.out.println("RecieveBlock 1 ::: " + RecieveBlock1);
+
 														String x = request.getParameter("block_in_r");
 														session.setAttribute("Block_Name_Value", x);
 
 														//System.out.println("x ::: " + x);
-														
+
 														block z = blockDAO.getBlocksByUserIdForRSM(x);
 														block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock1);
 														if (x != null) {
-															
-															
 													%>
 
 													<option value="" disabled selected><%=z.getBlock_name()%></option>
 
 													<%
-													//System.out.println("z.get ::: " + z.getBlock_name());
-													
+														//System.out.println("z.get ::: " + z.getBlock_name());
+
 														} else if (RecieveBlock1 != null) {
 													%>
 
 													<option value="" disabled selected><%=r.getBlock_name()%></option>
 
 													<%
-													//System.out.println("r.get ::: " + r.getBlock_name());
-													
+														//System.out.println("r.get ::: " + r.getBlock_name());
+
 														} else {
 													%>
 													<option value="" disabled selected>Select a Block</option>
@@ -341,18 +299,22 @@ div.a {
 													onchange="this.form.submit();">
 
 													<%
+													
+													
 														String rname = request.getParameter("room_in_r");
 
 														session.setAttribute("Room_Name_Value", rname);
-														
+
 														String room1 = (String) session.getAttribute("Room_Name_Value");
-
+														//System.out.println("---------------------------- room1 : "+room1);
 														String roomGuest = (String) session.getAttribute("roomGuest");
-
+														//System.out.println("---------------------------- roomGuest : "+roomGuest);
 														String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
-
-														Room rm = RoomDao.getRoomById(room1);
+														//System.out.println("---------------------------- Block_Name_Value : "+Block_Name_Value);
+														Room rm = RoomDao.getRoomById(rname);
 														
+														
+
 														session.setAttribute("Block_Name_Value01", Block_Name_Value);
 
 														//System.out.println("rname ::: " + rname);
@@ -361,8 +323,12 @@ div.a {
 													%>
 													<option value="" disabled selected><%=rm.getRoomName()%></option>
 
-
 													<%
+														} else if(room1 != null) {
+															%>
+															<option value="" disabled selected><%=roomGuest%></option>
+
+															<%
 														}
 
 														else {
@@ -396,26 +362,11 @@ div.a {
 												</select>
 											</div>
 										</div>
-
-									</form>
+										
+										</form>
 
 									<form action="" class="forms" method="post">
-
-										<input type="hidden" name="checkinNxt" value="<%=checkin%>">
-										<input type="hidden" name="checkoutNxt" value="<%=checkout%>">
-										<input type="hidden" name="BlockNxt" value="<%=RecieveBlock1%>">
-										<input type="hidden" name="checkinNxt" value="<%=room1%>">
-
-										<%
-											System.out.println("room1 ::: " + room1);
-
-											System.out.println("checkout ::: " + checkout);
-											System.out.println("checkin ::: " + checkin);
-
-											System.out.println("RecieveBlock o1 ::: " + RecieveBlock1);
-										%>
-
-										<div class="row">
+		<div class="row">
 
 											<div class="col-25" style="text-align: left">
 												<p>
@@ -426,9 +377,38 @@ div.a {
 
 											<div class="col-75">
 												<select name="MealTypeNxt" required
-													onchange="calculateAmount()">
+												>
 
-													<option value="bb">Bead and Breakfast</option>
+													<%
+													String mealname = request.getParameter("MealTypeNxt");
+													
+													String mealName = (String) session.getAttribute("mealname");
+													session.setAttribute("mealname", mealname);
+													
+											session.setAttribute("room11 : ", room1);
+										
+											session.setAttribute("RecieveBlock11 : ", RecieveBlock1);
+
+											System.out.println("room1 ::: " + room1);
+
+											
+
+											System.out.println("RecieveBlock 01 ::: " + RecieveBlock1);
+										
+											
+											if(mealname != null){
+												%>
+												<option  disabled selected><%=mealname %></option>
+												<% 
+											}else {
+												%>
+												<option  disabled selected>select meal plan</option>
+												<% 
+											}
+										%>
+										
+
+													<option value="bb">Bed and Breakfast</option>
 													<option value="hb">Half board</option>
 													<option value="fb">Full Board</option>
 													<option value="ronly">Room Only</option>
@@ -436,6 +416,80 @@ div.a {
 												</select>
 											</div>
 										</div>
+
+								<div class="row">
+
+											<div class="col-25" style="text-align: left">
+												<p>
+													<b><b>Check in Date</b></b>
+												</p>
+
+											</div>
+
+											<div class="col-25">
+
+												<%
+													String checkin_d = request.getParameter("checkin");
+													session.setAttribute("checkin", checkin_d);
+
+													String checkin = (String) session.getAttribute("checkin");
+
+													//System.out.println("checkin ::: " + checkin);
+												%>
+
+												<input type='date' value="<%=checkin%>" name="checkin"
+													id="checkin" class="form-control"
+													onchange="this.form.submit();" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+
+											</div>
+
+											<div class="col-25" style="text-align: center">
+												<p>
+													<b><b>Checkout Date</b></b>
+												</p>
+
+											</div>
+
+											<div class="col-25">
+
+												<%
+													String checkout_d = request.getParameter("checkout");
+													session.setAttribute("checkout", checkout_d);
+
+													String checkout = (String) session.getAttribute("checkout");
+
+													//System.out.println("checkout ::: " + checkout);
+												%>
+
+												<input type='date' value="<%=checkout%>" name="checkout"
+													id="checkout" class="form-control"
+													onchange="this.form.submit();" /> <span
+													class="input-group-addon"> <span
+													class="glyphicon glyphicon-calendar"></span>
+												</span>
+
+											</div>
+
+										</div>
+
+								
+
+									</form>
+
+									<form action="" class="forms" method="post">
+
+										<!--
+										<input type="hidden" name="checkinNxt" value="<%=checkin%>">
+										<input type="hidden" name="checkoutNxt" value="<%=checkout%>">
+										<input type="hidden" name="BlockNxt"
+											value="<%=RecieveBlock1%>"> <input type="hidden"
+											name="checkinNxt" value="<%=room1%>">
+											-->
+
+
 
 										<div class="row">
 
@@ -500,7 +554,7 @@ div.a {
 
 										</div>
 
-										<!--------------------------------------------->
+
 										<!--------------------------------------------->
 										<!--------------------------------------------->
 										<!--------------------------------------------->

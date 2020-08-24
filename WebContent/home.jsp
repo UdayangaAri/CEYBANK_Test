@@ -212,19 +212,19 @@ String countEmpOnBranch = (String) session.getAttribute("countEmpOnBranch");
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="images/Dickoya.JPG" class="d-block" alt="...">
+      <img src="images/Dickoya.JPG" class="d-block w-50 alt="...">
     </div>
     <div class="carousel-item">
-      <img src="images/Kataragama.jpg" class="d-block " alt="...">
+      <img src="images/Kataragama.jpg" class="d-block w-50 " alt="...">
     </div>
     <div class="carousel-item">
-      <img src="images/Nuwara Eliya.jpg" class="d-block  " alt="...">
+      <img src="images/Nuwara Eliya.jpg" class="d-block  w-50 " alt="...">
     </div>
      <div class="carousel-item">
-      <img src="images/Pinnacle View Anuradhapura (1).jpg" class="d-block  " alt="...">
+      <img src="images/Pinnacle View Anuradhapura (1).jpg" class="d-block  w-50 " alt="...">
     </div>
      <div class="carousel-item">
-      <img src="images/Pinnacle View Anuradhapura (2).jpg" class="d-block  alt="...">
+      <img src="images/Pinnacle View Anuradhapura (2).jpg" class="d-block w-50"  alt="...">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

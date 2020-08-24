@@ -105,6 +105,36 @@ div.a {
 		<div class=container-fluid>
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
+				<%
+
+if (null != session.getAttribute("sucess")) {
+						%>
+
+				<div class="alert alert-success" role="alert">Successfully..</div>
+
+
+				<%
+}
+if (null != session.getAttribute("notsucess")) {
+						%>
+
+				<div class="alert alert-danger" role="alert">Sorry! .</div>
+
+				<%
+}
+if (null != session.getAttribute("equal")) {
+						%>
+
+				<div class="alert alert-danger" role="alert">Sorry! ..</div>
+
+
+				<%} if (null != session.getAttribute("novalues")) {
+						%>
+
+				<div class="alert alert-danger" role="alert">Sorry!</div>
+
+<%} %>
+
 
 				<div class="container">
 

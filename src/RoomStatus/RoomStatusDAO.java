@@ -63,30 +63,43 @@ public class RoomStatusDAO {
 			
 	            //	 System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 	            	 e.setId(rs.getString(1));
-	            	 e.setRoomNo(rs.getString(2));
-	            	 e.setRoomName(rs.getString(3));
-	            	 e.setRoomType(rs.getString(4));
-	            	 e.setBlockID(rs.getString(5));
-	            	 e.setStatus(rs.getString(6));
+	            	 e.setRoomBranch(rs.getString(2));
+	            	e.setBlockID(rs.getString(3));
+	            	e.setRoomNo(rs.getString(4));
+	            	e.setRoomName(rs.getString(5));
+	            	e.setRoomType(rs.getString(6));
+	            	e.setStatus(rs.getString(7));
+	            	
 	            	 //System.out.println("--------------------------------------------------------------");
-	            	// System.out.println("room name : "+ e.getRoomName());
+//	            	 System.out.println("111111111111111 id : "+ e.getId());
+//	            	 System.out.println("111111111111111 RoomNo : "+ e.getRoomNo());
+//	            	 System.out.println("11111111111111111 RoomName : "+ e.getRoomName());
+//	            	 System.out.println("11111111111111111111 RoomType : "+ e.getRoomType());
+//	            	 System.out.println("111111111111111111111 BlockID : "+ e.getBlockID());
+	            	// System.out.println("11111111111111111111 Status : "+ e.getStatus());
+//	            	 }
 	            	 
-	            	 if(rs.getString(6).equals("Available")) {
-	            		 e.setStatus("Available");
-	            	 }
-	            	 else if(rs.getString(6).equals("Cleaning")) {
-	            		 e.setStatus("Cleaning");
-	            	 }
-	            	 else if(rs.getString(6).equals("Occupied")) {
-	            		 e.setStatus("Occupied");
-	            	 }
-	            	 else if(rs.getString(6).equals("Reserved")) {
-	            		 e.setStatus("Reserved");
-	            	 }
-	            
-	            	 else if (rs.getString(6).equals("Maintenance")) {
-	            		 e.setStatus("Maintenance");
-	            	 }
+//	            	 if(rs.getString(6).equals("Available")) {
+//	            		 e.setStatus("Available");
+//	            		 System.out.println("11111111111111111111 Status : "+ e.getStatus());
+//	            	 }
+//	            	 else if(rs.getString(6).equals("Cleaning")) {
+//	            		 e.setStatus("Cleaning");
+//	            		 System.out.println("11111111111111111111 Status : "+ e.getStatus());
+//	            	 }
+//	            	 else if(rs.getString(6).equals("Occupied")) {
+//	            		 e.setStatus("Occupied");
+//	            		 System.out.println("11111111111111111111 Status : "+ e.getStatus());
+//	            	 }
+//	            	 else if(rs.getString(6).equals("Reserved")) {
+//	            		 e.setStatus("Reserved");
+//	            		 System.out.println("11111111111111111111 Status : "+ e.getStatus());
+//	            	 }
+//	            
+//	            	 else if (rs.getString(6).equals("Maintenance")) {
+//	            		 e.setStatus("Maintenance");
+//	            		 System.out.println("11111111111111111111 Status : "+ e.getStatus());
+//	            	 }
 	            	 
 	            	 
 	            	 

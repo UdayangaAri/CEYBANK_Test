@@ -64,20 +64,15 @@
 div.c {
 	text-align: right;
 }
-
 div.a {
 	width: 80%;
 }
-
 .center {
 	margin: auto;
 	width: 30%;
 	padding: 20px;
 }
-
-
 }
-
 </style>
 </head>
 
@@ -118,7 +113,6 @@ div.a {
 								<form action="" method="post">
 									<%
 										String branch = (String) session.getAttribute("branch");
-
 										String branchstatus = RoomStatusDAO.getBranchIDbyLoging(branch);
 									%>
 
@@ -169,7 +163,6 @@ div.a {
 												<%
 													String Query = "select * from block where block_location=?";
 													Connection con = DBConnection.getConnection();
-
 													PreparedStatement ps = con.prepareStatement(Query);
 													ps.setString(1, branch);
 													//System.out.println("block_location = branch code :" + branch);
@@ -213,30 +206,26 @@ div.a {
 						
 					
 							List<StatusRooms> list = RoomStatusDAO.getRoomDetails(blockIDPass);
-
 							//	String Queryy = "SELECT * FROM rooms where blockID=?;";
 							//	Connection conn = DBConnection.getConnection();
 							//	PreparedStatement pss = conn.prepareStatement(Queryy);
-
 							//	pss.setString(1, blockIDPass);
 							//	rs = pss.executeQuery();
-
 							//	while (rs.next()) {
-
 							//	String id = rs.getString(1);
 							//	String roomNo = rs.getString(2);
 							//	String roomName = rs.getString(3);
 							//	String roomType = rs.getString(4);
 							//	String blockID = rs.getString(5);
 							//	String Status = rs.getString(6);
-
 							for (StatusRooms e : list) {
 						%>
-<%if(e.getStatus()=="Available"){ %>
+<%if(e.getStatus().equalsIgnoreCase("Available")){ 
+ System.out.println("6666666666666666666666666666666666666666666666666666666666666");%>
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4 mt-5">
-              <div class="card shadow h-100 py-2"  style="background-color:#28a745;">
+              <div class="card shadow h-100 py-2"  style="background-color:#1cc88a;">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -251,7 +240,8 @@ div.a {
 						
 		<%} %>				
 
-<% if(e.getStatus()=="Cleaning"){ %>
+<% if(e.getStatus().equalsIgnoreCase("Cleaning")){
+	 System.out.println("55555555555555555555555555555555555555555555555");%>
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4 mt-5">
@@ -269,7 +259,8 @@ div.a {
             </div>
 						
 		<%} %>
-<% if(e.getStatus()=="Maintenance"){ %>
+<% if(e.getStatus().equalsIgnoreCase("Maintenance")){
+	 System.out.println("4444444444444444444444444444444444444");%>
   <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4 mt-5">
               <div class="card shadow h-100 py-2"  style="background-color: #007bff;">
@@ -288,11 +279,12 @@ div.a {
 		<%} %>
 
 
-<% if(e.getStatus()=="Occupied"){ %>
+<% if(e.getStatus().equalsIgnoreCase("Occupied")){
+	 System.out.println("333333333333333333333333333333");%>
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4 mt-5">
-              <div class="card shadow h-100 py-2"  style="background-color: purple;">
+              <div class="card shadow h-100 py-2"  style="background-color:#e74a3b;">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -306,11 +298,12 @@ div.a {
             </div>
 						
 		<%} %>
-		<% if(e.getStatus()=="Reserved"){ %>
+		<% if(e.getStatus().equalsIgnoreCase("Reserved")){ 
+		 System.out.println("2222222222222222222222222222222222222222222");%>
 
            <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4 mt-5">
-              <div class="card shadow h-100 py-2"  style="background-color: #dc3545;">
+              <div class="card shadow h-100 py-2"  style="background-color: #36b9cc;">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -323,12 +316,11 @@ div.a {
               </div>
             </div>
 						
-		<%} %>
+		<%}} %>
+		
+		
 		
 
-						<%
-							}
-						%>
 
 
 						<!-- cards starts -->
@@ -357,18 +349,13 @@ div.a {
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
 		});
-
 		$(document).ready(function() {
-
 			$('#sidebarCollapse').on('click', function() {
 				$('#sidebar').toggleClass('active');
 			});
-
 		});
-
 		var dropdown = document.getElementsByClassName("dropdown-btn");
 		var i;
-
 		for (i = 0; i < dropdown.length; i++) {
 			dropdown[i].addEventListener("click", function() {
 				this.classList.toggle("active");
@@ -380,7 +367,6 @@ div.a {
 				}
 			});
 		}
-
 		window.history.forward();
 		function noBack() {
 			window.history.forward();
