@@ -30,7 +30,7 @@
 
 <script type="text/javascript" src="js/clock.js"></script>
 
-<!-- Custom styles for this template-->
+
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta name="viewport"
