@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 
@@ -26,17 +27,18 @@ public class SaveNewFunctionsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("aaaaaaaaaaaaaaaaaa");
+	//	System.out.println("aaaaaaaaaaaaaaaaaa");
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	
-		PrintWriter out=response.getWriter(); 
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbb");
+		HttpSession session = request.getSession();
 
+		
+		PrintWriter out=response.getWriter(); 
+		
 	 String mainName = request.getParameter("a");
 		 System.out.println("Mainfunction : "+mainName);
 
@@ -46,17 +48,19 @@ public class SaveNewFunctionsServlet extends HttpServlet {
 		 Functions f = new Functions();
 		 f.setMainFunction(mainName);
 		 f.setSubFunction(subName);
-		 System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+		
 	 	 int status = FunctionDAO.save(f);
 //		  
 		    if(status<0){  
 	    		
 	    	System.out.println("Sorry! unable to save record");
+	    	session.setAttribute("notsucess", "notsucess"); 
 	    	 request.getRequestDispatcher("Role.jsp").include(request, response); 
 	    	}
 		    else {
 		    	System.out.println("success");
-		    	 request.getRequestDispatcher("home.jsp").include(request, response); 
+		    	session.setAttribute("sucess", "sucess"); 
+		    	 request.getRequestDispatcher("Role.jsp").include(request, response); 
 		    }
 //	 
 //		   

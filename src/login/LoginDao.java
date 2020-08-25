@@ -10,25 +10,28 @@ import connections.DBConnection;
 public class LoginDao {
 	public String authenticateUser(LoginBean loginBean) {
 
-		String username = loginBean.getusername();
+		String empNo = loginBean.getEmpno();
 		String password = loginBean.getPassword();
+		
+		
 
 		try {
 
-			LoginBean e = LoginDao.getEmployeeById(username);
+			LoginBean n = LoginDao.getEmployeeById(empNo);
+			
+			String empNoDB = n.getEmpno();
+			
+			//String usernameDB = e.getusername();
+			String passwordDB = n.getDefpwd();
+			String statusDB = n.getStatus();
 
-			String usernameDB = e.getusername();
-			String passwordDB = e.getDefpwd();
-			String statusDB = e.getStatus();
-
-			if (username.equals(usernameDB) && password.equals(passwordDB)
+			
+			if (empNo.equals(empNoDB) && password.equals(passwordDB)
 					&& statusDB.equals("Active")) {
 
 				return "Access_Granted";
 
 			}
-
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,14 +41,14 @@ public class LoginDao {
 		return "Invalid user credentials";
 	}
 
-	public static LoginBean getEmployeeById(String username) {
+	public static LoginBean getEmployeeById(String empid) {
 		LoginBean e = new LoginBean();
 
 		try {
 			Connection con = DBConnection.getConnection();
 
-			PreparedStatement ps = con.prepareStatement("select * from employee where username=?");
-			ps.setString(1, username);
+			PreparedStatement ps = con.prepareStatement("select * from employee where employeeNo=?");
+			ps.setString(1, empid);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {

@@ -118,11 +118,27 @@ if (null != session.getAttribute("not_updated")) {
 
 <div class="row mt-3 mb-3">
 
-<a href='Role.jsp'  >Back to Select Roles</a> <br>
+
 
 </div>
 
+	<div class="container mt-5 mb-5">
 
+						<!-- body start -->
+
+						<div class="container mt-3 a">
+
+
+							<div class="card shadow mb-4">
+
+								<div class="card-header py-3">
+
+									
+									<a href='Role.jsp'  >Back to Select Roles</a> <br>
+								</div>
+								<div class="card-body" style="left: 30%">
+								
+								
 
 <div class="row">
   <div class="col-sm-6">
@@ -140,7 +156,7 @@ if (null != session.getAttribute("not_updated")) {
 							<thead class="thead-dark">
 								<tr>
 									<th hidden >Function ID</th>
-									<th hidden scope="col">Main Functions</th>
+									<th scope="col">Main Functions</th>
 									<th scope="col">Sub Functions</th>
 									<th scope="col"></th>
 
@@ -165,7 +181,7 @@ if (null != session.getAttribute("not_updated")) {
 							%>
 								<tr>
 									<td hidden><%=f.getId()%></td>
-									<td hidden><%=f.getMainFunction()%></td>
+									<td ><%=f.getMainFunction()%></td>
 									<td><%=f.getSubFunction()%></td>
 									<td class="pl-5">
 									<input type="checkbox" id="functionID" name="functionID" value=<%=f.getId() %>>
@@ -284,7 +300,7 @@ if (null != session.getAttribute("not_updated")) {
 </div></div>
 
 
-
+</div></div></div></div>
 
 
 

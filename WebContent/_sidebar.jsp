@@ -36,7 +36,7 @@ if(i == 1){
 //style="display:none;"%>
 		<li >
 		<a href="home.jsp" style="color: #fafafa; background-color: transparent;">
-		<img src="images/tile.png" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em"> 
+		<img src="images/dashboardTest.png" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em"> 
 		Dashboard
 		</a>
 		</li>
@@ -44,7 +44,7 @@ if(i == 1){
 
 		<li >
 		<a href="#pageSubmenu4"	style="color: #fafafa; background-color: transparent;" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-		<img src="images/reserve.png" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em"> 
+		<img src="images/house.png"" alt="" border=3 height=27 width=27 style="float: left; margin-right: 0.5em"> 
 		Front Officer
 		</a>
 

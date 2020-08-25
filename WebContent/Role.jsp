@@ -77,6 +77,18 @@
 		<div class=container-fluid>
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
+				
+			<%	if (null != session.getAttribute("sucess")) {
+						%>
+
+				<div class="alert alert-success" role="alert">Successful..</div>
+				<%} %>
+				
+				<%	if (null != session.getAttribute("notsucess")) {
+						%>
+
+			<div class="alert alert-danger" role="alert">Sorry! you can't add details</div>
+				<%} %>
 
 				<div class="container">
 				<div class="container mt-5 mb-5">
@@ -245,6 +257,15 @@
 		function noBack() {
 			window.history.forward();
 		}
+		
+		
+		
+		window.setTimeout(function() {
+		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 2000);
+		
 	</script>
 
 

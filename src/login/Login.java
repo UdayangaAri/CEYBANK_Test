@@ -29,17 +29,19 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String Username = request.getParameter("Username");
+		String EmpNo = request.getParameter("Username");
 		String password = request.getParameter("pass");
 		
 		passwordEncrypt epwdEncrypt = new passwordEncrypt();
+		
 		String encryptedPwd = epwdEncrypt.userPassword(password);
 
 		LoginBean loginBean = new LoginBean();
 
-		loginBean.setusername(Username);
+		loginBean.setEmpno(EmpNo);
 		
 		loginBean.setPassword(encryptedPwd);
+		
 		
 		LoginDao loginDao = new LoginDao();
 
@@ -50,28 +52,22 @@ public class Login extends HttpServlet {
 
 			if (userValidate.equals("Access_Granted")) {
 				
-				LoginBean b = LoginDao.getEmployeeById(Username);
+				LoginBean b = LoginDao.getEmployeeById(EmpNo);
 
 				String branch = b.getBranch();
 				String empNo = b.getEmpno();
 				String roleid = b.getRole();
-
-				//System.out.println("empno :" + empNo);
-				//System.out.println("roleid :" + roleid);
 				
-				session.setAttribute("Username", Username);
+				session.setAttribute("Username", EmpNo);
 				session.setAttribute("empno", empNo);
 				session.setAttribute("branch", branch);
 				
-			
 				session.setAttribute("roleid", roleid);
 		
 				String s = String.valueOf(branch);
 				String countEmpOnBranch = dashboardDAO.getEmpCount(s);
 				
 				request.setAttribute("countEmpOnBranch", countEmpOnBranch);
-			//	System.out.println("count Emp in login servlet  :" +countEmpOnBranch);
-				
 				
 				session.setAttribute("countEmpOnBranch", countEmpOnBranch);
 				

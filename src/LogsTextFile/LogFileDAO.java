@@ -33,9 +33,9 @@ public class LogFileDAO {
 					e.setEdited_time(rs.getString(5));
 					e.setPrevious_data(rs.getString(6));
 					
-					System.out.println("id DAO : "+e.getId());
+					//System.out.println("id DAO : "+e.getId());
 	   
-	            	System.out.println("Unit DAO : "+e.getEdited_unit());
+	            	//System.out.println("Unit DAO : "+e.getEdited_unit());
 					
 	                list.add(e);  
 	            }  

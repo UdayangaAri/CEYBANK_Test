@@ -60,24 +60,24 @@
 					<!-- /#Type Body Here -->
 					<%
 						String Message = (String) session.getAttribute("RoomViewAlt");
-						if (Message.equalsIgnoreCase("editedMessageRM")) {
+						if (Message =="editedMessageRM") {
 					%>
 					<div class="alert alert-success" role="alert">Edited
 						Successfully..</div>
 					<%
-						} else if (Message.equalsIgnoreCase("deleteMessageRMs")) {
+						} else if (Message == "deleteMessageRMs") {
 					%>
 					<div class="alert alert-danger" role="alert">Deleted
 						Successfully..</div>
 
 					<%
-						} else if (Message.equalsIgnoreCase("SaveMessageRMs")) {
+						} else if (Message == "SaveMessageRMs") {
 					%>
 					<div class="alert alert-success" role="alert">Record Saved
 						Successfully..</div>
 
 					<%
-						} else if (Message.equalsIgnoreCase("SaveMessageFailsRMs")) {
+						} else if (Message == "SaveMessageFailsRMs") {
 					%>
 					<div class="alert alert-danger" role="alert">Record Save
 						failed..</div>
