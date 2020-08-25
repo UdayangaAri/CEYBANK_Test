@@ -105,7 +105,6 @@
 								<td><%=e.getRoomNo() %></td>
 								<td><%=e.getRoomName() %>></td>
 								<td><%=e.getRoomType() %></td>
-								<td><%=e.getRoomDesc() %></td>
 								<td><%=e.getBlockID() %></td>
 
 								<td><a href='RoomEdit.jsp?id=<%=e.getId()%>'> edit <img

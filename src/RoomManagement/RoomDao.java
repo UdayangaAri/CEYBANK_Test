@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import Branches.Branch;
+import block_Register.block;
 import connections.DBConnection;
 
 public class RoomDao {
@@ -18,17 +20,20 @@ public class RoomDao {
 			Connection con = DBConnection.getConnection();
 			System.out.println("Printing connection object " + con);
 
-			String query = "update rooms set roomNo=?,roomName=?,roomType=?,blockID=? where id=?";
+			String query = "update rooms set roomBranch=?, blockID=?, roomNo=?, roomName=?, roomType=?, Status=? where id=?";
 
 			PreparedStatement ps = con.prepareStatement(query);
 
 			System.out.println("ps edit ::: " + ps);
 
-			ps.setString(1, e.getRoomNo());
-			ps.setString(2, e.getRoomName());
-			ps.setInt(3, e.getRoomType());
-			ps.setInt(4, e.getBlockID());
-			ps.setInt(5, e.getId());
+			ps.setInt(1, e.getBranchID());
+			ps.setInt(2, e.getBlockID());
+			ps.setString(3, e.getRoomNo());
+			ps.setString(4, e.getRoomName());
+			ps.setInt(5, e.getRoomType());
+			ps.setString(6, e.getRoomStatus());
+			
+			ps.setInt(7, e.getId());
 
 			status = ps.executeUpdate();
 
@@ -56,34 +61,19 @@ public class RoomDao {
 
 			if (rs.next()) {
 
-				e.setRoomNo(rs.getString(2));
-				e.setRoomName(rs.getString(3));
-				e.setRoomType(rs.getInt(4));
-				e.setBlockID(rs.getInt(5));
+				e.setBranchID(rs.getInt(2));
+				e.setBlockID(rs.getInt(3));
+				
+				e.setRoomNo(rs.getString(4));
+				e.setRoomName(rs.getString(5));
+				e.setRoomType(rs.getInt(6));
+				e.setRoomStatus(rs.getString(7));
+				
+				System.out.println("rs value for status ::: "+rs.getString(7));
 
 				e.setId(rs.getInt(1));
 
-				if (rs.getString(6).equals("Available")) {
-
-					e.setRoomStatus("Available");
-
-				} else if (rs.getString(6).equals("Maintenance")) {
-
-					e.setRoomStatus("Maintenance");
-
-				} else if (rs.getString(6).equals("Cleaning")) {
-
-					e.setRoomStatus("Cleaning");
-
-				} else if (rs.getString(6).equals("Reserved")) {
-
-					e.setRoomStatus("Reserved");
-
-				} else if (rs.getString(6).equals("Occupied")) {
-
-					e.setRoomStatus("Occupied");
-
-				}
+				
 				con.close();
 			}
 
@@ -104,10 +94,10 @@ public class RoomDao {
 			while (rs.next()) {
 				Room e = new Room();
 
-				e.setRoomNo(rs.getString(2));
-				e.setRoomName(rs.getString(3));
-				e.setRoomType(rs.getInt(4));
-				e.setBlockID(rs.getInt(5));
+				e.setRoomNo(rs.getString(4));
+				e.setRoomName(rs.getString(5));
+				e.setRoomType(rs.getInt(6));
+				e.setBlockID(rs.getInt(3));
 				e.setId(rs.getInt(1));
 
 				list.add(e);
@@ -125,14 +115,20 @@ public class RoomDao {
 		try {
 			Connection con = DBConnection.getConnection();
 			PreparedStatement ps = con
-					.prepareStatement("insert into rooms(roomNo,roomName,roomType,blockID,Status) values (?,?,?,?,?)");
-			ps.setString(1, e.getRoomNo());
-			ps.setString(2, e.getRoomName());
-			ps.setInt(3, e.getRoomType());
-			ps.setInt(4, e.getBlockID());
-			ps.setString(5, e.getRoomStatus());
+					.prepareStatement("insert into rooms(roomBranch, blockID, roomNo, roomName, roomType, Status) values (?,?,?,?,?,?)");
+			
+			ps.setInt(1, e.getBranchID());
+			ps.setInt(2, e.getBlockID());
+			
+			ps.setString(3, e.getRoomNo());
+			ps.setString(4, e.getRoomName());
+			ps.setInt(5, e.getRoomType());
+			
+			ps.setString(6, e.getRoomStatus());
 
 			status = ps.executeUpdate();
+			
+			System.out.println("Save succeed..");
 
 			con.close();
 		} catch (Exception ex) {
@@ -217,5 +213,35 @@ public class RoomDao {
 
 		return status;
 	}
+	
+	public static Branch getBranchByBranchId(String sid) {
+		Branch b = new Branch();
+		
+		try {
+			
+			
+			Connection con = DBConnection.getConnection();
 
+			PreparedStatement ps = con.prepareStatement("select * from branches where id=? ORDER BY id ASC;");
+			ps.setString(1, sid);
+
+
+			ResultSet rs = ps.executeQuery();
+
+
+			if (rs.next()) {
+
+
+				b.setId(rs.getInt(1));
+				b.setDisplayName(rs.getString(3));
+			}
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return b;
+	}
+
+	
 }

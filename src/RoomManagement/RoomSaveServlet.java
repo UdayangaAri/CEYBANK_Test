@@ -12,58 +12,67 @@ import javax.servlet.http.HttpSession;
 
 import block_Register.blockDAO;
 
-
-
 @WebServlet("/RoomSaveServlet")
 public class RoomSaveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public RoomSaveServlet() {
-        super();
-      
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public RoomSaveServlet() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		 response.setContentType("text/html");  
-	        PrintWriter out=response.getWriter();  
-	        
-	        HttpSession session2 = request.getSession();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	        String roomNo =request.getParameter("RoomNo"); 
-	        String roomName =request.getParameter("Roomname");  
-	        String roomType =request.getParameter("RoomType");  
-	        String blockName =request.getParameter("blockID");   
-	       
-	        block_Register.block e = blockDAO.getBlocksById(blockName);
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		HttpSession session = request.getSession();
+
+		String branchName = request.getParameter("BranchNo");
+		String blockName = request.getParameter("blockName");
+
+		String roomNo = request.getParameter("RoomNo");
+		String roomName = request.getParameter("Roomname");
+		String roomType = request.getParameter("RoomType");
+
+		String roomStatus = request.getParameter("roomStatus");
+
+		System.out.println("branchName ::: "+branchName);
+		System.out.println("blockName ::: "+blockName);
+		System.out.println("roomStatus ::: "+roomStatus);
+		
+		int branchID = Integer.parseInt(branchName); 
+		int blockID = Integer.parseInt(blockName); 
+		int RoomTypeID = Integer.parseInt(roomType); 
+		
+		Room room = new Room();
+
+		String room_Status = "Available";
+
+		room.setBranchID(branchID);
+		room.setBlockID(blockID);
+		
+		room.setRoomNo(roomNo);
+		room.setRoomName(roomName);
+
+		room.setRoomType(RoomTypeID);
+		room.setRoomStatus(room_Status);
+
+	        int status=RoomDao.save(room); 
 	        
-	        int i=Integer.parseInt(roomType);  
-	        
-	        int blockID = e.getId();
-	          
-	        Room room =new Room();  
-	        
-	        String room_Status = "Available";
-	        
-	        room.setRoomNo(roomNo);
-	        room.setRoomName(roomName);
-	        room.setRoomType(i); 
-	        room.setBlockID(blockID);
-	        room.setRoomStatus(room_Status);
-	       
-	        int status=RoomDao.save(room);  
 	        if(status>0){  
-	        	session2.setAttribute("RoomViewAlt", "SaveMessageRMs");
+	        	session.setAttribute("RoomViewAlt", "SaveMessageRMs");
 	            request.getRequestDispatcher("room_view.jsp").include(request, response);  
 	        }else{  
-	            out.println("Sorry! unable to save record");  
+	        	session.setAttribute("RoomViewAlt", "SaveMessageFailsRMs");
+	            request.getRequestDispatcher("room_view.jsp").include(request, response);  
 	        }  
 	          
 	        out.close();  

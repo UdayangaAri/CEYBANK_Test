@@ -52,8 +52,7 @@ public class blockDAO {
 			Connection con = DBConnection.getConnection();
 
 			PreparedStatement ps = con.prepareStatement("select * from block where blockID=? ORDER BY blockID ASC;");
-			
-			
+
 			ps.setString(1, sid);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {

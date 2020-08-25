@@ -1,7 +1,47 @@
 <!DOCTYPE html>
-
+<%@page import="RoomManagement.RoomDao"%>
+<%@page import="RoomManagement.Room"%>
+<%@page import="connections.DBConnection"%>
+<%@page import="login.LoginDao"%>
+<%@page import="login.LoginBean"%>
+<%@page import="Roles.RoleDao"%>
+<%@page import="Roles.Role"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="Branches.BranchDao"%>
+<%@page import="java.util.List"%>
+<%@page import="Branches.Branch"%>
+<%@page import="java.sql.PreparedStatement"%>
 
 <html lang="en">
+
+<%
+	ResultSet rSet = null;
+	ResultSet r = null;
+	ResultSet rs = null;
+%>
+
+<%
+	//Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+	try {
+
+		Connection con = DBConnection.getConnection();
+		System.out.println("Printing connection object " + con);
+
+		Statement statement = con.createStatement();
+		Statement st01 = con.createStatement();
+
+		r = statement.executeQuery("select * from roomtypes");
+
+		rSet = st01.executeQuery("select * from branches");
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+%>
 
 
 <head>
@@ -12,14 +52,9 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/clock.js"></script>
-
-
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-
 
 
 <meta charset="utf-8">
@@ -28,11 +63,28 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Room Management</title>
+<title>Add new room</title>
+
+
+<style>
+div.c {
+	text-align: right;
+}
+
+div.a {
+	width: 60%;
+}
+
+.center {
+	margin: auto;
+	width: 30%;
+	padding: 20px;
+}
+</style>
+
 
 </head>
 
-<body>
 <body onload="startTime()">
 
 
@@ -49,65 +101,165 @@
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
-				<h3>Save Rooms</h3>
+
 
 				<div class="container">
+					<div class="container mt-5 a">
 
-					<!-- /#Type Body Here -->
+						<div class="card shadow mb-4">
 
-					<form action="" method="post">
-					
-					
-					
-						<div class="row">
-							<div class="col-75">
-								
-								<input type="text" name="" placeholder="Enter Room Number"
-									required>
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">Add New Room</h4>
+							</div>
+							<div class="card-body" style="left: 30%">
+								<!-- /#Type Body Here -->
+
+								<form action="" method="post">
+
+
+
+
+									<div class="row mt-4 mb-4">
+										<div class="col mr-2">
+											<select name="branchName" onchange="this.form.submit();"
+												required>
+
+
+												<%
+													String x = request.getParameter("branchName");
+													session.setAttribute("branch_in_roomMM", x);
+
+													String RecieveBranch = (String) session.getAttribute("branch_in_roomMM");
+
+													System.out.println("x ::: " + x);
+
+													Branch z = RoomDao.getBranchByBranchId(x);
+
+													if (x != null) {
+												%>
+
+												<option value="" disabled selected><%=z.getDisplayName()%></option>
+
+												<%
+													} else {
+												%>
+												<option value="" disabled selected>Select Branch</option>
+												<%
+													}
+													while (rSet.next()) {
+												%>
+												<option value="<%=rSet.getInt(1)%>"><%=rSet.getString(3)%></option>
+												<%
+													}
+												%>
+
+											</select>
+										</div>
+									</div>
+
+								</form>
+
+
+								<form action="RoomSaveServlet" method="POST">
+
+									<div class="row mt-4 mb-4">
+										<div class="col mr-2">
+											<select name="blockName" required>
+												<option value="" disabled selected>Select Block</option>
+												<%
+													System.out.println("RecieveBranch ::: " + RecieveBranch);
+
+													try {
+														String Query = "select * from block where block_location=?";
+														Connection con = DBConnection.getConnection();
+
+														PreparedStatement psmtX = con.prepareStatement(Query);
+														psmtX.setString(1, RecieveBranch);
+
+														rs = psmtX.executeQuery();
+														while (rs.next()) {
+												%>
+
+												<option value="<%=rs.getInt(1)%>"><%=rs.getString(3)%></option>
+												<%
+													}
+													} catch (Exception e) {
+														e.printStackTrace();
+													}
+												%>
+
+											</select>
+										</div>
+									</div>
+
+
+									<input type="hidden" value="<%=RecieveBranch%>" id="BranchNo"
+										name="BranchNo">
+
+
+									<div class="row mt-4 mb-4">
+
+										<div class="col mr-2">
+											<input type="text" name="RoomNo" id="RoomNo"
+												placeholder="Enter Room Number.." required>
+										</div>
+									</div>
+
+									<div class="row mt-4 mb-4">
+
+										<div class="col mr-2">
+											<input type="text" name="Roomname" id="Roomname"
+												placeholder="Enter Room Name.." required>
+										</div>
+									</div>
+
+									<div class="row mt-4 mb-4">
+										<div class="col mr-2">
+											<select name="RoomType" required>
+												<option value="" disabled selected>Select Room type</option>
+												<%
+													while (r.next()) {
+												%>
+												<option value="<%=r.getInt(1)%>"><%=r.getString(2)%></option>
+												<%
+													}
+												%>
+
+											</select>
+										</div>
+									</div>
+
+
+									<div class="row mt-4 mb-4">
+
+										<div class="col mr-2">
+											<input type="text" name="roomStatus" id="roomStatus"
+												value="Available" placeholder="Available.." readonly
+												required>
+										</div>
+									</div>
+
+
+
+									<br>
+
+
+
+									<div class="row center">
+
+
+										<input type="submit" value="Save block"
+											style='margin-right: 16px'>
+									</div>
+
+
+
+								</form>
 							</div>
 						</div>
+					</div>
 
-						<div class="row">
-
-							<div class="col-75">
-								
-									
-									<select name="Block_branch" required>
-									<option value="" disabled selected>Select Room Type</option>
-									
-									<option></option>
-									
-									
-
-								</select>
-							</div>
-						</div>
-
-
-						<div class="row">
-
-							<div class="col-75">
-								<select name="Block_status" required>
-									<option value="Active" selected>Select Block ID</option>
-									
-									<option></option>
-									
-								</select>
-							</div>
-						</div>
-
-						<br>
-
-
-
-						<div class="row">
-
-							<input type="submit" value="Save Room" style='margin-right: 16px'>
-						</div>
-
-
-
-					</form>
 
 				</div>
 

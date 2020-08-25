@@ -4,11 +4,19 @@ public class Room {
 	 protected int id;
 	 protected String RoomNo;
 	    protected String roomName;
-	    protected String RoomDesc;
+	    
 	    protected int roomType;
 	    protected int blockID;
+	    protected int branchID;
 	    protected String roomStatus;
 	    
+	    
+	public int getBranchID() {
+			return branchID;
+		}
+		public void setBranchID(int branchID) {
+			this.branchID = branchID;
+		}
 	public String getRoomStatus() {
 			return roomStatus;
 		}
@@ -18,8 +26,8 @@ public class Room {
 	public int getBlockID() {
 			return blockID;
 		}
-		public void setBlockID(int blockID2) {
-			this.blockID = blockID2;
+		public void setBlockID(int blockID) {
+			this.blockID = blockID;
 		}
 	public int getId() {
 		return id;
@@ -39,12 +47,7 @@ public class Room {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-	public String getRoomDesc() {
-		return RoomDesc;
-	}
-	public void setRoomDesc(String roomDesc) {
-		RoomDesc = roomDesc;
-	}
+	
 	public int getRoomType() {
 		return roomType;
 	}

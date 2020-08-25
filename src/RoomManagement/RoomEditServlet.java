@@ -22,81 +22,93 @@ import block_Register.blockDAO;
 @WebServlet("/RoomEditServlet")
 public class RoomEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-  
-    public RoomEditServlet() {
-        super();
-       
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public RoomEditServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		HttpSession session = request.getSession();
+
+		String sid = (String) session.getAttribute("sid_in_roomMM");
 		
-		response.setContentType("text/html");  
-        PrintWriter out=response.getWriter(); 
-        
-        HttpSession session1 = request.getSession();
-          
-        String sid=request.getParameter("id");  
-        int id=Integer.parseInt(sid);  
-        
-        String roomNo=request.getParameter("roomNo");  
-        String roomName=request.getParameter("roomName");  
-        String roomType=request.getParameter("roomType");   
-        String blockName=request.getParameter("blockID");  
-       
-        
-        block_Register.block j = blockDAO.getBlocksById(blockName);
+		
+		
+		int id = Integer.parseInt(sid);
 
-        int i=Integer.parseInt(roomType);  
-        
-        Room_type r = roomTypeDAO.getRoomTypeById(i);
-        
-        
-        Room x = RoomDao.getRoomById(sid);
+		System.out.println("id ::: " + id);
 
-		String previousData = "Room Id : " + x.getId() + " , Room No : " + x.getRoomNo()
-				+ ", Room Name : " + x.getRoomName() + " , Room Type : " + x.getRoomType()
-				+ " , Block ID of Room : " + x.getBlockID();
+		String BranchNo = request.getParameter("BranchNoEdit");
+		String RoomNo = request.getParameter("RoomNoEdit");
+
+		String Roomname = request.getParameter("RoomnameEdit");
+		String RoomType = request.getParameter("RoomTypeEdit");
+
+		String RoomStatus = request.getParameter("RoomStatusEdit");
+		String blockName = request.getParameter("blockNameEdit");
+		
+		System.out.println("BranchNo ::: " + BranchNo);
+		System.out.println("RoomNo ::: " + RoomNo);
+		
+		System.out.println("Roomname ::: " + Roomname);
+		System.out.println("RoomType ::: " + RoomType);
+		
+		System.out.println("RoomStatus ::: " + RoomStatus);
+		System.out.println("blockName ::: " + blockName);
+
+		Room x = RoomDao.getRoomById(sid);
+
+		String previousData = "block Name : " + x.getBlockID() + " ,Branch Name : " + x.getBranchID() + " , Room No : "
+				+ x.getRoomNo() + ", Room Name : " + x.getRoomName() + " , Room Type : " + x.getRoomType()
+				+ " , Room Status : " + x.getRoomStatus() + " , ID of Room : " + x.getId();
 		String e_status = "Edited";
 		String edited_unit = "Rooms";
 		String name1 = (String) request.getSession(false).getAttribute("empno");
-        
-        
-        int blockID = j.getId();
-          
-        Room e=new Room();  
-        
-        e.setId(id);  
-        e.setRoomNo(roomNo);  
-        e.setRoomName(roomName); 
-        e.setRoomType(r.getId());
-        e.setBlockID(blockID);
-        
-        Log log = new Log();
+
+		int blockID = Integer.parseInt(blockName);
+		int BranchID = Integer.parseInt(BranchNo);
+		int RoomTypeID = Integer.parseInt(RoomType);
+
+		Room e = new Room();
+
+		e.setId(id);
+		e.setBlockID(blockID);
+		e.setBranchID(BranchID);
+
+		e.setRoomNo(RoomNo);
+		e.setRoomName(Roomname);
+
+		e.setRoomType(RoomTypeID);
+		e.setRoomStatus(RoomStatus);
+
+		Log log = new Log();
 
 		log.setPrevious_data(previousData);
 		log.setEdited_by(name1);
 		log.setEdit_status(e_status);
 		log.setEdited_unit(edited_unit);
-        
-          
-        int status=RoomDao.update(e);  
-        
-        if (status > 0) {
+
+		int status = RoomDao.update(e);
+
+		if (status > 0) {
 
 			int logs = LogDAO.InsertLog(log);
 
 			if (logs > 0) {
 
-				session1.setAttribute("RoomViewAlt", "editedMessageRM");
-	            response.sendRedirect("room_view.jsp");  
+				session.setAttribute("RoomViewAlt", "editedMessageRM");
+				response.sendRedirect("room_view.jsp");
 
 			} else {
 				out.println("Sorry! unable to update record");
@@ -105,8 +117,8 @@ public class RoomEditServlet extends HttpServlet {
 		} else {
 			out.println("Sorry! unable to update record");
 		}
-          
-        out.close(); 
+
+		out.close();
 	}
 
 }

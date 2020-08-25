@@ -20,7 +20,6 @@
 <%
 	ResultSet resultset = null;
 	ResultSet rs = null;
-	
 %>
 
 <head>
@@ -31,8 +30,8 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/clock.js"></script>
 
 
@@ -49,15 +48,15 @@
 div.c {
 	text-align: right;
 }
+
 div.a {
-  width: 60%;
-  
+	width: 60%;
 }
+
 .center {
-  margin: auto;
-  width: 30%;
- 
-  padding: 20px;
+	margin: auto;
+	width: 30%;
+	padding: 20px;
 }
 </style>
 
@@ -65,21 +64,21 @@ div.a {
 
 <body onload="startTime()">
 
-<%
+	<%
 		try {
-			
+
 			Connection con = DBConnection.getConnection();
 			System.out.println("Printing connection object " + con);
 
 			Statement st = con.createStatement();
-			
+
 			rs = st.executeQuery("select * from branches ORDER BY B_display_name ASC;");
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	%>
-	
+
 
 
 
@@ -102,111 +101,108 @@ div.a {
 						String sid = request.getParameter("id");
 
 						block e = blockDAO.getBlockById(sid);
-						
 					%>
 
-<div class="container mt-3 a" >
+					<div class="container mt-3 a">
 
-					<div class="card shadow mb-4">
-					
-						<div class="card-header py-3">
+						<div class="card shadow mb-4">
 
-							<h4 class="m-0 font-weight-bold text-primary">Edit Blocks</h4>
+							<div class="card-header py-3">
+
+								<h4 class="m-0 font-weight-bold text-primary">Edit Blocks</h4>
+							</div>
+							<div class="card-body" style="left: 30%">
+
+
+								<form method="POST" class="forms" action="Block_editServlet"
+									method="post">
+
+
+
+
+
+									<div class="row mt-4 mb-4">
+
+										<div class="col ml-5">
+											<p>Block Location</p>
+
+										</div>
+
+										<div class="col mr-2">
+											<select name="block_l">
+
+												<%
+													Branch z = blockDAO.getBranchIdByName(e.getLocation());
+												%>
+
+												<option value="<%=z.getDisplayName()%>" selected><%=z.getDisplayName()%></option>
+
+												<%
+													while (rs.next()) {
+												%>
+												<option><%=rs.getString(3)%></option>
+
+												<%
+													}
+												%>
+
+
+
+											</select>
+										</div>
+									</div>
+
+
+									<div class="row mt-4 mb-4">
+
+										<div class="col ml-5">
+											<p>Block Name</p>
+
+										</div>
+
+										<div class="col mr-2">
+											<input type="text" name="block_n"
+												value="<%=e.getBlock_name()%>" required>
+										</div>
+									</div>
+
+
+									<div class="row mt-4 mb-4">
+
+										<div class="col ml-5">
+											<p>Block Status</p>
+
+										</div>
+										<div class="col mr-2">
+											<select name="Block_s" required>
+												<option value="<%=e.getBlock_status()%>" selected></option>
+
+												<option value="Active" selected>Active</option>
+
+												<option value="Deactive">Deactive</option>
+
+											</select>
+										</div>
+									</div>
+
+
+									<div class="row mt-4 mb-4">
+
+
+										<div class="col mr-2">
+											<input type="text" style="visibility: hidden" name="blockID"
+												value="<%=e.getId()%>" required>
+										</div>
+									</div>
+
+									<div class="row center">
+
+										<input type="submit" value="Edit & Save" />
+									</div>
+								</form>
+							</div>
 						</div>
-						<div class="card-body" style="left: 30%">
-					
-					
-					<form method="POST" class="forms" action="Block_editServlet"
-						method="post">
-
-				
-
-
-
-					<div class="row mt-4 mb-4">
-
-							 <div class="col ml-5">
-								<p>Block Location</p>
-
-							</div>
-
-								 <div class="col mr-2">
-								<select name="block_l">
-								
-								<%
-								Branch z = blockDAO.getBranchIdByName(e.getLocation());
-				
-								 %>
-
-									<option value="<%=z.getDisplayName() %>" selected><%=z.getDisplayName() %></option>
-									
-									<%
-										while (rs.next()) {
-											
-									%>
-									<option><%=rs.getString(3)%></option>
-									
-									<%
-										}
-									%>
-
-
-
-								</select>
-							</div>
-						</div>
-
-
-								<div class="row mt-4 mb-4">
-
-								 <div class="col ml-5">
-								<p>Block Name</p>
-
-							</div>
-
-						<div class="col mr-2">
-								<input type="text" name="block_n" value="<%=e.getBlock_name()%>"
-									required>
-							</div>
-						</div>
-
-
-						<div class="row mt-4 mb-4">
-
-								<div class="col ml-5">
-								<p>Block Status</p>
-
-							</div>
-							<div class="col mr-2">
-								<select name="Block_s" required>
-									<option value="<%=e.getBlock_status()%>" selected></option>
-
-									<option value="Active" selected>Active</option>
-
-									<option value="Deactive">Deactive</option>
-
-								</select>
-							</div>
-						</div>
-
-
-							<div class="row mt-4 mb-4">
-
-
-							<div class="col mr-2">
-								<input type="text" style="visibility: hidden" name="blockID"
-									value="<%=e.getId()%>" required>
-							</div>
-						</div>
-
-						<div class="row center">
-
-							<input type="submit" value="Edit & Save" />
-						</div>
-					</form>
-</div>
-</div>
-</div>
+					</div>
 
 
 				</div>
