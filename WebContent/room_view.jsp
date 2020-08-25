@@ -86,7 +86,6 @@
 						}
 					%>
 
-
 					<a href='room_save.jsp'>Add New room</a> <br>
 					<%
 						List<Room> list = RoomDao.getAllRooms();
