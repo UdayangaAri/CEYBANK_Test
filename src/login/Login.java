@@ -26,7 +26,6 @@ public class Login extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 	
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -42,7 +41,6 @@ public class Login extends HttpServlet {
 		loginBean.setEmpno(EmpNo);
 		
 		loginBean.setPassword(encryptedPwd);
-		
 		
 		LoginDao loginDao = new LoginDao();
 
