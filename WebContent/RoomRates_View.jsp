@@ -143,13 +143,13 @@ String takenameofRoomType = RoomRatesDAO.getRoomTypeName(c);
 													<td><%=e.getDicount_type()%></td>
 
 													<td><a href='RoomRates_Edit.jsp?id=<%=e.getId()%>'>edit
-															<img src="images/edit.png" alt="" border=3 height=20
+															<img src="images/editicon.png" alt="" border=3 height=20
 															width=20 style="float: center; margin-right: 0.5em">
 													</a></td>
 
 													<td><a
 														href='RoomRates_Delete_Servlet?id=<%=e.getId()%>'>delete
-															<img src="images/delete.png" alt="" border=3 height=20
+															<img src="images/dlt.png" alt="" border=3 height=20
 															width=20 style="float: center; margin-right: 0.5em">
 													</a></td>
 

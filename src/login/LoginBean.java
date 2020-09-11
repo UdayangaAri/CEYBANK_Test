@@ -6,13 +6,31 @@ public class LoginBean {
 	private String password;
 	private String defpwd;
 	private String empno;
+	private String Gender;
 
 	private String nic;
 	private String fname;
+	private String lname;
 	private String mobile;
 	private String role;
 	private String branch;
 	private String Status;
+
+	public String getGender() {
+		return Gender;
+	}
+
+	public void setGender(String gender) {
+		Gender = gender;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
 
 	public String getStatus() {
 		return Status;

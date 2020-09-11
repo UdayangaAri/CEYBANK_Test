@@ -26,8 +26,8 @@
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 
 
@@ -35,7 +35,8 @@
 
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -57,10 +58,10 @@
 
 			resultset = statement.executeQuery("select * from role");
 			rs = st.executeQuery("select * from branches");
-			
+
 		}
-	
-	catch (Exception e) {
+
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	%>
@@ -77,146 +78,128 @@
 		<div class=container-fluid>
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
+
 				
-			<%	if (null != session.getAttribute("sucess")) {
-						%>
-
-				<div class="alert alert-success" role="alert">Successful..</div>
-				<%} %>
-				
-				<%	if (null != session.getAttribute("notsucess")) {
-						%>
-
-			<div class="alert alert-danger" role="alert">Sorry! you can't add details</div>
-				<%} %>
-
 				<div class="container">
-				<div class="container mt-5 mb-5">
+					<div class="container mt-5 mb-5">
 
-					<!-- body start -->
+						<!-- body start -->
 
-					
-				
-				
-				
-				<div class="container mt-5 a">
+						<div class="container mt-5 a">
 
-						<div class="card shadow mb-4">
+							<div class="card shadow mb-4">
 
-							<div class="card-header py-3">
+								<div class="card-header py-3">
 
-								<h4 class="m-0 font-weight-bold text-primary">Add New Pages</h4>
-							</div>
-							<div class="card-body" style="left: 30%">
-				
-						
-<form class="forms" action="SaveNewFunctionsServlet" method="post">
-					
-
-<%System.out.println("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"); %>
-
-<div class="row mt-1 mb-1">
-
-<%System.out.println("dddddddddddddddddddd"); %>
+									<h4 class="m-0 font-weight-bold text-primary">Add New
+										Pages</h4>
+								</div>
+								<div class="card-body" style="left: 30%">
 
 
-										<div class="col-50">
-								<input type="text" name="a" id="a" placeholder="Enter Main function"
-									required>
-							</div>
-						</div>
-						<div class="row mt-1 mb-1">
+									<form class="forms" action="SaveNewFunctionsServlet"
+										method="post">
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-50">
+												<input type="text" name="a" id="a"
+													placeholder="Enter Main function" required>
+											</div>
+										</div>
+										<div class="row mt-1 mb-1">
 
 
-										<div class="col-50">
-								<input type="text" name="b" id="b" placeholder=" Enter Sub function."
-									required>
-							</div>
-						</div>
-
-
-
-						<div class="row mt-1 mb-1" style="float: right">
-						
-
-							<input type="reset" value="Clear" style="margin-right: 16px;">
-							<input type="submit" style="float: left; margin-right: 250px;" value="Add">
-					
-</div>
-					</form>
-				</div>
-				</div>
-				</div>
-				<div class="container mt-3 a">
-
-						<div class="card shadow mb-4">
-
-							<div class="card-header py-3">
-
-								<h4 class="m-0 font-weight-bold text-primary">Select Role</h4>
-							</div>
-							<div class="card-body" style="left: 30%">
-				
-						
-<form method="POST" class="forms" action="accessServlet" method="post">
-					
-
-
-
-
-<div class="row mt-1 mb-1">
-
-<div class="col-25">
-											<p>
-												<b><b>Select Role</b></b>
-											</p>
-
+											<div class="col-50">
+												<input type="text" name="b" id="b"
+													placeholder=" Enter Sub function." required>
+											</div>
 										</div>
 
-							<div class="col-25">
-							
-								<select name="rolename" required>
 
-									<option value="" disabled selected>Select Role</option>
-									<%
-										while (resultset.next()) {
-							
-									%>
-									
-									<option><%=resultset.getString(2)%></option>
-									<%
-								
-										}
-									%>
-								</select>
+
+										<div class="row mt-1 mb-1" style="float: right">
+
+
+											<input type="reset" value="Clear" style="margin-right: 16px;">
+											<input type="submit"
+												style="float: left; margin-right: 250px;" value="Add">
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="container mt-3 a">
+
+							<div class="card shadow mb-4">
+
+								<div class="card-header py-3">
+
+									<h4 class="m-0 font-weight-bold text-primary">Select Role</h4>
+								</div>
+								<div class="card-body" style="left: 30%">
+
+
+									<form method="POST" class="forms" action="accessServlet"
+										method="post">
+
+
+
+
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>
+													<b><b>Select Role</b></b>
+												</p>
+
+											</div>
+
+											<div class="col-25">
+
+												<select name="rolename" required>
+
+													<option value="" disabled selected>Select Role</option>
+													<%
+														while (resultset.next()) {
+													%>
+
+													<option><%=resultset.getString(2)%></option>
+													<%
+														}
+													%>
+												</select>
+											</div>
+										</div>
+
+
+
+
+										<div class="row mt-1 mb-1" style="float: right">
+
+
+											<input type="reset" value="Clear" style="margin-right: 16px;">
+											<input type="submit"
+												style="float: left; margin-right: 250px;" value="Next">
+
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 
+					</div>
+				</div>
+			</div>
+		</div>
 
-
-
-						<div class="row mt-1 mb-1" style="float: right">
-						
-
-							<input type="reset" value="Clear" style="margin-right: 16px;">
-							<input type="submit" style="float: left; margin-right: 250px;" value="Next">
-					
-</div>
-					</form>
-				</div>
-				</div>
-				</div>
-				
-				</div>
-				</div>
-				</div>
-				</div>
-				
 
 	</div>
 	<!-- /#page-content-wrapper -->
 
-<jsp:include page="Footer.jsp"></jsp:include>
+	<jsp:include page="Footer.jsp"></jsp:include>
 
 
 
@@ -257,15 +240,12 @@
 		function noBack() {
 			window.history.forward();
 		}
-		
-		
-		
+
 		window.setTimeout(function() {
-		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
 		}, 2000);
-		
 	</script>
 
 

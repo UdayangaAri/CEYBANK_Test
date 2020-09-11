@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="RoomTypeMaster.Room_type"%>
+<%@page import="RoomTypeMaster.roomTypeDAO"%>
+<%@page import="block_Register.block"%>
 <%@page import="block_Register.blockDAO"%>
 <%@page import="RoomManagement.RoomDao"%>
 <%@page import="RoomManagement.Room"%>
@@ -111,94 +114,41 @@ div.a {
 									String sid = request.getParameter("id");
 									session.setAttribute("sid_in_roomMM", sid);
 
-									System.out.println("sid x ::: " + sid);
+									//System.out.println("sid x ::: " + sid);
 
 									Room room = RoomDao.getRoomById(sid);
 
-									int branchValue = room.getBranchID();
-
-									String str1 = Integer.toString(branchValue);
 								%>
 
-								<form action="" method="post">
-
-									<div class="row mt-4 mb-4">
-										<div class="col mr-2">
-											<select name="branchNameEdit" onchange="this.form.submit();"
-												required>
-
-												<%
-													String x = request.getParameter("branchNameEdit");
-													session.setAttribute("branch_in_roomMM", x);
-
-													String RecieveBranch = (String) session.getAttribute("branch_in_roomMM");
-
-													String sid_in_roomMM = (String) session.getAttribute("sid_in_roomMM");
-													
-													Branch z = RoomDao.getBranchByBranchId(x);
-
-													Branch j = RoomDao.getBranchByBranchId(str1);
-
-													if (x != null) {
-												%>
-												<option value="" disabled selected><%=z.getDisplayName()%></option>
-
-												<%
-													} else if (str1 != null) {
-												%>
-												<option value="" disabled selected><%=j.getDisplayName()%></option>
-												<%
-													} else {
-												%>
-												<option value="" disabled selected>Select Branch</option>
-												<%
-													}
-
-													while (rSet.next()) {
-												%>
-												<option value="<%=rSet.getInt(1)%>"><%=rSet.getString(3)%></option>
-												<%
-													}
-												%>
-
-											</select>
-										</div>
-									</div>
-
-								</form>
-								<%
-								System.out.println("sid_in_roomMM ::: " + sid_in_roomMM);
-								%>
-
+								
 								<form action="RoomEditServlet" method="post">
 
 									<div class="row mt-4 mb-4">
+
 										<div class="col mr-2">
+
 											<select name="blockNameEdit" required>
 
 												<%
-												
-												
 													int jBlock = room.getBlockID();
+													String str3 = String.valueOf(jBlock);
 
-													Branch zBlock = blockDAO.getBranchIdByName(jBlock);
+													block zBlock = blockDAO.getBlockById(str3);
 												%>
-												<option value="jBlock" disabled selected><%=zBlock.getDisplayName()%></option>
+												<option value="" disabled selected><%=zBlock.getBlock_name()%></option>
 												<%
-													//System.out.println("RecieveBranch ::: " + RecieveBranch);
-
 													try {
 														String Query = "select * from block where block_location=?";
 														Connection con = DBConnection.getConnection();
 
 														PreparedStatement psmtX = con.prepareStatement(Query);
-														psmtX.setString(1, RecieveBranch);
+														psmtX.setInt(1, zBlock.getLocation());
 
 														rs = psmtX.executeQuery();
 														while (rs.next()) {
 												%>
 
-												<option value="<%=rs.getInt(1)%>"><%=rs.getString(3)%></option>
+												<option value=""><%=rs.getString(3)%></option>
 												<%
 													}
 													} catch (Exception e) {
@@ -207,36 +157,50 @@ div.a {
 												%>
 
 											</select>
+
 										</div>
+
 									</div>
-
-									<input type="hidden" value="<%=RecieveBranch%>" name="BranchNoEdit"
-										id="BranchNoEdit">
-										
-											<input type="hidden" value="<%=sid_in_roomMM%>"
-										id="x_in_roomMM">
-
 
 									<div class="row mt-4 mb-4">
 
 										<div class="col mr-2">
+
 											<input type="text" value="<%=room.getRoomNo()%>"
-												id="RoomNoEdit" name="RoomNoEdit" placeholder="Enter Room Number.." required>
+												id="RoomNoEdit" name="RoomNoEdit"
+												placeholder="Enter Room Number.." required>
+
 										</div>
+
 									</div>
 
 									<div class="row mt-4 mb-4">
 
 										<div class="col mr-2">
+
 											<input type="text" value="<%=room.getRoomName()%>"
-												id="RoomnameEdit" name="RoomnameEdit" placeholder="Enter Room Name.." required>
+												id="RoomnameEdit" name="RoomnameEdit"
+												placeholder="Enter Room Name.." required>
+
 										</div>
+
 									</div>
 
 									<div class="row mt-4 mb-4">
+
 										<div class="col mr-2">
+
 											<select name="RoomTypeEdit" required>
-												<option value="" disabled selected><%=room.getRoomType()%></option>
+
+												<%
+													Room_type r1 = roomTypeDAO.getRoomTypeById(room.getRoomType());
+												
+												System.out.println("get room type ::: "+room.getRoomType());
+												
+												String rtype = r1.getRoom_Type();
+												%>
+
+												<option value="<%=rtype%>" disabled selected><%=r1.getRoom_Type()%></option>
 												<%
 													while (r.next()) {
 												%>
@@ -246,12 +210,17 @@ div.a {
 												%>
 
 											</select>
+
 										</div>
+
 									</div>
 
 									<div class="row mt-4 mb-4">
+
 										<div class="col mr-2">
+
 											<select name="RoomStatusEdit" required>
+
 												<option value="<%=room.getRoomStatus()%>" disabled selected><%=room.getRoomStatus()%></option>
 
 												<option value="Available">Available</option>
@@ -261,7 +230,9 @@ div.a {
 												<option value="Maintenance">Under maintenance</option>
 
 											</select>
+
 										</div>
+
 									</div>
 
 									<br>
@@ -330,13 +301,12 @@ div.a {
 		function noBack() {
 			window.history.forward();
 		}
-		
+
 		window.setTimeout(function() {
-		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
 		}, 2000);
-		
 	</script>
 
 </body>

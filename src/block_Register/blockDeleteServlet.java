@@ -32,8 +32,6 @@ public class blockDeleteServlet extends HttpServlet {
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
 
-		HttpSession session = request.getSession();
-
 		block x = blockDAO.getBlockById(sid);
 
 		String name = (String) request.getSession(false).getAttribute("empno");
@@ -44,8 +42,8 @@ public class blockDeleteServlet extends HttpServlet {
 
 		Log log = new Log();
 
-		System.out.println("previousData : " + previousData);
-		System.out.println("name : " + name);
+//		System.out.println("previousData : " + previousData);
+//		System.out.println("name : " + name);
 
 		log.setPrevious_data(previousData);
 		log.setEdit_status(e_status);
@@ -59,15 +57,16 @@ public class blockDeleteServlet extends HttpServlet {
 
 			if (logs > 0) {
 
-				session.setAttribute("DeletedMessage", "DeletedMessage");
-				response.sendRedirect("block_view.jsp");
-				out.print("<div class='alert alert-danger' role='alert'>" + "Record Deleted successfully!" + "</div>");
+				request.setAttribute("BrDsucceed", "BrDsucceed");
+
+				request.getRequestDispatcher("block_view.jsp").include(request, response);
 
 			}
 		} else {
 
-			session.setAttribute("DeleteFailedMessage", "DeleteFailedMessage");
-			response.sendRedirect("block_view.jsp");
+			request.setAttribute("BrDfailed", "BrDfailed");
+
+			request.getRequestDispatcher("block_view.jsp").include(request, response);
 		}
 
 	}

@@ -54,9 +54,7 @@
 <%
 	ResultSet rs1 = null;
 	ResultSet rx = null;
-%>
 
-<%
 	String Employees_Branch = (String) session.getAttribute("branch");
 	String Guest_Branch = (String) session.getAttribute("branch");
 	String Username = (String) session.getAttribute("Username");
@@ -120,9 +118,6 @@ div.a {
 </head>
 
 <body>
-
-
-
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -463,9 +458,6 @@ div.a {
 													onchange="this.form.submit();">
 
 													<%
-											session.setAttribute("room11 : ", room1);
-										
-											session.setAttribute("RecieveBlock11 : ", RecieveBlock1);
 											System.out.println("room1 ::: " + room1);
 
 											System.out.println("checkout ::: " + checkout);

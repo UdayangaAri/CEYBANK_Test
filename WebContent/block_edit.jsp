@@ -68,7 +68,7 @@ div.a {
 		try {
 
 			Connection con = DBConnection.getConnection();
-			System.out.println("Printing connection object " + con);
+			//System.out.println("Printing connection object " + con);
 
 			Statement st = con.createStatement();
 

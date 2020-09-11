@@ -8,7 +8,6 @@ public class passwordEncrypt {
 		
 		String password = p;
 		String algorithm = "SHA";
-		System.out.println("Encrypting password");
 		
 		byte[] plainText = password.getBytes();
 		StringBuilder sb = new StringBuilder();

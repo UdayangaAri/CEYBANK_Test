@@ -154,7 +154,6 @@ public class B_EditServlet2 extends HttpServlet {
 			String edited_unit = "Branches";
 			String name1 = (String) request.getSession(false).getAttribute("empno");
 			
-
 			e.setId(id);
 			e.setStatus(AStatus);
 			
@@ -165,8 +164,6 @@ public class B_EditServlet2 extends HttpServlet {
 			log.setEdit_status(e_status);
 			log.setEdited_unit(edited_unit);
 			
-			
-
 			int status = BranchDao.deactivate(e);
 
 			if (status > 0) {

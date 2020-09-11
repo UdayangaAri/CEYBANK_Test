@@ -50,8 +50,6 @@ public class Room_Status_Management extends HttpServlet {
 //		String edited_unit = "Rooms";
 //		String name1 = (String) request.getSession(false).getAttribute("empno");
         
-        
-          
         Room e=new Room();  
         
         e.setId(id);  

@@ -514,34 +514,6 @@ div.a {
 										<div class="row">
 
 											<div class="col-25" style="text-align: left">
-												<p>JS Value</p>
-
-											</div>
-
-											<div class="col-75">
-
-												<input type="text" name="totalout">
-											</div>
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-25" style="text-align: left">
-												<p>JS Value</p>
-
-											</div>
-
-											<div class="col-75">
-
-												<input type="text" readonly name="totalout">
-											</div>
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-25" style="text-align: left">
 												<p>Name</p>
 
 											</div>

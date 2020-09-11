@@ -27,10 +27,8 @@ public class B_DeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
-
 		HttpSession session = request.getSession();
-		
+
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
 
@@ -57,14 +55,15 @@ public class B_DeleteServlet extends HttpServlet {
 			int logs = LogDAO.InsertLog(log);
 
 			if (logs > 0) {
-
-				session.setAttribute("errorMessage", "errorMessage");
-				response.sendRedirect("B_View.jsp");
+				
+				request.setAttribute("BDsucceed", "BDsucceed");
+				request.getRequestDispatcher("B_View.jsp").include(request, response); 
 
 			}
 		} else {
-			session.setAttribute("CannotDeleteAlert", "CannotDeleteAlert");
-			response.sendRedirect("B_View.jsp");
+			
+			request.setAttribute("BDfailed", "BDfailed");
+			request.getRequestDispatcher("B_View.jsp").include(request, response); 
 
 		}
 	}

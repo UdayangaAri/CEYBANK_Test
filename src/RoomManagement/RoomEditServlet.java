@@ -43,13 +43,10 @@ public class RoomEditServlet extends HttpServlet {
 
 		String sid = (String) session.getAttribute("sid_in_roomMM");
 		
-		
-		
 		int id = Integer.parseInt(sid);
 
 		System.out.println("id ::: " + id);
 
-		String BranchNo = request.getParameter("BranchNoEdit");
 		String RoomNo = request.getParameter("RoomNoEdit");
 
 		String Roomname = request.getParameter("RoomnameEdit");
@@ -58,7 +55,6 @@ public class RoomEditServlet extends HttpServlet {
 		String RoomStatus = request.getParameter("RoomStatusEdit");
 		String blockName = request.getParameter("blockNameEdit");
 		
-		System.out.println("BranchNo ::: " + BranchNo);
 		System.out.println("RoomNo ::: " + RoomNo);
 		
 		System.out.println("Roomname ::: " + Roomname);
@@ -77,14 +73,12 @@ public class RoomEditServlet extends HttpServlet {
 		String name1 = (String) request.getSession(false).getAttribute("empno");
 
 		int blockID = Integer.parseInt(blockName);
-		int BranchID = Integer.parseInt(BranchNo);
 		int RoomTypeID = Integer.parseInt(RoomType);
 
 		Room e = new Room();
 
 		e.setId(id);
 		e.setBlockID(blockID);
-		e.setBranchID(BranchID);
 
 		e.setRoomNo(RoomNo);
 		e.setRoomName(Roomname);

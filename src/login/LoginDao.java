@@ -17,6 +17,8 @@ public class LoginDao {
 
 		try {
 
+			System.out.println("Decrypting password");
+			
 			LoginBean n = LoginDao.getEmployeeById(empNo);
 			
 			String empNoDB = n.getEmpno();
@@ -29,6 +31,7 @@ public class LoginDao {
 			if (empNo.equals(empNoDB) && password.equals(passwordDB)
 					&& statusDB.equals("Active")) {
 
+				System.out.println("Password decrypted");
 				return "Access_Granted";
 
 			}
@@ -58,7 +61,9 @@ public class LoginDao {
 				e.setRole(rs.getString("role"));
 				e.setStatus(rs.getString("Status"));
 				e.setMobile(rs.getString("mobileNo"));
+				e.setGender(rs.getString("Gender"));
 				e.setNic(rs.getString("NIC"));
+				e.setLname(rs.getString("lastName"));
 				e.setEmpno(rs.getString("employeeNo"));
 				e.setFname(rs.getString("firstName"));
 				e.setBranch(rs.getString("Branch"));

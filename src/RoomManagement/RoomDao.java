@@ -20,20 +20,19 @@ public class RoomDao {
 			Connection con = DBConnection.getConnection();
 			System.out.println("Printing connection object " + con);
 
-			String query = "update rooms set roomBranch=?, blockID=?, roomNo=?, roomName=?, roomType=?, Status=? where id=?";
+			String query = "update rooms set blockID=?, roomNo=?, roomName=?, roomType=?, Status=? where id=?";
 
 			PreparedStatement ps = con.prepareStatement(query);
 
 			System.out.println("ps edit ::: " + ps);
 
-			ps.setInt(1, e.getBranchID());
-			ps.setInt(2, e.getBlockID());
-			ps.setString(3, e.getRoomNo());
-			ps.setString(4, e.getRoomName());
-			ps.setInt(5, e.getRoomType());
-			ps.setString(6, e.getRoomStatus());
+			ps.setInt(1, e.getBlockID());
+			ps.setString(2, e.getRoomNo());
+			ps.setString(3, e.getRoomName());
+			ps.setInt(4, e.getRoomType());
+			ps.setString(5, e.getRoomStatus());
 			
-			ps.setInt(7, e.getId());
+			ps.setInt(6, e.getId());
 
 			status = ps.executeUpdate();
 

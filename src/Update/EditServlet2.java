@@ -43,6 +43,8 @@ public class EditServlet2 extends HttpServlet {
 		String lastName = request.getParameter("lname");
 		String nic = request.getParameter("nic");
 
+		String Gender = request.getParameter("Gender");
+
 		String phone = request.getParameter("phone");
 		String mobile = request.getParameter("mobile");
 		String email = request.getParameter("email");
@@ -51,7 +53,7 @@ public class EditServlet2 extends HttpServlet {
 		String role = request.getParameter("role");
 		String Branch = request.getParameter("Branch");
 
-		String username = request.getParameter("username");
+		String username = request.getParameter("empno");
 		String currentStatus = request.getParameter("current_status");
 		String DStatus = ("Deactive");
 		String AStatus = ("Active");
@@ -69,11 +71,12 @@ public class EditServlet2 extends HttpServlet {
 				Emp x = EmpDao.getEmployeeById(employeeNo);
 
 				String previousData_1 = "Employee No : " + x.getEmployeeNo() + " , Employee First Name : "
-						+ x.getFirstName() + " , Employee Last Name : " + x.getLastName() + " , Employee Username : "
-						+ x.getUsername() + " , Employee Role : " + x.getRole() + " , Employee Phone No : "
-						+ x.getPhoneNo() + " , Employee Mobile No : " + x.getMobileNo() + ", Employee Email : "
-						+ x.getEmail() + " , Employee Address : " + x.getAddress() + " , Employee NIC : " + x.getNIC()
-						+ " , Employee Branch : " + x.getBranch() + " , Employee Status : " + x.getStatus();
+						+ x.getFirstName() + " , Employee Last Name : " + x.getLastName() + ", Gender : "
+						+ x.getGender() + " , Employee Username : " + x.getUsername() + " , Employee Role : "
+						+ x.getRole() + " , Employee Phone No : " + x.getPhoneNo() + " , Employee Mobile No : "
+						+ x.getMobileNo() + ", Employee Email : " + x.getEmail() + " , Employee Address : "
+						+ x.getAddress() + " , Employee NIC : " + x.getNIC() + " , Employee Branch : " + x.getBranch()
+						+ " , Employee Status : " + x.getStatus();
 				String e_status_1 = "Edited";
 				String edited_unit_1 = "Employee Types";
 				String name_1 = (String) request.getSession(false).getAttribute("empno");
@@ -86,6 +89,7 @@ public class EditServlet2 extends HttpServlet {
 					e.setFirstName(firstName);
 					e.setLastName(lastName);
 					e.setNIC(nic);
+					e.setGender(Gender);
 					e.setUsername(username);
 					e.setPhoneNo(phone);
 					e.setMobileNo(mobile);
@@ -113,18 +117,19 @@ public class EditServlet2 extends HttpServlet {
 
 						if (logs > 0) {
 							
-							session.setAttribute("updated", "success message");
-							out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
-							response.sendRedirect("Update.jsp");
+							request.setAttribute("updated", "updated");
+							request.getRequestDispatcher("Update.jsp").include(request, response);
 
 						} else {
-							session.setAttribute("not_updated", "failed message");
-							out.println("Sorry! unable to update record. Please check again and try.");
+							request.setAttribute("not_updated", "not_updated");
+							request.getRequestDispatcher("Update.jsp").include(request, response);
+							
 						}
 
 					} else {
-						session.setAttribute("not_updated", "failed message");
-						out.println("Sorry! unable to update record. Please check again and try.");
+						request.setAttribute("not_updated", "not_updated");
+						request.getRequestDispatcher("Update.jsp").include(request, response);
+						
 					}
 
 				} else if (request.getParameter("Deactivate") != null) {
@@ -145,8 +150,6 @@ public class EditServlet2 extends HttpServlet {
 					log.setEdit_status(e_status);
 					log.setEdited_unit(edited_unit);
 
-					;
-
 					int status = EmpDao.deactivate(e);
 
 					if (status > 0) {
@@ -154,19 +157,20 @@ public class EditServlet2 extends HttpServlet {
 
 						if (logs > 0) {
 
-							request.setAttribute("errorMessage", "Login Failed");
-
-							out.print("<div class='alert alert-success' role='alert'>" + "Deactivated successfully!"
-									+ "</div>");
-
-							response.sendRedirect("Update.jsp");
+							request.setAttribute("Dsucceed", "Dsucceed");
+							request.getRequestDispatcher("Update.jsp").include(request, response);
+							
 
 						} else {
-							out.println("Sorry! unable to update record");
+							request.setAttribute("Dfailed", "Dfailed");
+							request.getRequestDispatcher("Update.jsp").include(request, response);
+							
 						}
 
 					} else {
-						out.println("Sorry! unable to Deactivate");
+						request.setAttribute("Dfailed", "Dfailed");
+						request.getRequestDispatcher("Update.jsp").include(request, response);
+						
 					}
 
 				} else if (request.getParameter("Activate") != null) {
@@ -195,21 +199,21 @@ public class EditServlet2 extends HttpServlet {
 						int logs = LogDAO.InsertLog(log);
 
 						if (logs > 0) {
-
-							request.setAttribute("errorMessage", "Login Failed");
-
-							out.print("<div class='alert alert-success' role='alert'>" + "Deactivated successfully!"
-									+ "</div>");
-
-							response.sendRedirect("Update.jsp");
+							request.setAttribute("Asucceed", "Asucceed");
+							request.getRequestDispatcher("Update.jsp").include(request, response);
+							
 
 						} else {
-							out.println("Sorry! unable to update record");
+							request.setAttribute("Afailed", "Afailed");
+							request.getRequestDispatcher("Update.jsp").include(request, response);
+							
 						}
 
 					} else {
 
-						out.println("Sorry! unable to Activate");
+						request.setAttribute("Afailed", "Afailed");
+						request.getRequestDispatcher("Update.jsp").include(request, response);
+						
 					}
 
 				}

@@ -19,30 +19,28 @@ public class EmpDao {
 			Connection con = DBConnection.getConnection();
 			System.out.println("Printing connection object " + con);
 			
-			String query = "update employee set employeeNo=?,firstName=?,lastName=?,NIC=?,phoneNo=?,mobileNo=?,email=?,address=?,role=?,Branch=?,Status=? where employeeNo=?";  
-					
-
+			String query = "update employee set employeeNo=?,firstName=?,lastName=?,Gender=?, NIC=?,phoneNo=?,mobileNo=?,email=?,address=?,role=?,Branch=?,Status=? where employeeNo=?";  
+				
 			PreparedStatement ps = con.prepareStatement(query);
 
 			ps.setString(2, e.getFirstName());
 			ps.setString(3, e.getLastName());
-			ps.setString(4, e.getNIC());
-
-			ps.setString(5, e.getPhoneNo());
-			ps.setString(6, e.getMobileNo());
-			ps.setString(7, e.getEmail());
-			ps.setString(8, e.getAddress());
-
+			ps.setString(5, e.getNIC());
 			
-			ps.setInt(9, e.getRole());
-			ps.setInt(10, e.getBranch());
+			ps.setString(4,e.getGender());
+
+			ps.setString(6, e.getPhoneNo());
+			ps.setString(7, e.getMobileNo());
+			ps.setString(8, e.getEmail());
+			ps.setString(9, e.getAddress());
+
+			ps.setInt(10, e.getRole());
+			ps.setInt(11, e.getBranch());
 			
 			ps.setString(1, e.getEmployeeNo());
-			ps.setString(12, e.getEmployeeNo());
-			ps.setString(11, e.getStatus());
+			ps.setString(13, e.getEmployeeNo());
+			ps.setString(12, e.getStatus());
 			
-			
-
 			status = ps.executeUpdate();
 
 			System.out.println(status);
@@ -66,15 +64,12 @@ public class EmpDao {
 			
 			String query = "update employee set Status=? where employeeNo=?";  
 					
-
 			PreparedStatement ps = con.prepareStatement(query);
 
 			ps.setString(2, e.getEmployeeNo());
 			ps.setString(1, e.getStatus());
 			
 			status = ps.executeUpdate();
-
-			
 
 			con.close();
 		
@@ -96,22 +91,22 @@ public class EmpDao {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				
-
 				e.setEmployeeNo(rs.getString(1));
 				e.setFirstName(rs.getString(2));
 				e.setLastName(rs.getString(3));
-				e.setNIC(rs.getString(11));
-				
-				e.setPhoneNo(rs.getString(7));
-				e.setMobileNo(rs.getString(8));
-				e.setEmail(rs.getString(9));
-				e.setAddress(rs.getString(10));
-
-				e.setRole(rs.getInt(5));
-				e.setBranch(rs.getInt(12));
-				e.setStatus(rs.getString(13));
-
 				e.setUsername(rs.getString(4));
+				
+				e.setGender(rs.getString(5));
+				e.setRole(rs.getInt(6));
+				
+				e.setPhoneNo(rs.getString(8));
+				e.setMobileNo(rs.getString(9));
+				e.setEmail(rs.getString(10));
+				e.setAddress(rs.getString(11));
+
+				e.setNIC(rs.getString(12));
+				e.setBranch(rs.getInt(13));
+				e.setStatus(rs.getString(14));
 
 			}
 			con.close();

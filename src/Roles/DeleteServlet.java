@@ -57,15 +57,15 @@ public class DeleteServlet extends HttpServlet {
         
         if(logs>0){  
             
-        	  out.print("<div class='alert alert-danger' role='alert'>" + "Record Deleted successfully!" +"</div>");  
-              response.sendRedirect("R_View.jsp");  
-      	
-            
+        	request.setAttribute("RDsucceed", "RDsucceed");
+			request.getRequestDispatcher("R_View.jsp").include(request, response);  
+        	 
         }
         }
    	 	else
         {
-            out.println("Sorry! unable to update record");  
+   	 	request.setAttribute("RDfailed", "RDfailed");
+		request.getRequestDispatcher("R_View.jsp").include(request, response);  
         }  
    	
 	}

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="News_Updates.NewsDAO"%>
+<%@page import="News_Updates.NewsBean"%>
+<%@page import="connections.DBConnection"%>
 <%@page import="RoomRates.RoomRatesDAO"%>
 <%@page import="register.RegisterBean"%>
 <%@page import="dashboard.dashboardDAO"%>
@@ -14,12 +17,11 @@
 <%@page import="java.util.List"%>
 <%@page import="Branches.Branch"%>
 
-
 <html lang="en">
 
 <%
-	ResultSet resultset = null;
 	ResultSet rs = null;
+	ResultSet r1 = null;
 %>
 
 <head>
@@ -31,10 +33,7 @@
 <link rel="stylesheet" type="text/css" href="css/simple-sidebar.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
-
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,8 +41,6 @@
 <meta name="author" content="">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
 
 <title>Home</title>
 
@@ -56,16 +53,28 @@
 <!-- Custom styles for this template-->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-
-
 </head>
 
 <body onload="startTime()">
 
-
-
-	<!-- java methods starts -->
 	<%
+		try {
+
+			Connection con = DBConnection.getConnection();
+
+			Statement st = con.createStatement();
+			Statement st1 = con.createStatement();
+
+			r1 = st1.executeQuery("SELECT Description,Date FROM newsupdates ORDER BY NewsID DESC LIMIT 5;");
+
+			rs = st.executeQuery("select * from news_images");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		//NewsBean ew = NewsDAO.getNewsById();
+
 		String countEmpOnBranch = (String) session.getAttribute("countEmpOnBranch");
 		//System.out.println("countEmpOnBranch  :" +countEmpOnBranch);
 	%>
@@ -87,21 +96,6 @@
 
 					<!-- body start -->
 
-					<div class="mb-5 ">
-						<form
-							class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search mt-5">
-							<div class="input-group  mt-5">
-								<input type="text" class="form-control bg-light border-0 small"
-									placeholder="Search for..." aria-label="Search"
-									aria-describedby="basic-addon2">
-								<div class="input-group-append">
-									<button class="btn btn-primary" type="button">
-										<i class="fas fa-search fa-sm"></i>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
 					<div class="container-fluid">
 						<%
 							String name = (String) session.getAttribute("Username");
@@ -113,121 +107,11 @@
 							String takenameofbranchname = RoomRatesDAO.getBranchName(branch);
 							//System.out.println("takenameofbranchname : "+takenameofbranchname);
 						%>
-						<!-- Page Heading -->
 
-						<!-- Topbar Search -->
+						<br>
 
-
-						<!-- Content Row -->
-						<div class="row">
-
-
-							<!-- Earnings (Monthly) Card Example -->
-							<div class="col-xl-3 col-md-6 mb-4 mt-5">
-								<div class="card border-left-primary shadow h-100 py-2">
-									<div class="card-body">
-										<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<div
-													class="text-xs font-weight-bold text-primary text-uppercase mb-1">Your
-													employee Number</div>
-												<div class="h5 mb-0 font-weight-bold text-gray-800"><%=empno%></div>
-											</div>
-											<div class="col-auto">
-												<i class="fas fa-calendar fa-2x text-gray-300"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Earnings (Monthly) Card Example -->
-							<div class="col-xl-3 col-md-6 mb-4 mt-5">
-								<div class="card border-left-success shadow h-100 py-2">
-									<div class="card-body">
-										<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<div
-													class="text-xs font-weight-bold text-success text-uppercase mb-1">Your
-													employee Number</div>
-												<div class="h5 mb-0 font-weight-bold text-gray-800"><%=branch%></div>
-											</div>
-											<div class="col-auto">
-												<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Earnings (Monthly) Card Example -->
-							<div class="col-xl-3 col-md-6 mb-4 mt-5">
-								<div class="card border-left-info shadow h-100 py-2">
-									<div class="card-body">
-										<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<div
-													class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-												<div class="row no-gutters align-items-center">
-													<div class="col-auto">
-														<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">%</div>
-													</div>
-													<div class="col">
-														<div class="progress progress-sm mr-2">
-															<div class="progress-bar bg-info" role="progressbar"
-																style="width: 60%" aria-valuenow="50" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-auto">
-												<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Pending Requests Card Example -->
-							<div class="col-xl-3 col-md-6 mb-4 mt-5">
-								<div class="card border-left-warning shadow h-100 py-2">
-									<div class="card-body">
-										<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<div
-													class="text-xs font-weight-bold text-warning text-uppercase mb-1">Count
-													of Employees in your branch</div>
-												<div class="h5 mb-0 font-weight-bold text-gray-800">
-													<%
-														out.println(countEmpOnBranch);
-													%>
-												</div>
-											</div>
-											<div class="col-auto">
-												<i class="fas fa-comments fa-2x text-gray-300"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-						<!-- Content Row -->
-
-
-						<!-- Content Row -->
-
-
-						<!-- Content Column -->
-
-
-						<!-- Project Card Example -->
 						<div class="card shadow mb-4">
-							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-							</div>
+
 							<div class="card-body">
 
 								<div id="carouselExampleIndicators" class="carousel slide"
@@ -243,25 +127,27 @@
 
 									</ol>
 									<div class="carousel-inner">
+									
 										<div class="carousel-item active">
-											<img src="images/Dickoya.JPG" class="d-block w-50 alt="...">
+											<img src="images/Dickoya.JPG" width="auto" height="383" class="d-block w-100" alt="...">
 										</div>
-										<div class="carousel-item">
-											<img src="images/Kataragama.jpg" class="d-block w-50 "
+										<div class="carousel-item " >
+											<img src="images/222.jpg" class="d-block w-100"
 												alt="...">
 										</div>
 										<div class="carousel-item">
-											<img src="images/Nuwara Eliya.jpg" class="d-block  w-50 "
+											<img src="images/444.jpg" class="d-block w-100"
 												alt="...">
 										</div>
 										<div class="carousel-item">
-											<img src="images/Pinnacle View Anuradhapura (1).jpg"
-												class="d-block  w-50 " alt="...">
+											<img src="images/777.jpg"
+												class="d-block w-100" alt="...">
 										</div>
 										<div class="carousel-item">
-											<img src="images/Pinnacle View Anuradhapura (2).jpg"
-												class="d-block w-50" alt="...">
+											<img src="images/888.jpg"
+												class="d-block w-100" alt="...">
 										</div>
+										
 									</div>
 									<a class="carousel-control-prev"
 										href="#carouselExampleIndicators" role="button"
@@ -279,38 +165,39 @@
 							</div>
 						</div>
 
-						<!-- Color System -->
-
-
-
-
-
-
-
-						<!-- Illustrations -->
 						<div class="card shadow mb-4 ">
 							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+
 								<div class="text-center">
-									<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-										style="width: 10rem;" src="images/news_icon.png" alt="">
+
+									<!-- Retrieve image from ImageLoader.jsp -->
+
+									<img src="ImageLoader.jsp" width="auto" height="300">
+
+									<!-------------------------------------->
+									
 								</div>
 							</div>
 							<div class="card-body mb-3">
 
-								<p>
-									Add some quality, svg illustrations to your project courtesy of
-									<a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-									a constantly updated collection of beautiful svg images that
-									you can use completely free and without attribution!
-								</p>
+								<%
+									while (r1.next()) {
+								%>
+								<p><%=r1.getString(1)%>
+									<br> Updated on -
+									<%=r1.getDate(2)%></p>
+
+								<br>
+
+								<%
+									}
+								%>
 
 							</div>
+
 						</div>
 
-
 						<br>
-
 
 					</div>
 					<!-- /.container-fluid -->
@@ -318,16 +205,12 @@
 					<!-- body end -->
 				</div>
 
-
-
 			</div>
 
 		</div>
 
 	</div>
 	<!-- /#page-content-wrapper -->
-
-
 
 	<jsp:include page="Footer.jsp"></jsp:include>
 

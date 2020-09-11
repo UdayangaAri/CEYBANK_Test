@@ -36,7 +36,7 @@ public class blockServlet extends HttpServlet {
 		String block_name = request.getParameter("block_name");
 		String Block_status = request.getParameter("Block_status");
 		
-		System.out.println("branch : "+Block_branch);
+		//System.out.println("branch : "+Block_branch);
 
 		Branches.Branch b = blockDAO.getBranchesById(Block_branch);
 
@@ -54,10 +54,14 @@ public class blockServlet extends HttpServlet {
 
 			if (status > 0) {
 				
-				out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" + "</div>");
+				request.setAttribute("Brsucceed", "Brsucceed");
+				
 				request.getRequestDispatcher("block_view.jsp").include(request, response);
 			} else {
-				out.println("Sorry! unable to save record");
+
+				request.setAttribute("BrFailed", "BrFailed");
+				
+				request.getRequestDispatcher("block_view.jsp").include(request, response);
 			}
 
 			out.close();

@@ -1,3 +1,4 @@
+
 package Branches;
 
 import java.io.IOException;
@@ -49,15 +50,17 @@ public class B_SaveServlet extends HttpServlet {
 		e.setFax(fax);
 		e.setEmail(email);
 		e.setStatus(Status);
-		
 
 		int status = BranchDao.save(e);
+		
 		if (status > 0) {
-			out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" +"</div>");
 			
-			request.getRequestDispatcher("B_View.jsp").include(request, response);
+			request.setAttribute("Bsucceed", "Bsucceed");
+			request.getRequestDispatcher("B_View.jsp").include(request, response); 
+			
 		} else {
-			out.println("Sorry! unable to save record");
+			request.setAttribute("Bfailed", "Bfailed");
+			request.getRequestDispatcher("B_View.jsp").include(request, response); 
 		}
 
 		out.close();

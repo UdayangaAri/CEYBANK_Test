@@ -29,7 +29,7 @@
 	try {
 
 		Connection con = DBConnection.getConnection();
-		System.out.println("Printing connection object " + con);
+		//System.out.println("Printing connection object " + con);
 
 		Statement statement = con.createStatement();
 		Statement st01 = con.createStatement();
@@ -42,7 +42,6 @@
 		e.printStackTrace();
 	}
 %>
-
 
 <head>
 
@@ -65,7 +64,6 @@
 
 <title>Add new room</title>
 
-
 <style>
 div.c {
 	text-align: right;
@@ -82,12 +80,9 @@ div.a {
 }
 </style>
 
-
 </head>
 
 <body onload="startTime()">
-
-
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -101,9 +96,8 @@ div.a {
 			<div id="content">
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
-
-
 				<div class="container">
+
 					<div class="container mt-5 a">
 
 						<div class="card shadow mb-4">
@@ -111,20 +105,20 @@ div.a {
 							<div class="card-header py-3">
 
 								<h4 class="m-0 font-weight-bold text-primary">Add New Room</h4>
+
 							</div>
+
 							<div class="card-body" style="left: 30%">
 								<!-- /#Type Body Here -->
 
 								<form action="" method="post">
 
-
-
-
 									<div class="row mt-4 mb-4">
+
 										<div class="col mr-2">
+
 											<select name="branchName" onchange="this.form.submit();"
 												required>
-
 
 												<%
 													String x = request.getParameter("branchName");
@@ -132,7 +126,7 @@ div.a {
 
 													String RecieveBranch = (String) session.getAttribute("branch_in_roomMM");
 
-													System.out.println("x ::: " + x);
+													//System.out.println("x ::: " + x);
 
 													Branch z = RoomDao.getBranchByBranchId(x);
 
@@ -155,29 +149,37 @@ div.a {
 												%>
 
 											</select>
+
 										</div>
+
 									</div>
 
 								</form>
 
-
 								<form action="RoomSaveServlet" method="POST">
 
 									<div class="row mt-4 mb-4">
+
 										<div class="col mr-2">
+
 											<select name="blockName" required>
+
 												<option value="" disabled selected>Select Block</option>
 												<%
-													System.out.println("RecieveBranch ::: " + RecieveBranch);
-
+													String status = "Active";
 													try {
-														String Query = "select * from block where block_location=?";
+														String Query = "select * from block where block_location=? AND block_status=?";
 														Connection con = DBConnection.getConnection();
 
 														PreparedStatement psmtX = con.prepareStatement(Query);
 														psmtX.setString(1, RecieveBranch);
+														psmtX.setString(2, status);
 
+														System.out.println("psmtX::: " + psmtX);
+														
 														rs = psmtX.executeQuery();
+
+														
 														while (rs.next()) {
 												%>
 
@@ -190,7 +192,9 @@ div.a {
 												%>
 
 											</select>
+
 										</div>
+
 									</div>
 
 
@@ -204,6 +208,7 @@ div.a {
 											<input type="text" name="RoomNo" id="RoomNo"
 												placeholder="Enter Room Number.." required>
 										</div>
+
 									</div>
 
 									<div class="row mt-4 mb-4">
@@ -212,10 +217,13 @@ div.a {
 											<input type="text" name="Roomname" id="Roomname"
 												placeholder="Enter Room Name.." required>
 										</div>
+
 									</div>
 
 									<div class="row mt-4 mb-4">
+
 										<div class="col mr-2">
+
 											<select name="RoomType" required>
 												<option value="" disabled selected>Select Room type</option>
 												<%
@@ -227,39 +235,38 @@ div.a {
 												%>
 
 											</select>
+
 										</div>
+
 									</div>
 
 
 									<div class="row mt-4 mb-4">
 
 										<div class="col mr-2">
+
 											<input type="text" name="roomStatus" id="roomStatus"
 												value="Available" placeholder="Available.." readonly
 												required>
 										</div>
+
 									</div>
-
-
 
 									<br>
 
-
-
 									<div class="row center">
-
 
 										<input type="submit" value="Save block"
 											style='margin-right: 16px'>
 									</div>
 
-
-
 								</form>
-							</div>
-						</div>
-					</div>
 
+							</div>
+
+						</div>
+
+					</div>
 
 				</div>
 
@@ -269,13 +276,9 @@ div.a {
 
 	</div>
 
-
 	<!-- /#page-content-wrapper -->
 
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -315,8 +318,6 @@ div.a {
 			window.history.forward();
 		}
 	</script>
-
-
 
 </body>
 

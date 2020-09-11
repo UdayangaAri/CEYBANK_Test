@@ -22,8 +22,6 @@
 	ResultSet rs = null;
 %>
 
-
-
 <head>
 
 <!-- #9999ff -->
@@ -32,9 +30,7 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -47,18 +43,11 @@
  <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-
-
-
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
-
-
-
 
 <style>
 div.c {
@@ -78,7 +67,6 @@ div.a {
 
 <body>
 <body onload="startTime()">
-
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -108,7 +96,6 @@ div.a {
 							</div>
 							<div class="card-body" style="left: 30%">
 
-
 								<!-- /#Type Body Here -->
 								<form action="" method="post">
 									<%
@@ -117,7 +104,6 @@ div.a {
 									%>
 
 									<div class="row mt-1 mb-1">
-
 
 										<div class="col-25">
 											<p>
@@ -134,9 +120,7 @@ div.a {
 
 									</div>
 
-
 									<div class="row mt-1 mb-1">
-
 
 										<div class="col-25">
 											<p>
@@ -161,7 +145,7 @@ div.a {
 												<option value="" disabled selected>Select Block</option>
 
 												<%
-													String Query = "select * from block where block_location=?";
+													String Query = "select * from block where block_location=? and block_status='Active'";
 													Connection con = DBConnection.getConnection();
 													PreparedStatement ps = con.prepareStatement(Query);
 													ps.setString(1, branch);
@@ -182,10 +166,10 @@ div.a {
 
 									</div>
 
-
-
 								</form>
+								
 							</div>
+
 						</div>
 
 					</div>

@@ -3,12 +3,20 @@ package Update;
 public class Emp {
 
 	private int id;
-	private String  phoneNo, mobileNo,employeeNo, firstName, lastName, username, DefPwd, email, address, NIC,
+	private String  phoneNo, mobileNo,employeeNo, firstName, lastName, Gender, username, DefPwd, email, address, NIC,
 	status;
 	int Branch;
 	int role;
 
 
+
+	public String getGender() {
+		return Gender;
+	}
+
+	public void setGender(String gender) {
+		Gender = gender;
+	}
 
 	public String getEmployeeNo() {
 		return employeeNo;

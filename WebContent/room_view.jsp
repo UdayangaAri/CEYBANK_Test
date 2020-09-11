@@ -15,7 +15,6 @@
 
 <html lang="en">
 
-
 <head>
 
 <!-- #9999ff -->
@@ -24,9 +23,9 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -38,7 +37,6 @@
 
 </head>
 
-<body>
 <body onload="startTime()">
 
 	<div class="d-flex" id="sidebar-wrapper">
@@ -60,7 +58,7 @@
 					<!-- /#Type Body Here -->
 					<%
 						String Message = (String) session.getAttribute("RoomViewAlt");
-						if (Message =="editedMessageRM") {
+						if (Message == "editedMessageRM") {
 					%>
 					<div class="alert alert-success" role="alert">Edited
 						Successfully..</div>
@@ -110,21 +108,23 @@
 								for (Room e : list) {
 									block b = blockDAO.getBlockByIdForRooms(e.getBlockID());
 									Room_type r = roomTypeDAO.getRoomTypeById(e.getRoomType());
+
+									//System.out.println("block status ::: " + b.getBlock_status());
+
+									if (b.getBlock_status().equals("Active")) {
 							%>
 
 							<tr>
 
-
 								<td><%=e.getRoomNo()%></td>
 								<td><%=r.getRoom_Type()%></td>
-								<td><%=b.getBlock_name()%></td>
-
-
+								<td><%=b.getBlock_name()%> <img src="images/active.png" alt=""
+									border=3 height=13 width=13
+									style="float: center; margin-right: 0.5em"></td>
 
 								<td><a href='room_edit.jsp?id=<%=e.getId()%>'> edit <img
-										src="images/edt.png" alt="" border=3 height=15 width=15
+										src="images/editicon.png" alt="" border=3 height=15 width=15
 										style="float: center; margin-right: 0.5em"></a></td>
-
 
 								<td><a href="RoomDelete?id=<%=e.getId()%>"> delete <img
 										src="images/dlt.png" alt="" border=3 height=17 width=17
@@ -133,26 +133,44 @@
 							</tr>
 
 							<%
+								} else if (b.getBlock_status().equals("Deactive")) {
+							%>
+							<tr>
+
+								<td><%=e.getRoomNo()%></td>
+								<td><%=r.getRoom_Type()%></td>
+								<td><%=b.getBlock_name()%> <img src="images/inactive.png" alt=""
+									border=3 height=13 width=13
+									style="float: center; margin-right: 0.5em"></td>
+
+								<td><a href='room_edit.jsp?id=<%=e.getId()%>'> edit <img
+										src="images/editicon.png" alt="" border=3 height=15 width=15
+										style="float: center; margin-right: 0.5em"></a></td>
+
+								<td><a href="RoomDelete?id=<%=e.getId()%>"> delete <img
+										src="images/dlt.png" alt="" border=3 height=17 width=17
+										style="float: center; margin-right: 0.5em"></a>
+								<td>
+							</tr>
+							<%
+								}
 								}
 							%>
-
 						</tbody>
+
 					</table>
 
 				</div>
+
 			</div>
 
 		</div>
 
 	</div>
 
-
 	<!-- /#page-content-wrapper -->
 
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -191,8 +209,6 @@
 			});
 		}, 2000);
 	</script>
-
-
 
 </body>
 

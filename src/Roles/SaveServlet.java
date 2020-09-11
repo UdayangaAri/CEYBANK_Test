@@ -36,10 +36,6 @@ public class SaveServlet extends HttpServlet {
 		  String role=request.getParameter("name");  
 	        String roledes=request.getParameter("desc");  
 	       
-
-			//HttpSession session = request.getSession();
-	        //session.setAttribute("roleID", null); 
-	          
 	        Role e=new Role();  
 	        
 	        e.setRole(role);
@@ -47,10 +43,11 @@ public class SaveServlet extends HttpServlet {
 	       
 	        int status=RoleDao.save(e);  
 	        if(status>0){  
-	        	out.print("<div class='alert alert-success' role='alert'>" + "Record saved successfully!" +"</div>"); 
+	        	request.setAttribute("Rsucceed", "Rsucceed");
 	            request.getRequestDispatcher("R_View.jsp").include(request, response);  
 	        }else{  
-	            out.println("Sorry! unable to save record");  
+	        	request.setAttribute("Rfailed", "Rfailed");
+	            request.getRequestDispatcher("R_View.jsp").include(request, response);  
 	        }  
 	          
 	        out.close();  

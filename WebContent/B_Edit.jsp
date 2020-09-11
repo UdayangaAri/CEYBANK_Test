@@ -15,11 +15,6 @@
 	ResultSet rs = null;
 %>
 
-
-
-
-
-
 <head>
 
 <!-- #9999ff -->
@@ -39,20 +34,17 @@
 <meta name="author" content="">
 
 <title>Edit Branches</title>
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body onload="startTime()">
 
 	<%
-				String sid = request.getParameter("id");
+		String sid = request.getParameter("id");
 
-				Branch e = BranchDao.getBranchById(sid);
-			%>
-
-
-
+		Branch e = BranchDao.getBranchById(sid);
+	%>
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -86,7 +78,6 @@
 							</div>
 						</div>
 
-
 						<div class="row">
 
 							<div class="col-25">
@@ -98,7 +89,6 @@
 								<input type="text" name="name" value="<%=e.getName()%>" required>
 							</div>
 						</div>
-
 
 						<div class="row">
 
@@ -112,8 +102,6 @@
 							</div>
 						</div>
 
-
-
 						<div class="row">
 
 							<div class="col-25">
@@ -126,9 +114,7 @@
 							</div>
 						</div>
 
-
 						<br> <br>
-
 
 						<div class="row">
 
@@ -143,7 +129,6 @@
 							</div>
 						</div>
 
-
 						<div class="row">
 
 							<div class="col-25">
@@ -156,8 +141,6 @@
 									maxlength="10">
 							</div>
 						</div>
-
-
 
 						<div class="row">
 
@@ -174,9 +157,6 @@
 
 						<br> <br>
 
-
-
-
 						<div class="row">
 
 							<div class="col-25">
@@ -188,7 +168,6 @@
 								<input type="email" name="email" value="<%=e.getEmail()%>">
 							</div>
 						</div>
-
 
 						<div class="row">
 
@@ -217,18 +196,7 @@
 							</div>
 						</div>
 
-
-
-
-
 						<br> <br>
-
-
-
-
-
-
-
 
 						<div class="row">
 							<input type="submit" style='margin-right: 16px' name="edit"
@@ -237,8 +205,6 @@
 							<%
 								if (e.getStatus().equals("Deactive")) {
 							%>
-
-
 
 							<button type="button" name="Activate" value="Activate"
 								style='margin-right: 16px' class="btn btn-primary"
@@ -250,30 +216,42 @@
 								role="dialog" aria-labelledby="exampleModalLabel"
 								aria-hidden="true">
 								<div class="modal-dialog" role="document">
+
 									<div class="modal-content">
+
 										<div class="modal-header">
+
 											<h5 class="modal-title" id="exampleModalLabel">
 												Are you sure want to Activate Location
 												<%=e.getDisplayName()%>
 												?
 											</h5>
+
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
+
 										</div>
+
 										<div class="modal-body">
 											If you activate
-											<%=e.getDisplayName() %>, it will visible to all users.
+											<%=e.getDisplayName()%>, it will visible to all users.
 										</div>
+
 										<div class="modal-footer">
+
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Close</button>
 											<input type="submit" name="Activate" value="Activate"
 												style='margin-right: 16px'>
+
 										</div>
+
 									</div>
+
 								</div>
+
 							</div>
 							<%
 								} else if (e.getStatus().equals("Active")) {
@@ -288,48 +266,56 @@
 							<div class="modal fade" id="exampleModal" tabindex="-1"
 								role="dialog" aria-labelledby="exampleModalLabel"
 								aria-hidden="true">
+
 								<div class="modal-dialog" role="document">
+
 									<div class="modal-content">
+
 										<div class="modal-header">
+
 											<h5 class="modal-title" id="exampleModalLabel">
 												Are you sure want to Deactivate Location
 												<%=e.getDisplayName()%>
 												?
 											</h5>
+
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
+
 										</div>
-										<div class="modal-body" >
+
+										<div class="modal-body">
 											If you deactivate
 											<%=e.getDisplayName()%>, it will not be visible to users.
 										</div>
+
 										<div class="modal-footer">
+
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Close</button>
+
 											<input type="submit" name="Deactivate" value="Deactivate"
 												style='margin-right: 16px'>
-										</div>
-									</div>
-								</div>
-							</div>
 
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
 
 							<%
 								}
 							%>
 
 						</div>
+
 					</form>
 
-
-
-
 				</div>
-
-
-
 
 			</div>
 
@@ -337,13 +323,9 @@
 
 	</div>
 
-
 	<!-- /#page-content-wrapper -->
 
-<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
+	<jsp:include page="Footer.jsp"></jsp:include>
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -377,15 +359,18 @@
 				}
 			});
 		}
-		
+
 		window.history.forward();
-        function noBack()
-        {
-            window.history.forward();
-        }
+		function noBack() {
+			window.history.forward();
+		}
+
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
-
-
 
 </body>
 

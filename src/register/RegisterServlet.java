@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
 		String employeeNo = request.getParameter("eno");
 		String firstName = request.getParameter("fname");
 		String lastName = request.getParameter("lname");
-		String userName = request.getParameter("uname");
+		String Gender = request.getParameter("Gender");
 		String role = request.getParameter("role");
 		String defaultPWD = request.getParameter("defpwd");
 		String phone = request.getParameter("phoneno");
@@ -51,10 +51,7 @@ public class RegisterServlet extends HttpServlet {
 		Branches.Branch b = RegisterDao.getBranchById(Branch);
 		
 		if(role.equals(e.getRole()) && Branch.equals(b.getDisplayName())) {
-			
-			System.out.println("getId : " + e.getId());
-			System.out.println("getDisplayName : " + b.getDisplayName());
-			
+
 			int roleID = e.getId();
 			int BranchID = b.getId();
 			
@@ -64,7 +61,8 @@ public class RegisterServlet extends HttpServlet {
 			
 			registerBean.setFirstName(firstName);
 			registerBean.setLastName(lastName);
-			registerBean.setUserName(userName);
+			registerBean.setGender(Gender);
+			
 			registerBean.setRole(roleID);
 			registerBean.setDefaultPWD(defaultPWD);
 			registerBean.setPhone(phone);
@@ -78,7 +76,6 @@ public class RegisterServlet extends HttpServlet {
 			RegisterDao registerDao = new RegisterDao();
 
 			String userRegistered = registerDao.registerUser(registerBean);
-
 
 			if (userRegistered.equals("SUCCESS")) {
 				

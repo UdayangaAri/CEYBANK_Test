@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dashboard.dashboardDAO;
-import register.RegisterBean;
 import register.passwordEncrypt;
 
 @WebServlet(name = "Login", urlPatterns = { "/Login" })
@@ -58,12 +57,18 @@ public class Login extends HttpServlet {
 				String branch = b.getBranch();
 				String empNo = b.getEmpno();
 				String roleid = b.getRole();
+				String fname = b.getFname();
+				String gender = b.getGender();
 				
 				session.setAttribute("Username", EmpNo);
 				session.setAttribute("empno", empNo);
 				session.setAttribute("branch", branch);
 				
 				session.setAttribute("roleid", roleid);
+				
+				session.setAttribute("fname", fname);
+				
+				session.setAttribute("gender", gender);
 		
 				String s = String.valueOf(branch);
 				String countEmpOnBranch = dashboardDAO.getEmpCount(s);

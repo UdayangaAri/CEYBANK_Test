@@ -49,23 +49,46 @@
 
 		<!-- Page Content -->
 		<div class=container-fluid>
-			<div id="content">
-				<jsp:include page="_navbar.jsp"></jsp:include>
 
+			<div id="content">
+
+				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
 
 					<!-- /#Type Body Here -->
 					<%
-						if (null != request.getAttribute("errorMessage")) {
+						if (null != request.getAttribute("Bsucceed")) {
 					%>
-					<div class="alert alert-danger" role="alert">Deleted
+					<div class="alert alert-success" role="alert">Saved
 						Successfully..</div>
+
+					<%
+						} else if (null != request.getAttribute("Bfailed")) {
+					%>
+
+					<div class="alert alert-danger" role="alert">Save Failed....</div>
+
+					<%
+						} else if (null != request.getAttribute("BDfailed")) {
+					%>
+
+					<div class="alert alert-danger" role="alert">Delete Failed,
+						please check is there any blocks, rooms or employees assigned to
+						the branch</div>
+
+					<%
+						} else if (null != request.getAttribute("BDsucceed")) {
+					%>
+
+					<div class="alert alert-success" role="alert">Deleted
+						Successfully....</div>
+
 					<%
 						}
 					%>
 
-					<h3>Branch List</h3>
+					<br><br>
 
 					<a href='B_management.jsp'>Add New Branch</a> <br>
 
@@ -74,13 +97,18 @@
 					%>
 
 					<br>
+
 					<form>
+
 						<table class="table">
+
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">Id</th>
-									<th scope="col">Status</th>
+
 									<th scope="col">Display Name</th>
+
+									<th scope="col">Status</th>
+
 									<th scope="col">Name</th>
 
 									<th scope="col">Phone 1</th>
@@ -91,7 +119,9 @@
 									<th scope="col">Edit</th>
 									<th scope="col">Delete</th>
 								</tr>
+
 							</thead>
+
 							<tbody>
 
 								<%
@@ -105,11 +135,11 @@
 										if (st.equals("Active")) {
 									%>
 
-									<td><%=e.getId()%></td>
+									<td><%=e.getDisplayName()%></td>
+
 									<td align='center'><img src="images/active.png" alt=""
 										border=3 height=15 width=15></td>
 
-									<td><%=e.getDisplayName()%></td>
 									<td><%=e.getName()%></td>
 									<td><%=e.getPhone1()%></td>
 
@@ -117,9 +147,8 @@
 									<td><%=e.getEmail()%></td>
 
 									<td><a href='B_Edit.jsp?id=<%=e.getId()%>'>edit <img
-											src="images/edit.png" alt="" border=3 height=20 width=20
+											src="images/editicon.png" alt="" border=3 height=20 width=20
 											style="float: center; margin-right: 0.5em"></a></td>
-
 
 									<td><a href='B_DeleteServlet?id=<%=e.getId()%>'>delete
 											<img src="images/delete.png" alt="" border=3 height=20
@@ -132,11 +161,11 @@
 										} else if (st.equals("Deactive")) {
 									%>
 
-									<td><%=e.getId()%></td>
+									<td><%=e.getDisplayName()%></td>
+
 									<td align='center'><img src="images/inactive.png" alt=""
 										border=3 height=15 width=15></td>
 
-									<td><%=e.getDisplayName()%></td>
 									<td><%=e.getName()%></td>
 									<td><%=e.getPhone1()%></td>
 
@@ -144,14 +173,13 @@
 									<td><%=e.getEmail()%></td>
 
 									<td><a href='B_Edit.jsp?id=<%=e.getId()%>'>edit <img
-											src="images/edit.png" alt="" border=3 height=20 width=20
+											src="images/editicon.png" alt="" border=3 height=20 width=20
 											style="float: center; margin-right: 0.5em"></a></td>
 
 									<td><a href='B_DeleteServlet?id=<%=e.getId()%>'>delete
-											<img src="images/delete.png" alt="" border=3 height=20
+											<img src="images/dlt.png" alt="" border=3 height=20
 											width=20 style="float: center; margin-right: 0.5em">
 									</a></td>
-
 
 								</tr>
 
@@ -163,34 +191,22 @@
 									}
 								%>
 
-
-
-
 							</tbody>
+
 						</table>
+
 					</form>
-
-
-
 
 				</div>
 
-
-
-
 			</div>
 
-
 		</div>
-
 
 	</div>
 	<!-- /#page-content-wrapper -->
 
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -229,6 +245,12 @@
 		function noBack() {
 			window.history.forward();
 		}
+
+		window.setTimeout(function() {
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
+		}, 2000);
 	</script>
 
 

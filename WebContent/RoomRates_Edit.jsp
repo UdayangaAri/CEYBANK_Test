@@ -120,14 +120,11 @@ div.a {
 						RoomRates ew = RoomRatesDAO.getRoomRates(sid);
 					%>
 
-
-
 					<div class="container mt-5 mb-5">
 
 						<!-- body start -->
 
 						<div class="container mt-3 a">
-
 
 							<div class="card shadow mb-4">
 
@@ -137,8 +134,6 @@ div.a {
 										Management</h4>
 									<a href='RoomRates_View.jsp'>Edit Room Rates </a> <br>
 								</div>
-
-
 
 								<%
 									String branch_name = RoomRatesDAO.getBranchName(ew.getBranch());
@@ -150,13 +145,9 @@ div.a {
 									String discount_name = ew.getDicount_type();
 								%>
 
-
-
 								<div class="card-body" style="left: 30%">
 
-
 									<!-- /#Type Body Here -->
-
 
 									<form action="RoomRates_Edidt_Servlet" method="post">
 
@@ -170,7 +161,6 @@ div.a {
 
 											</div>
 
-
 											<div class="col-65">
 												<input type="text" style="text-align: center"
 													class="form-control" name="EditBranch" id="EditBranch"
@@ -180,10 +170,7 @@ div.a {
 												%>
 											</div>
 
-
-
 										</div>
-
 
 										<div class="row mt-1 mb-1">
 
@@ -206,12 +193,7 @@ div.a {
 
 										</div>
 
-
-
-
-
 										<div class="row mt-1 mb-1">
-
 
 											<div class="col-25">
 												<p>
@@ -229,16 +211,9 @@ div.a {
 												%>
 											</div>
 
-
 										</div>
 
-
-
-
-
-
 										<div class="row mt-1 mb-1">
-
 
 											<div class="col-25">
 												<p>
@@ -257,11 +232,7 @@ div.a {
 
 											</div>
 
-
 										</div>
-
-
-
 
 										<div class="row mt-1 mb-1">
 
@@ -294,7 +265,6 @@ div.a {
 
 											<div class="row mt-1 mb-1" style="float: right">
 
-
 												<label onclick="javascript:yesnoCheck();"> <input
 													type="radio" name="options" id="noCheck" value="Percentage">Percentage
 												</label> <label onclick="javascript:yesnoCheck();"> <input
@@ -302,6 +272,7 @@ div.a {
 													value="Amount">Amount
 												</label>
 											</div>
+
 											<div class="row mt-3" style="float: right">
 												<div class="col-30 ml-5" style="float: right;"
 													id="percentage" style="visibility: hidden">
@@ -318,6 +289,7 @@ div.a {
 														placeholder="Amount">
 
 												</div>
+
 											</div>
 
 										</div>
@@ -332,24 +304,24 @@ div.a {
 											</div>
 
 										</div>
+
 									</form>
+
 								</div>
 
-
 							</div>
+
 						</div>
 
 					</div>
 					<!-- Content Row -->
 
-
-
-
-
 				</div>
 
 			</div>
+
 		</div>
+
 	</div>
 
 
@@ -409,14 +381,12 @@ div.a {
 			} else
 				document.getElementById('percentage').style.visibility = 'hidden';
 		}
-		
-		
+
 		window.setTimeout(function() {
-		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
 		}, 2000);
-		
 	</script>
 
 

@@ -17,7 +17,9 @@ public class RegisterDao {
 		String employeeNo = registerBean.getEmployeeNo();
 		String firstName = registerBean.getFirstName();
 		String lastName = registerBean.getLastName();
-		String userName = registerBean.getUserName();
+		String userName = registerBean.getEmployeeNo();
+		String Gender = registerBean.getGender();
+		
 		int role = registerBean.getRole();
 		String defaultPWD = registerBean.getDefaultPWD();
 		String phone = registerBean.getPhone();
@@ -29,40 +31,41 @@ public class RegisterDao {
 		String Status = registerBean.getStatus();
 		
 		passwordEncrypt epwdEncrypt = new passwordEncrypt();
+		System.out.println("Encrypting password");
+		
 		String encryptedPwd = epwdEncrypt.userPassword(defaultPWD);
 
+		System.out.println("Password encrypted");
+		
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		
-
 		try {
 
 			con = DBConnection.getConnection();
-			String query = "insert into employee(employeeNo,firstName,lastName,userName,role,defaultPWD,phoneNo,mobileNo,email,address,NIC,Branch,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			
+			String query = "insert into employee(employeeNo,firstName,lastName,Gender,userName,role,defaultPWD,phoneNo,mobileNo,email,address,NIC,Branch,status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			preparedStatement = con.prepareStatement(query);
-			
 			
 			preparedStatement.setString(1, employeeNo);
 			preparedStatement.setString(2, firstName);
 			preparedStatement.setString(3, lastName);
-			preparedStatement.setString(4, userName);
-			preparedStatement.setInt(5, role);
-			preparedStatement.setString(6, encryptedPwd);
-			preparedStatement.setString(7, phone);
-			preparedStatement.setString(8, mobile);
-			preparedStatement.setString(9, email);
-			preparedStatement.setString(10, address);
-			preparedStatement.setString(11, NIC);
-			preparedStatement.setInt(12, Branch);
-			preparedStatement.setString(13, Status);
+			preparedStatement.setString(5, userName);
+			preparedStatement.setString(4, Gender);
 			
+			preparedStatement.setInt(6, role);
+			preparedStatement.setString(7, encryptedPwd);
+			preparedStatement.setString(8, phone);
+			preparedStatement.setString(9, mobile);
 			
-
+			preparedStatement.setString(10, email);
+			preparedStatement.setString(11, address);
+			preparedStatement.setString(12, NIC);
+			preparedStatement.setInt(13, Branch);
+			preparedStatement.setString(14, Status);
+			
 			int i = preparedStatement.executeUpdate();
-			System.out.println("password "+encryptedPwd);
-
+			
 			if (i != 0)
 				return "SUCCESS";
 		} catch (SQLException e) {

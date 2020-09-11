@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-<%@page import="java.util.concurrent.TimeUnit"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="RoomManagement.RoomDao"%>
-<%@page import="RoomManagement.Room"%>
-<%@page import="block_Register.blockDAO"%>
-<%@page import="block_Register.block"%>
-<%@page import="java.sql.PreparedStatement"%>
 <%@page import="connections.DBConnection"%>
-<%@page import="Guest_details.GuestDAO"%>
-<%@page import="Guest_details.Guest"%>
 <%@page import="login.LoginDao"%>
 <%@page import="login.LoginBean"%>
-<%@page import="Roles.RoleDao"%>
-<%@page import="Roles.Role"%>
+<%@page import="Update.EmpDao"%>
+<%@page import="Update.Emp"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -21,13 +11,21 @@
 <%@page import="Branches.BranchDao"%>
 <%@page import="java.util.List"%>
 <%@page import="Branches.Branch"%>
-
 <html lang="en">
 
+
 <%
+	String eno = (String) session.getAttribute("eno");
 	ResultSet resultset = null;
 	ResultSet rs = null;
 %>
+<%
+	String sid = request.getParameter("name");
+
+	Emp e = EmpDao.getEmployeeById(sid);
+%>
+
+
 
 <head>
 
@@ -41,95 +39,41 @@
 <script type="text/javascript" src="js/clock.js"></script>
 
 
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+
+
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
-
-<title>Reservation Room Details</title>
-
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-<%
-	ResultSet rs1 = null;
-	ResultSet rx = null;
-%>
-
-
-<%
-	String Employees_Branch = (String) session.getAttribute("branch");
-
-	String Guest_Branch = (String) session.getAttribute("branch");
-
-	String Username = (String) session.getAttribute("Username");
-
-	String Pos = (String) request.getAttribute("Pos");
-	String cname = (String) request.getAttribute("name");
-	String cnic = (String) request.getAttribute("nic");
-	String cmobile = (String) request.getAttribute("mobile");
-	String cemail = (String) request.getAttribute("email");
-	String cst_nonst = (String) request.getAttribute("st_nonst");
-	String cpfno = (String) request.getAttribute("pfno");
-	String err = (String) request.getAttribute("wrong");
-	String cno = (String) request.getAttribute("cno");
-	String xString = (String) request.getAttribute("xString");
-
-	String Staff = "Staff";
-	String Guest = "Public";
-
-	//System.out.println("Guest_Branch" + (String) session.getAttribute("branch"));
-%>
-
-
-<style>
-a {
-	text-decoration: none;
-	display: inline-block;
-	padding: 8px 16px;
-}
-
-a:hover {
-	background-color: #ddd;
-	color: black;
-}
-
-.previous {
-	background-color: #f1f1f1;
-	color: black;
-}
-
-.next {
-	background-color: #4CAF50;
-	color: white;
-}
-
-.round {
-	border-radius: 50%;
-}
-
-div.c {
-	text-align: right;
-}
-
-div.a {
-	width: 80%;
-}
-
-.center {
-	margin: auto;
-	width: 30%;
-	padding: 20px;
-}
-}
-</style>
+<title>User Update Page</title>
 
 </head>
 
+<body onload="startTime()">
 
-<body>
+	<%
+		//Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+		try {
+
+			Connection con = DBConnection.getConnection();
+			System.out.println("Printing connection object " + con);
+
+			Statement statement = con.createStatement();
+			Statement st = con.createStatement();
+
+			resultset = statement.executeQuery("select * from role ORDER BY role ASC;");
+			rs = st.executeQuery("select * from branches ORDER BY B_display_name ASC;");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	%>
+
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -140,10 +84,17 @@ div.a {
 
 		<!-- Page Content -->
 		<div class=container-fluid>
-
 			<div id="content">
-
 				<jsp:include page="_navbar.jsp"></jsp:include>
+
+				<%
+					if (e.getStatus() == null) {
+
+						request.setAttribute("errorMessage", "Registration Failed");
+						response.sendRedirect("Update.jsp");
+
+					} else {
+				%>
 
 				<div class="container">
 
@@ -155,441 +106,610 @@ div.a {
 
 							<div class="card shadow mb-4">
 
-								<div class="card-header py-3">
-
-									<h4 class="m-0 font-weight-bold text-primary">Reservation</h4>
-								</div>
-								
 								<div class="card-body" style="left: 30%">
 
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
+									<form action="user_update.jsp" method="post">
 
 
+										<br> <br> <br>
+										<table>
+											<tr>
+												<td><font color="#111111"></font></td>
+												<td><input type="text" name="name"
+													placeholder="Enter Employee Number.." required /></td>
+												<td><input type="submit" value="Search user"
+													style='margin-left: 10px' /></td>
+										</table>
 
-								<form action="ReservationSendServlet" class="forms" method="post">
+									</form>
 
+								</div>
 
-<div class="row">
+							</div>
 
-										<div class="col-25" style="text-align: left">
-											<p>
-												<b><b>Check in Date :</b></b>
-											</p>
+							<div class="card shadow mb-4">
 
-										</div>
+								<div class="card-header py-3">
 
-										<div class="col-25">
+									<h4 class="m-0 font-weight-bold text-primary">User Update
+										Page</h4>
 
-											<%
-												String checkin_d = request.getParameter("checkin");
-												session.setAttribute("checkin", checkin_d);
+								</div>
 
-												String checkin = (String) session.getAttribute("checkin");
+								<div class="card-body" style="left: 30%">
 
-												//System.out.println("checkin ::: " + checkin);
-											%>
-											<input type='date' value="<%=checkin%>" name="checkin"
-												class="form-control" onchange="this.form.submit();" /> <span
-												class="input-group-addon"> <span
-												class="glyphicon glyphicon-calendar"></span>
-											</span>
+									<form method="POST" action="EditServlet2" method="post">
 
-										</div>
+										<%
+											if (e.getStatus() == null) {
+										%>
+										<div class='alert alert-dander' role='alert'>" + "Cannot
+											Find User" +"</div>
 
-										<div class="col-25" style="text-align: center">
-											<p>
-												<b><b>Checkout Date :</b></b>
-											</p>
+										<%
+											}
+										%>
 
-										</div>
+										<div class="row">
 
-										<div class="col-25">
+											<div class="col-25">
+												<p>Employee Number</p>
 
-											<%
-												String checkout_d = request.getParameter("checkout");
-												session.setAttribute("checkout", checkout_d);
+											</div>
 
-												String checkout = (String) session.getAttribute("checkout");
-
-												//System.out.println("checkout ::: " + checkout);
-											%>
-
-											<input type='date' value="<%=checkout%>" name="checkout"
-												class="form-control" onchange="this.form.submit();" /> <span
-												class="input-group-addon"> <span
-												class="glyphicon glyphicon-calendar"></span>
-											</span>
-
-										</div>
-
-									</div>
-
-
-
-
-									<div class="row">
-
-										<div class="col-25" style="text-align: left">
-											<p>
-												<b><b>Select Block</b></b>
-											</p>
-
-										</div>
-
-										<div class="col-75">
-											<select name="block_in_r" id="block_in_r"
-												onchange="this.form.submit();">
-												<%
-													String x = request.getParameter("block_in_r");
-													session.setAttribute("Block_Name_Value", x);
-
-													String RecieveBlock = (String) session.getAttribute("Block_Name_Value");
-
-													block z = blockDAO.getBlocksByUserIdForRSM(x);
-
-													block r = blockDAO.getBlocksByUserIdForRSM(RecieveBlock);
-
-													if (x != null) {
-
-														System.out.println("RecieveBlock ::: " + RecieveBlock);
-												%>
-
-												<option value="" disabled selected><%=z.getBlock_name()%></option>
+											<div class="col-65">
 
 												<%
-													} else if (RecieveBlock != null) {
+													if (e.getEmployeeNo() == null) {
 												%>
 
-												<option value="" disabled selected><%=r.getBlock_name()%></option>
+												<input type="text" name="empno" readonly readonly
+													value="Employee Number">
+												<%
+													} else {
+												%>
+
+												<input type="text" name="empno" readonly
+													value="<%=e.getEmployeeNo()%>" required>
+												<%
+													}
+												%>
+											</div>
+										</div>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>First Name</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<%
+													if (e.getFirstName() == null) {
+												%>
+												<input type="text" name="fname" value="First Name" readonly>
 
 												<%
 													} else {
 												%>
-												<option value="" disabled selected>Select a Block</option>
 
+												<input type="text" name="fname"
+													value="<%=e.getFirstName()%>" required>
 												<%
 													}
 												%>
 
-												<%
-													try {
-														String Query = "select * from block where block_location=?";
-														Connection con = DBConnection.getConnection();
-
-														PreparedStatement psmtX = con.prepareStatement(Query);
-														psmtX.setString(1, Employees_Branch);
-
-														rs1 = psmtX.executeQuery();
-														while (rs1.next()) {
-												%>
-												<option value=<%=rs1.getInt("blockID")%>><%=rs1.getString("block_name")%></option>
-												<%
-													}
-
-													} catch (Exception e) {
-														e.printStackTrace();
-													}
-												%>
-
-
-											</select>
-										</div>
-									</div>
-
-</form>
-
-
-
-								<form action="ReservationSaveServlet" class="forms"
-									method="post">
-
-
-									<div class="row">
-
-										<div class="col-25" style="text-align: left">
-											<p>
-												<b><b>Select Room No</b></b>
-											</p>
-
+											</div>
 										</div>
 
-										<div class="col-75">
-											<select name="room_in_r" id="room_in_r">
+										<div class="row">
+
+											<div class="col-25">
+												<p>Last Name</p>
+
+											</div>
+
+											<div class="col-65">
 
 												<%
-													String roomGuest = (String) session.getAttribute("roomGuest");
-
-													String Block_Name_Value = (String) session.getAttribute("Block_Name_Value");
+													if (e.getLastName() == null) {
 												%>
 
-												<option value="" disabled selected>Select a Room</option>
-
+												<input type="text" name="lname" value="Last Name" required>
 												<%
-													try {
-
-														String Query = "select * from rooms where blockID=?";
-														Connection con = DBConnection.getConnection();
-
-														PreparedStatement psmt = con.prepareStatement(Query);
-														psmt.setString(1, Block_Name_Value);
-
-														rs = psmt.executeQuery();
-														while (rs.next()) {
+													} else {
 												%>
-												<option value=<%=rs.getInt("id")%>><%=rs.getString("roomName")%></option>
+												<input type="text" name="lname" value="<%=e.getLastName()%>"
+													required>
 												<%
 													}
-
-													} catch (Exception e) {
-														e.printStackTrace();
-													}
 												%>
-											</select>
-										</div>
-									</div>
 
-									<input type="hidden" name="checkinNxt" value="<%=checkin%>">
-									<input type="hidden" name="checkoutNxt" value="<%=checkout%>">
-									<input type="hidden" name="BlockNxt" value="<%=RecieveBlock%>">
 
-									<%
-										System.out.println("checkin ::: " + checkin);
-										System.out.println("checkout ::: " + checkout);
-									%>
-
-									<div class="row">
-
-										<div class="col-25" style="text-align: left">
-											<p>
-												<b><b>Select Meal Plan</b></b>
-											</p>
-
+											</div>
 										</div>
 
-										<div class="col-75">
-											<select name="MealTypeNxt" required>
-
-												<option value="bb">Bead and Breakfast</option>
-												<option value="hb">Half board</option>
-												<option value="fb">Full Board</option>
-												<option value="ronly">Room Only</option>
-
-											</select>
-										</div>
-									</div>
-
-
-									<div class="row">
-
-										<div class="col-25" style="text-align: left">
-											<p>
-												<b><b>Price :</b></b>
-											</p>
-
-										</div>
 										<%
-											//System.out.println("checkIn ::: " + checkin);
-											//System.out.println("checkOut ::: " + checkout);
+											String g = e.getGender();
 
-											SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+												System.out.println("G value ::: " + g);
 
-											if (checkin != null && checkout != null) {
-
-												try {
-													String price = "1500";
-													Date date1 = myFormat.parse(checkin);
-													Date date2 = myFormat.parse(checkout);
-													long diff = date2.getTime() - date1.getTime();
-													//System.out.println("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-
-													long dur = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-													int durInt = (int) dur;
-													int Tprice = 1500;
-
-													//System.out.println("durInt ::: " + durInt);
-
-													int tot = durInt * Tprice;
-													//System.out.println("tot ::: " + tot);
-
-													String str1 = Integer.toString(tot);
-													session.setAttribute("str1", str1);
-
-												} catch (java.text.ParseException e) {
-													e.printStackTrace();
-												}
-											}
-											String strx = (String) session.getAttribute("str1");
-											//System.out.println("str1 ::: " + strx);
-
-											if (strx != null) {
+												if (e.getLastName() == null) {
 										%>
+										<div class="row">
 
-										<div class="col-25">
-											<input type="text" name="Room_Price_tot" readonly
-												style="float: right;" id="Room_Price_tot"
-												value="Rs.<%=strx%>" placeholder="Price">
+											<div class="col-25">
+												<p>Gender</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<label> <input type="radio" name="Gender"
+													value="Male" id="Gender">Male
+												</label> <label> <input type="radio" name="Gender"
+													value="Female" id="Gender">Female
+												</label> <br>
+											</div>
+
 										</div>
 
 										<%
 											} else {
+
+													if (g.equalsIgnoreCase("Male")) {
 										%>
 
-										<div class="col-25">
-											<input type="text" name="Room_Price_tot" readonly
-												style="float: right;" id="Room_Price_tot" value="Rs.0"
-												placeholder="Price">
+										<div class="row">
+
+											<div class="col-25">
+												<p>Gender</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<label> <input type="radio" name="Gender"
+													value="Male" id="Gender" checked>Male
+												</label> <label> <input type="radio" name="Gender"
+													value="Female" id="Gender">Female
+												</label> <br>
+											</div>
+
 										</div>
 
 										<%
-											}
+											} else if (g.equalsIgnoreCase("Female")) {
 										%>
-
-									</div>
-									
-
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-<!--------------------------------------------->
-
-									
-
 										<div class="row">
 
-											<div class="col-20">
-												<p>Name</p>
-
-											</div>
-
-											<div class="col-65 ml-3">
-
-												<input type="text" name="nameres" value=""
-													placeholder="Name" required>
-											</div>
-
-										</div>
-
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>NIC Number</p>
-
-											</div>
-
-											<div class="col-65 ml-3">
-
-												<input type="text" name="nicres" value="" 
-												required placeholder="NIC">
-											</div>
-
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Mobile Number</p>
-
-											</div>
-
-
-
-											<div class="col-65 ml-3">
-
-												<input type="text" name="mobileres" value=""
-													required placeholder="Mobile">
-											</div>
-
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Email Address</p>
-
-											</div>
-
-											<div class="col-65 ml-3">
-
-
-												<input type="email" name="emailres" value=""
-													required placeholder="Email">
-											</div>
-
-										</div>
-
-										<div class="row">
-
-											<div class="col-20">
-												<p>Guest Type</p>
+											<div class="col-25">
+												<p>Gender</p>
 
 											</div>
 
 
 											<div class="col-65">
-												<div class="ml-3" style="float: left;">
 
-													<label onclick="javascript:yesnoCheck();"> <input
-														type="radio" name="options" id="noCheck" value="Public">Public
-													</label> <label onclick="javascript:yesnoCheck();"> <input
-														type="radio" name="options" id="yesCheck" checked
-														value="BOC Staff">BOC Staff
-													</label> <br>
-												</div>
-
-												<div class="col-40 ml-3" style="float: right;" id="ifYes"
-													style="visibility: hidden">
-													<input type="text" id="yes" name="pfnovalue" value=""
-														placeholder="PF Number">
-												</div>
+												<label> <input type="radio" name="Gender"
+													value="Male" id="Gender">Male
+												</label> <label> <input type="radio" name="Gender"
+													value="Female" id="Gender" checked>Female
+												</label> <br>
 											</div>
 
 										</div>
+
+										<%
+											}
+
+												}
+										%>
+
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>NIC Number</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<%
+													if (e.getNIC() == null) {
+												%>
+
+												<input type="text" name="nic" value="NIC Number" readonly>
+												<%
+													} else {
+												%>
+												<input type="text" name="nic" value="<%=e.getNIC()%>"
+													pattern=".{10,12}">
+												<%
+													}
+												%>
+
+											</div>
+										</div>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>Phone And Mobile</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<%
+													if (e.getPhoneNo() == null || e.getMobileNo() == null) {
+												%>
+
+												<input type="text" name="phone" value="Phone Number"
+													readonly style='width: 49.5%' required> <input
+													type="text" readonly style='width: 49.5%' name="mobile"
+													value="Mobile Number" required>
+												<%
+													} else {
+												%>
+												<input type="text" name="phone" value="<%=e.getPhoneNo()%>"
+													pattern=".{8,10}" style='width: 49.5%' required> <input
+													type="text" pattern=".{8,10}" style='width: 49.5%'
+													name="mobile" value="<%=e.getMobileNo()%>" required>
+												<%
+													}
+												%>
+
+
+											</div>
+										</div>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>Email Address</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<%
+													if (e.getEmail() == null) {
+												%>
+
+												<input type="email" name="email" readonly
+													value="Email Address">
+												<%
+													} else {
+												%>
+												<input type="email" name="email" value="<%=e.getEmail()%>">
+												<%
+													}
+												%>
+
+											</div>
+										</div>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>Address</p>
+
+											</div>
+
+											<div class="col-65">
+
+
+
+												<%
+													if (e.getAddress() == null) {
+												%>
+
+												<input type="text" name="address" value="Address" readonly>
+												<%
+													} else {
+												%>
+												<input type="text" name="address"
+													value="<%=e.getAddress()%>">
+												<%
+													}
+												%>
+
+
+
+											</div>
+										</div>
+
 										<br>
-										
-											
-										
-									
 
+										<div class="row">
+
+											<div class="col-25">
+												<p>Role</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<%
+													if (e.getAddress() == null) {
+												%>
+
+												<select name="role" disabled></select>
+
+												<%
+													} else {
+
+															Roles.Role z = EmpDao.getRIdByName(e.getRole());
+															System.out.println("z.getRole() : " + z.getRole());
+												%>
+
+												<select name="role">
+
+													<%
+														while (resultset.next()) {
+													%>
+
+													<option
+														<%if (z.getRole().equals(resultset.getString(2))) {%>
+														selected <%}%>>
+														<%=resultset.getString(2)%></option>
+													<%
+														}
+															}
+													%>
+												</select>
+											</div>
+										</div>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>Branch</p>
+
+											</div>
+
+											<div class="col-65">
+
+												<%
+													if (e.getAddress() == null) {
+												%>
+
+												<select name="Branch"></select>
+												<%
+													} else {
+
+															Branches.Branch b = EmpDao.getBIdByName(e.getBranch());
+												%>
+												<select name="Branch">
+													<%
+														while (rs.next()) {
+																	if (rs.getString(9).equals("Active")) {
+													%>
+
+													<option
+														<%if (b.getDisplayName().equals(rs.getString(3))) {%>
+														selected <%}%>>
+														<%=rs.getString(3)%></option>
+													<%
+														}
+																}
+															}
+													%>
+
+												</select>
+											</div>
+										</div>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p>Status</p>
+
+											</div>
+
+											<div class="col-65">
+
+
+												<%
+													if (e.getStatus() == null) {
+												%>
+
+												<input type="text" name="current_status" readonly
+													value="Status">
+												<%
+													} else {
+
+															if (e.getStatus().equals("Deactive")) {
+												%>
+
+												<input type="text" name="current_status" readonly
+													value="Deactive">
+
+												<%
+													} else if (e.getStatus().equals("Active")) {
+												%>
+
+												<input type="text" name="current_status" readonly
+													value="Active">
+												<%
+													}
+														}
+												%>
+
+											</div>
+										</div>
+
+										<br>
+
+										<div class="row">
+
+											<div class="col-25">
+												<p></p>
+
+											</div>
+
+											<div class="col-65" style="float: right">
+
+
+												<%
+													if (e.getAddress() == null) {
+												%>
+
+												<button type="button"
+													style='float: right; margin-left: 15px'
+													class="btn btn-primary" name="edit" value="">Save</button>
+												<%
+													} else {
+												%>
+
+												<button type="submit"
+													style='float: right; margin-left: 15px'
+													class="btn btn-primary" name="edit" value="Edit & Save">
+													Save</button>
+
+												<%
+													if (e.getStatus().equals("Deactive")) {
+												%>
+
+												<button type="button" name="Activate" value="Activate"
+													class="btn btn-primary" data-toggle="modal"
+													data-target="#exampleModal" style="float: right">
+													Activate</button>
+
+												<!-- Modal -->
+												<div class="modal fade" id="exampleModal" tabindex="-1"
+													role="dialog" aria-labelledby="exampleModalLabel"
+													aria-hidden="true">
+
+													<div class="modal-dialog" role="document">
+
+														<div class="modal-content">
+
+															<div class="modal-header">
+
+																<h5 class="modal-title" id="exampleModalLabel">
+																	Are you sure want to Activate user
+																	<%=e.getFirstName()%>
+																	?
+																</h5>
+
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+
+															<div class="modal-body">
+
+																If you activate
+																<%=e.getFirstName()%>, he will be able to login to the
+																system.
+															</div>
+
+															<div class="modal-footer">
+
+																<button type="button" class="btn btn-secondary"
+																	data-dismiss="modal">Close</button>
+																<input type="submit" name="Activate" value="Activate"
+																	style='margin-right: 16px'>
+
+															</div>
+
+														</div>
+
+													</div>
+
+												</div>
+
+												<%
+													} else if (e.getStatus().equals("Active")) {
+												%>
+
+												<button type="button" name="Deactivate" style="float: right"
+													value="Deactivate" style='' class="btn btn-primary"
+													data-toggle="modal" data-target="#exampleModal">
+													Deactivate</button>
+
+												<!-- Modal -->
+												<div class="modal fade" id="exampleModal" tabindex="-1"
+													role="dialog" aria-labelledby="exampleModalLabel"
+													aria-hidden="true">
+
+													<div class="modal-dialog" role="document">
+														<div class="modal-content">
+
+															<div class="modal-header">
+
+																<h5 class="modal-title" id="exampleModalLabel">
+																	Are you sure want to Deactivate user
+																	<%=e.getFirstName()%>
+																	?
+																</h5>
+
+																<button type="button" class="close" data-dismiss="modal"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+
+															</div>
+
+															<div class="modal-body">
+																If you deactivate
+																<%=e.getFirstName()%>, he will not be able to login to
+																the system.
+															</div>
+
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-dismiss="modal">Close</button>
+																<input type="submit" name="Deactivate"
+																	value="Deactivate" style='margin-right: 16px'>
+
+															</div>
+
+														</div>
+
+													</div>
+
+												</div>
+
+												<%
+													}
+														}
+												%>
+
+											</div>
+
+										</div>
+
+									</form>
 
 								</div>
-								
-								<div class="card-footer text-muted">
-							
 
-											<button type="submit" class="btn btn-outline-dark">></button>
-								
-								
-								</div>
-								</form>
+								<%
+									}
+								%>
+
 							</div>
 
 						</div>
 
-						<!-- cards end -->
-
 					</div>
 
 				</div>
+
 			</div>
+
 		</div>
 
 	</div>
 	<!-- /#page-content-wrapper -->
 
-
-
-
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
 
 
 	<script src="vendor/jquery/jquery.min.js"></script>
@@ -601,13 +721,18 @@ div.a {
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
 		});
+
 		$(document).ready(function() {
+
 			$('#sidebarCollapse').on('click', function() {
 				$('#sidebar').toggleClass('active');
 			});
+
 		});
+
 		var dropdown = document.getElementsByClassName("dropdown-btn");
 		var i;
+
 		for (i = 0; i < dropdown.length; i++) {
 			dropdown[i].addEventListener("click", function() {
 				this.classList.toggle("active");
@@ -619,35 +744,11 @@ div.a {
 				}
 			});
 		}
+
 		window.history.forward();
 		function noBack() {
 			window.history.forward();
 		}
-		var today = new Date().toISOString().split('T')[0];
-		document.getElementsByName("checkin")[0].setAttribute('min', today);
-		document.getElementsByName("checkout")[0].setAttribute('min', today);
-		document.getElementsByName("dob")[0].setAttribute('max', today);
-		
-		
-		function yesnoCheck() {
-			if (document.getElementById('yesCheck').checked) {
-				document.getElementById('ifYes').style.visibility = 'visible';
-			} else
-				document.getElementById('ifYes').style.visibility = 'hidden';
-		}
-		
-		function my1() {
-			$(document).ready(function() {
-				$("#update").modal('show');
-				$tr = $this.closest('tr');
-				tr = $(this).closet('tr');
-			});
-		}
-		window.setTimeout(function() {
-			$(".alert").fadeTo(500, 0).slideUp(500, function() {
-				$(this).remove();
-			});
-		}, 2000);
 	</script>
 
 

@@ -1,16 +1,12 @@
 package block_Register;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import Branches.Branch;
-import Roles.Role;
-import RoomTypeMaster.Room_type;
-import Update.EmpDao;
 import block_Register.blockBean;
 import connections.DBConnection;
 
@@ -21,7 +17,7 @@ public class blockDAO {
 
 		try {
 			Connection con = DBConnection.getConnection();
-			System.out.println("Printing connection object " + con);
+			// System.out.println("Printing connection object " + con);
 
 			String query = "update block set block_location=?,block_name=?,block_status=? where blockID=?";
 
@@ -34,7 +30,7 @@ public class blockDAO {
 
 			status = ps.executeUpdate();
 
-			System.out.println(status);
+			// System.out.println(status);
 
 			con.close();
 
@@ -62,8 +58,7 @@ public class blockDAO {
 				b.setBlock_status(rs.getString(4));
 
 				b.setId(rs.getInt(1));
-				
-				
+
 			}
 			con.close();
 		} catch (Exception ex) {
@@ -151,7 +146,7 @@ public class blockDAO {
 		try {
 			Connection con = DBConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement("delete from block where blockID=?");
-			System.out.println("Printing connection object " + con);
+			// System.out.println("Printing connection object " + con);
 			ps.setInt(1, id);
 			status = ps.executeUpdate();
 
@@ -168,7 +163,7 @@ public class blockDAO {
 
 		try {
 			Connection con = DBConnection.getConnection();
-			System.out.println("Printing connection object " + con);
+			// System.out.println("Printing connection object " + con);
 
 			String query = "update block set block_status=? where blockID=?";
 
@@ -191,7 +186,7 @@ public class blockDAO {
 	public static blockBean getBlockByUser(String sid) {
 		blockBean b = new blockBean();
 
-		System.out.println("SID : " + sid);
+		// System.out.println("SID : " + sid);
 
 		try {
 			Connection con = DBConnection.getConnection();
@@ -300,12 +295,9 @@ public class blockDAO {
 			PreparedStatement ps = con.prepareStatement("select * from block where blockID=? ORDER BY blockID ASC;");
 			ps.setInt(1, sid);
 
-
 			ResultSet rs = ps.executeQuery();
 
-
 			if (rs.next()) {
-
 
 				b.setBlock_name(rs.getString(3));
 				b.setLocation(rs.getInt(2));
@@ -321,24 +313,20 @@ public class blockDAO {
 
 		return b;
 	}
-	
+
 	public static block getBlocksByUserIdForRSM(String sid) {
 		block b = new block();
-		
+
 		try {
-			
-			
+
 			Connection con = DBConnection.getConnection();
 
 			PreparedStatement ps = con.prepareStatement("select * from block where blockID=? ORDER BY blockID ASC;");
 			ps.setString(1, sid);
 
-
 			ResultSet rs = ps.executeQuery();
 
-
 			if (rs.next()) {
-
 
 				b.setBlock_name(rs.getString(3));
 				b.setLocation(rs.getInt(2));
@@ -354,7 +342,7 @@ public class blockDAO {
 
 		return b;
 	}
-	
+
 	public static block getBlockByIdForRooms(int sid) {
 		block b = new block();
 
@@ -362,8 +350,7 @@ public class blockDAO {
 			Connection con = DBConnection.getConnection();
 
 			PreparedStatement ps = con.prepareStatement("select * from block where blockID=? ORDER BY blockID ASC;");
-			
-			
+
 			ps.setInt(1, sid);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -373,8 +360,7 @@ public class blockDAO {
 				b.setBlock_status(rs.getString(4));
 
 				b.setId(rs.getInt(1));
-				
-				
+
 			}
 			con.close();
 		} catch (Exception ex) {

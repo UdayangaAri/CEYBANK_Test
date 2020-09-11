@@ -13,12 +13,6 @@
 <%@page import="java.util.List"%>
 <%@page import="Branches.Branch"%>
 
-
-
-
-
-
-
 <html lang="en">
 
 <%
@@ -34,9 +28,7 @@
 <link rel="stylesheet" type="text/css" href="css/register.css">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
 <script type="text/javascript" src="js/clock.js"></script>
-
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -50,8 +42,6 @@
 
 <body onload="startTime()">
 
-
-
 	<div class="d-flex" id="sidebar-wrapper">
 
 		<!-- Sidebar -->
@@ -62,23 +52,24 @@
 		<!-- Page Content -->
 		<div class=container-fluid>
 			<div id="content">
-				<jsp:include page="_navbar.jsp"></jsp:include>
 
+				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
 
-<%
+					<br>
+					<br>
+					<%
 						String Deleted = (String) session.getAttribute("error_Message");
 						if (null != Deleted) {
 					%>
 					<div class="alert alert-success" role="alert">Deleted
 						Successfully..</div>
 					<%
-						} 
+						}
 					%>
 
 					<!-- /#Type Body Here -->
-
 
 					<a href='RoomType_Save.jsp'>Add New Room Type</a> <br>
 
@@ -92,7 +83,7 @@
 							<tr>
 
 								<th scope="col">Room Type</th>
-							
+
 								<th scope="col">Edit</th>
 								<th scope="col">Delete</th>
 
@@ -102,56 +93,44 @@
 
 							<%
 								for (Room_type e : list) {
-									
 							%>
 							<tr>
 
 								<td><%=e.getRoom_Type()%></td>
 
 
-								<td><a href='RoomTypeMasterEdit.jsp?id=<%=e.getId()%>'> edit <img
-										src="images/edt.png" alt="" border=3 height=23 width=23
-										style="float: center; margin-right: 0.5em"></a></td>
+								<td><a href='RoomTypeMasterEdit.jsp?id=<%=e.getId()%>'>
+										edit <img src="images/editicon.png" alt="" border=3 height=23
+										width=23 style="float: center; margin-right: 0.5em">
+								</a></td>
 
 
 								<td><a href="RoomType_deleteServlet?id=<%=e.getId()%>">
 										delete <img src="images/dlt.png" alt="" border=3 height=23
 										width=23 style="float: center; margin-right: 0.5em">
-								</a>
-								<td>
-							</tr>
-							<tr>
+								</a></td>
 
-								<%
-									}
-								%>
-							
+							</tr>
+
+							<%
+								}
+							%>
+
 						</tbody>
+
 					</table>
 
 				</div>
 
-
-
-
-
 			</div>
-
-
 
 		</div>
 
-
-
 	</div>
-
 
 	<!-- /#page-content-wrapper -->
 
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -184,17 +163,13 @@
 		function noBack() {
 			window.history.forward();
 		}
-		
+
 		window.setTimeout(function() {
-		    $(".alert").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
+			$(".alert").fadeTo(500, 0).slideUp(500, function() {
+				$(this).remove();
+			});
 		}, 2000);
-		
-		
 	</script>
-
-
 
 </body>
 

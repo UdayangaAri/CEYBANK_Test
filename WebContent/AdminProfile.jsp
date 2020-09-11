@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="Roles.RoleDao"%>
+<%@page import="Roles.Role"%>
 <%@page import="login.LoginDao"%>
 <%@page import="login.LoginBean"%>
 <%@page import="Update.EmpDao"%>
@@ -12,22 +14,20 @@
 <%@page import="Branches.Branch"%>
 <html lang="en">
 
-
 <%
 	String eno = (String) session.getAttribute("eno");
 	ResultSet resultset = null;
 	ResultSet rs = null;
 %>
 <%
-	String sid =(String)session.getAttribute("Username");
+	String sid = (String) session.getAttribute("Username");
 
 	LoginBean e = LoginDao.getEmployeeById(sid);
-	
+
+	Role j = RoleDao.getRoleById(e.getRole());
+
+	Branch b = BranchDao.getBranchById(e.getBranch());
 %>
-
-
-
-
 
 <head>
 
@@ -49,11 +49,8 @@
 
 <title>User Profile</title>
 
- <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-
-
+<!-- Custom styles for this template-->
+<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
@@ -61,13 +58,9 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
-
-
-
 </head>
 
 <body onload="startTime()">
-
 
 	<div class="d-flex" id="sidebar-wrapper">
 
@@ -82,190 +75,155 @@
 				<jsp:include page="_navbar.jsp"></jsp:include>
 
 				<div class="container">
-				
-				<div class="container mt-5 mb-5">
 
-					<!-- body start -->
+					<div class="container mt-5 mb-5">
 
-					<div class="container mt-3 a">
+						<!-- body start -->
 
-						<div class="card shadow mb-4">
+						<div class="container mt-3 a">
 
-							<div class="card-header py-3">
+							<div class="card shadow mb-4">
 
-								<h4 class="m-0 font-weight-bold text-primary">User Profile</h4>
+								<div class="card-header py-3">
+
+									<h4 class="m-0 font-weight-bold text-primary">User Profile</h4>
+								</div>
+								<div class="card-body" style="left: 30%">
+
+									<form method="POST" action="EditServlet2" method="post">
+
+										<%
+											if (null != request.getAttribute("errorMessage")) {
+												out.println(request.getAttribute("errorMessage"));
+											}
+										%>
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-25">
+												<p>Employee Number</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="empno" readonly
+													value="<%=e.getEmpno()%>" required>
+											</div>
+										</div>
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>First Name</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="fname" readonly
+													value="<%=e.getFname()%>" required>
+											</div>
+										</div>
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>Last name</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="uname" readonly
+													value="<%=e.getLname()%>" required>
+											</div>
+
+										</div>
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>NIC</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="nic" readonly
+													value="<%=e.getNic()%> " maxlength="12">
+											</div>
+
+										</div>
+
+										<br>
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>Role</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="role" readonly
+													value="<%=j.getRole()%>">
+											</div>
+										</div>
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>Branch</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="branch" readonly
+													value="<%=b.getDisplayName()%>">
+											</div>
+
+										</div>
+
+										<br>
+
+										<div class="row mt-1 mb-1">
+
+
+											<div class="col-25">
+												<p>Mobile</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="mobile" readonly maxlength="10"
+													value="<%=e.getMobile()%>">
+											</div>
+
+										</div>
+
+										<div class="row mt-1 mb-1">
+
+											<div class="col-25">
+												<p>Status</p>
+
+											</div>
+
+											<div class="col-65">
+												<input type="text" name="status" readonly value="Active">
+											</div>
+
+										</div>
+
+										<br>
+
+									</form>
+
+								</div>
+
 							</div>
-							<div class="card-body" style="left: 30%">
 
-					<form method="POST" action="EditServlet2" method="post">
-
-
-
-						<%
-							if (null != request.getAttribute("errorMessage")) {
-								out.println(request.getAttribute("errorMessage"));
-							}
-						%>
-
-						<%
-							System.out.println(e.getStatus());
-						%>
-
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>Employee Number</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="empno" readonly
-									value="<%=e.getEmpno()%>" required>
-							</div>
 						</div>
 
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>First Name</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="fname" readonly
-									value="<%=e.getFname()%>" required>
-							</div>
-						</div>
-
-<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>Username</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="uname" readonly
-									value="<%=e.getusername()%>" required>
-							</div>
-						</div>
-
-
-<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>NIC</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="nic" readonly
-									value="<%=e.getNic()%>
-								" maxlength="12">
-							</div>
-						</div>
-
-
-						<br>
-
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>Role</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="role" readonly value="<%=e.getRole()%>">
-							</div>
-						</div>
-
-
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>Branch</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="branch" readonly
-									value="<%=e.getBranch()%>">
-							</div>
-						</div>
-
-						<br>
-
-
-
-<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>Mobile</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="mobile" readonly maxlength="10"
-									value="<%=e.getMobile()%>">
-							</div>
-						</div>
-
-
-
-
-
-						<div class="row mt-1 mb-1">
-
-
-										<div class="col-25">
-								<p>Status</p>
-
-							</div>
-
-
-							<div class="col-65">
-								<input type="text" name="status" readonly value="Active">
-							</div>
-						</div>
-
-
-
-
-
-
-
-						<br>
-
-					</form>
-
-</div>
-</div></div></div>
+					</div>
 
 				</div>
-
-
-
-
-
 
 			</div>
 
@@ -275,9 +233,6 @@
 	<!-- /#page-content-wrapper -->
 
 	<jsp:include page="Footer.jsp"></jsp:include>
-
-
-
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -311,15 +266,12 @@
 				}
 			});
 		}
-		
+
 		window.history.forward();
-        function noBack()
-        {
-            window.history.forward();
-        }
+		function noBack() {
+			window.history.forward();
+		}
 	</script>
-
-
 
 </body>
 
